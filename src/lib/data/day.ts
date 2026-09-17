@@ -8,7 +8,7 @@ export async function getDayData(userId: string, dateKey: string) {
 
   const [dayPlan, profile, mealLogs, exerciseLogs] = await Promise.all([
     prisma.dayPlan.findUnique({
-      where: { weekday },
+      where: { userId_weekday: { userId, weekday } },
       include: { comidas: { orderBy: { mealType: "asc" } } },
     }),
     prisma.profile.findUnique({ where: { userId } }),

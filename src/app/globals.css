@@ -24,3 +24,10 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Deja hueco por encima de la barra de navegación inferior fija al hacer
+   scroll automático a un elemento (por ejemplo, al enfocar un input o al
+   expandir un <details> largo), para que no quede tapado detrás. */
+html {
+  scroll-padding-bottom: 5rem;
+}

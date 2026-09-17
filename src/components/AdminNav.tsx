@@ -3,21 +3,26 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const TABS = [
-  { href: "/admin", label: "Resumen", icon: "📊" },
-  { href: "/admin/historial", label: "Historial", icon: "📅" },
-  { href: "/admin/plan", label: "Plan", icon: "📝" },
-];
-
 export function AdminNav() {
   const pathname = usePathname();
+  const match = pathname.match(/^\/admin\/usuarias\/([^/]+)/);
+  const userId = match?.[1];
+
+  const tabs =
+    userId && userId !== "nueva"
+      ? [
+          { href: "/admin", label: "Personas", icon: "👥" },
+          { href: `/admin/usuarias/${userId}`, label: "Resumen", icon: "📊" },
+          { href: `/admin/usuarias/${userId}/historial`, label: "Historial", icon: "📅" },
+          { href: `/admin/usuarias/${userId}/plan`, label: "Plan", icon: "📝" },
+        ]
+      : [{ href: "/admin", label: "Personas", icon: "👥" }];
 
   return (
     <nav className="fixed inset-x-0 bottom-0 z-10 border-t border-slate-200 bg-white pb-[env(safe-area-inset-bottom)]">
       <div className="mx-auto flex max-w-md">
-        {TABS.map((tab) => {
-          const active =
-            tab.href === "/admin" ? pathname === "/admin" : pathname.startsWith(tab.href);
+        {tabs.map((tab) => {
+          const active = tab.href === "/admin" ? pathname === "/admin" : pathname.startsWith(tab.href);
           return (
             <Link
               key={tab.href}

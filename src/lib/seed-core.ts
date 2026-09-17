@@ -127,7 +127,7 @@ export async function runSeed(prisma: PrismaClient, options: SeedOptions): Promi
     if (!weekday) throw new Error(`Día no reconocido en el seed: ${diaKey}`);
 
     const dayPlan = await prisma.dayPlan.upsert({
-      where: { weekday: weekday as never },
+      where: { userId_weekday: { userId: maite.id, weekday: weekday as never } },
       update: {
         tipoDia: dia.tipo_dia,
         objetivoKcal: dia.objetivo.kcal,
@@ -136,6 +136,7 @@ export async function runSeed(prisma: PrismaClient, options: SeedOptions): Promi
         objetivoGrasasG: dia.objetivo.grasas_g,
       },
       create: {
+        userId: maite.id,
         weekday: weekday as never,
         tipoDia: dia.tipo_dia,
         objetivoKcal: dia.objetivo.kcal,

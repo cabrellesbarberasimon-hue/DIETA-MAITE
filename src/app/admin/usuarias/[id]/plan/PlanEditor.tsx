@@ -1,7 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { updateDayPlanAction, updatePlannedMealAction, updateUsuariaWeightAction } from "./actions";
+import {
+  updateDayPlanAction,
+  updatePlannedMealAction,
+  updateUsuariaWeightAction,
+  updateProfileAction,
+} from "@/lib/actions/admin";
 import { MEAL_TYPE_LABEL } from "@/lib/nutrition";
 
 type PlannedMeal = {
@@ -25,7 +30,21 @@ type DayPlan = {
   comidas: PlannedMeal[];
 };
 
-export function CurrentWeightEditor({ pesoActualKg }: { pesoActualKg: number }) {
+type Profile = {
+  sexo: string;
+  edad: number;
+  alturaCm: number;
+  pesoInicialKg: number;
+  pesoObjetivoKg: number;
+  bmrKcal: number;
+  factorActividad: number;
+  getKcal: number;
+  deficitDiarioKcal: number;
+  objetivoKcalMediaDia: number;
+  presupuestoSemanalKcal: number;
+};
+
+export function CurrentWeightEditor({ userId, pesoActualKg }: { userId: string; pesoActualKg: number }) {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
@@ -39,7 +58,7 @@ export function CurrentWeightEditor({ pesoActualKg }: { pesoActualKg: number }) 
         setError(null);
         setDone(false);
         setPending(true);
-        updateUsuariaWeightAction({ pesoKg: Number(form.get("pesoKg")) })
+        updateUsuariaWeightAction({ userId, pesoKg: Number(form.get("pesoKg")) })
           .then(() => setDone(true))
           .catch((err) => setError(err instanceof Error ? err.message : "Error"))
           .finally(() => setPending(false));
@@ -70,7 +89,84 @@ export function CurrentWeightEditor({ pesoActualKg }: { pesoActualKg: number }) 
   );
 }
 
-export function DayPlanCard({ dayPlan }: { dayPlan: DayPlan }) {
+export function ProfileEditor({ userId, profile }: { userId: string; profile: Profile }) {
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [done, setDone] = useState(false);
+
+  return (
+    <details className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
+      <summary className="cursor-pointer list-none">
+        <p className="font-semibold text-slate-800">Perfil y objetivos generales</p>
+        <p className="text-xs text-slate-400">Edad, altura, BMR, GET, déficit, presupuesto semanal...</p>
+      </summary>
+      <form
+        className="mt-4 space-y-2 border-t border-slate-100 pt-4"
+        onSubmit={(e) => {
+          e.preventDefault();
+          const form = new FormData(e.currentTarget);
+          setError(null);
+          setDone(false);
+          setPending(true);
+          updateProfileAction({
+            userId,
+            sexo: form.get("sexo"),
+            edad: form.get("edad"),
+            alturaCm: form.get("alturaCm"),
+            pesoInicialKg: form.get("pesoInicialKg"),
+            pesoObjetivoKg: form.get("pesoObjetivoKg"),
+            bmrKcal: form.get("bmrKcal"),
+            factorActividad: form.get("factorActividad"),
+            getKcal: form.get("getKcal"),
+            deficitDiarioKcal: form.get("deficitDiarioKcal"),
+            objetivoKcalMediaDia: form.get("objetivoKcalMediaDia"),
+            presupuestoSemanalKcal: form.get("presupuestoSemanalKcal"),
+          })
+            .then(() => setDone(true))
+            .catch((err) => setError(err instanceof Error ? err.message : "Error"))
+            .finally(() => setPending(false));
+        }}
+      >
+        <div className="grid grid-cols-2 gap-2">
+          <TextField name="sexo" label="Sexo" defaultValue={profile.sexo} />
+          <LabeledNumber name="edad" label="Edad" defaultValue={profile.edad} />
+          <LabeledNumber name="alturaCm" label="Altura (cm)" defaultValue={profile.alturaCm} />
+          <LabeledNumber
+            name="factorActividad"
+            label="Factor actividad"
+            defaultValue={profile.factorActividad}
+            step="0.1"
+          />
+          <LabeledNumber name="pesoInicialKg" label="Peso inicial (kg)" defaultValue={profile.pesoInicialKg} step="0.1" />
+          <LabeledNumber name="pesoObjetivoKg" label="Peso objetivo (kg)" defaultValue={profile.pesoObjetivoKg} step="0.1" />
+          <LabeledNumber name="bmrKcal" label="BMR (kcal)" defaultValue={profile.bmrKcal} />
+          <LabeledNumber name="getKcal" label="GET (kcal)" defaultValue={profile.getKcal} />
+          <LabeledNumber name="deficitDiarioKcal" label="Déficit diario (kcal)" defaultValue={profile.deficitDiarioKcal} />
+          <LabeledNumber
+            name="objetivoKcalMediaDia"
+            label="Objetivo kcal media/día"
+            defaultValue={profile.objetivoKcalMediaDia}
+          />
+          <LabeledNumber
+            name="presupuestoSemanalKcal"
+            label="Presupuesto semanal (kcal)"
+            defaultValue={profile.presupuestoSemanalKcal}
+          />
+        </div>
+        {error && <p className="text-xs text-red-600">{error}</p>}
+        <button
+          type="submit"
+          disabled={pending}
+          className="w-full rounded-lg bg-slate-800 py-2 text-sm font-medium text-white disabled:opacity-60"
+        >
+          {done && !error ? "Guardado ✓" : "Guardar perfil"}
+        </button>
+      </form>
+    </details>
+  );
+}
+
+export function DayPlanCard({ userId, dayPlan }: { userId: string; dayPlan: DayPlan }) {
   return (
     <details className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
       <summary className="cursor-pointer list-none">
@@ -84,11 +180,11 @@ export function DayPlanCard({ dayPlan }: { dayPlan: DayPlan }) {
       </summary>
 
       <div className="mt-4 space-y-4 border-t border-slate-100 pt-4">
-        <DayObjectivesForm dayPlan={dayPlan} />
+        <DayObjectivesForm userId={userId} dayPlan={dayPlan} />
 
         <div className="space-y-2">
           {dayPlan.comidas.map((meal) => (
-            <PlannedMealRow key={meal.id} meal={meal} />
+            <PlannedMealRow key={meal.id} userId={userId} meal={meal} />
           ))}
         </div>
       </div>
@@ -96,7 +192,7 @@ export function DayPlanCard({ dayPlan }: { dayPlan: DayPlan }) {
   );
 }
 
-function DayObjectivesForm({ dayPlan }: { dayPlan: DayPlan }) {
+function DayObjectivesForm({ userId, dayPlan }: { userId: string; dayPlan: DayPlan }) {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
@@ -111,6 +207,7 @@ function DayObjectivesForm({ dayPlan }: { dayPlan: DayPlan }) {
         setDone(false);
         setPending(true);
         updateDayPlanAction({
+          userId,
           weekday: dayPlan.weekday,
           tipoDia: String(form.get("tipoDia")),
           objetivoKcal: Number(form.get("objetivoKcal")),
@@ -148,7 +245,7 @@ function DayObjectivesForm({ dayPlan }: { dayPlan: DayPlan }) {
   );
 }
 
-function PlannedMealRow({ meal }: { meal: PlannedMeal }) {
+function PlannedMealRow({ userId, meal }: { userId: string; meal: PlannedMeal }) {
   const [editing, setEditing] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -183,6 +280,7 @@ function PlannedMealRow({ meal }: { meal: PlannedMeal }) {
         setError(null);
         setPending(true);
         updatePlannedMealAction({
+          userId,
           id: meal.id,
           descripcion: String(form.get("descripcion")),
           kcal: Number(form.get("kcal")),
@@ -247,7 +345,21 @@ function LabeledNumber({
         name={name}
         type="number"
         step={step}
-        min={0}
+        defaultValue={defaultValue}
+        required
+        className="w-full rounded-lg border border-slate-300 px-2 py-1.5 text-sm"
+      />
+    </label>
+  );
+}
+
+function TextField({ name, label, defaultValue }: { name: string; label: string; defaultValue: string }) {
+  return (
+    <label className="block">
+      <span className="mb-0.5 block text-[10px] text-slate-400">{label}</span>
+      <input
+        name={name}
+        type="text"
         defaultValue={defaultValue}
         required
         className="w-full rounded-lg border border-slate-300 px-2 py-1.5 text-sm"

@@ -34,8 +34,13 @@ export async function addPlannedMealLogAction(input: unknown) {
 
   const plannedMeal = await prisma.plannedMeal.findUnique({
     where: { id: data.plannedMealId },
+    include: { dayPlan: true },
   });
-  if (!plannedMeal || plannedMeal.mealType !== data.mealType) {
+  if (
+    !plannedMeal ||
+    plannedMeal.mealType !== data.mealType ||
+    plannedMeal.dayPlan.userId !== session.sub
+  ) {
     throw new Error("El plato planificado no existe para esa comida.");
   }
 

@@ -45,7 +45,13 @@ export async function loginAction(_prevState: LoginState, formData: FormData): P
   redirect(user.role === "ADMIN" ? "/admin" : "/dashboard");
 }
 
-export async function logoutAction() {
+/**
+ * No hace redirect() aquí a propósito: el botón que la llama fuerza una
+ * recarga completa (`window.location`) en vez de una navegación de cliente,
+ * para no dejar en el DOM ningún resto (aunque sea invisible, como el
+ * payload RSC de hidratación) de los datos de la sesión anterior en
+ * dispositivos compartidos entre varias personas.
+ */
+export async function clearSessionAction() {
   await destroySession();
-  redirect("/login");
 }

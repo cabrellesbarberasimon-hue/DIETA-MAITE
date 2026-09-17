@@ -47,6 +47,7 @@ model User {
   createdAt    DateTime @default(now())
 
   profile       Profile?
+  dayPlans      DayPlan[]
   mealLogs      MealLog[]
   exerciseLogs  ExerciseLog[]
   weightLogs    WeightLog[]
@@ -71,10 +72,12 @@ model Profile {
   updatedAt              DateTime @updatedAt
 }
 
-/// Plan de un día de la semana: tipo de día y objetivos de kcal/macros
+/// Plan de un día de la semana para una usuaria concreta: tipo de día y objetivos de kcal/macros
 model DayPlan {
   id                    String   @id @default(cuid())
-  weekday               Weekday  @unique
+  userId                String
+  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  weekday               Weekday
   tipoDia               String
   objetivoKcal          Int
   objetivoProteinaG     Int
@@ -83,6 +86,8 @@ model DayPlan {
   updatedAt             DateTime @updatedAt
 
   comidas PlannedMeal[]
+
+  @@unique([userId, weekday])
 }
 
 /// Plato planificado del menú semanal para un día y una comida concretos

@@ -1,6 +1,6 @@
 # Dieta Maite
 
-Aplicación web (mobile-first, PWA instalable) para el seguimiento diario de dieta y ejercicio de Maite, con supervisión y edición del plan por parte de Simón (nutricionista).
+Aplicación web (mobile-first, PWA instalable) para el seguimiento diario de dieta y ejercicio. Admite **varias personas**, cada una con su propio plan, objetivos y peso, con supervisión y edición desde un panel de admin (Simón, nutricionista).
 
 ## Stack
 
@@ -12,14 +12,20 @@ Aplicación web (mobile-first, PWA instalable) para el seguimiento diario de die
 
 ## Modelo de datos
 
-- `User` — Maite (`USUARIA`) y Simón (`ADMIN`).
-- `Profile` — datos antropométricos y objetivos calóricos de Maite (BMR, GET, objetivo kcal/día...).
-- `DayPlan` — un registro por día de la semana con su tipo de día y objetivos de kcal/macros.
-- `PlannedMeal` — cada plato planificado del menú semanal (día + comida).
-- `MealLog` — comidas realmente registradas por Maite (del plan o libres), editables/borrables el mismo día.
-- `ExerciseType` — tabla MET (Descanso, Paseo suave, Caminar rápido...).
-- `ExerciseLog` — sesiones de ejercicio registradas.
-- `WeightLog` — histórico de peso.
+- `User` — cualquier número de usuarias (`USUARIA`) más el/los admin (`ADMIN`).
+- `Profile` — datos antropométricos y objetivos calóricos, uno por usuaria (BMR, GET, objetivo kcal/día...).
+- `DayPlan` — un plan por usuaria y día de la semana, con su tipo de día y objetivos de kcal/macros. **Cada usuaria tiene su propio menú semanal, independiente del de las demás.**
+- `PlannedMeal` — cada plato planificado del menú semanal (día + comida) de una usuaria.
+- `MealLog` — comidas realmente registradas por cada usuaria (del plan o libres), editables/borrables el mismo día.
+- `ExerciseType` — tabla MET compartida (Descanso, Paseo suave, Caminar rápido...).
+- `ExerciseLog` — sesiones de ejercicio registradas, por usuaria.
+- `WeightLog` — histórico de peso, por usuaria.
+
+### Varias personas
+
+Solo el admin puede dar de alta cuentas nuevas, desde **Personas → + Nueva** en su panel: nombre, email, contraseña, y los datos de perfil (edad, altura, peso, BMR, GET, objetivos...). La cuenta nueva arranca con un menú semanal en blanco (7 días × 5 comidas, "Sin planificar") que el admin rellena después desde la ficha de esa persona → pestaña **Plan**, con el mismo editor que ya existía. No hay auto-registro: solo el admin crea cuentas.
+
+El panel de admin ahora es un selector: **Personas** (lista + crear) → ficha de cada persona con **Resumen** / **Historial** / **Plan**, igual que antes pero repetido por persona en vez de asumir una única usuaria fija.
 
 ## Desarrollo local
 
@@ -95,6 +101,10 @@ Abre http://localhost:3000 — se redirige automáticamente a `/login`.
    DATABASE_URL="<url-de-producción>" SEED_MAITE_PASSWORD="..." SEED_SIMON_PASSWORD="..." npx prisma db seed
    ```
 
+### Dispositivo compartido entre varias personas
+
+Si dos personas usan el mismo móvil/tablet (o Simón revisa varias personas seguidas), el botón "Salir" fuerza una recarga completa de la página en vez de una navegación interna, precisamente para no dejar ningún resto de la sesión anterior en memoria del navegador antes de que otra persona inicie sesión.
+
 ### Cambiar las contraseñas iniciales
 
 Las contraseñas del seed son solo para el primer arranque. Para cambiarlas después, la forma más simple es actualizar `passwordHash` directamente en la base de datos con un hash de bcrypt (por ejemplo generado con `node -e "console.log(require('bcryptjs').hashSync('nueva-password', 10))"`), ya que la app no incluye (a propósito, para mantenerla simple) una pantalla de cambio de contraseña.
@@ -114,14 +124,16 @@ src/
       historial/           # resumen semanal + histórico navegable (solo lectura)
       peso/                 # registro de peso + evolución
     admin/
-      page.tsx             # resumen de seguimiento (solo lectura)
-      historial/            # histórico completo de Maite (solo lectura)
-      plan/                 # edición del menú semanal, objetivos y peso actual
+      page.tsx                    # lista de personas + crear nueva
+      usuarias/nueva/               # formulario de alta (cuenta + perfil)
+      usuarias/[id]/                # resumen de esa persona (solo lectura)
+      usuarias/[id]/historial/        # histórico de esa persona (solo lectura)
+      usuarias/[id]/plan/             # editar su menú semanal, perfil y peso actual
     api/admin/seed/       # endpoint de sembrado único, protegido por SEED_TOKEN
   lib/
     auth/                 # hashing, sesión (JWT en cookie), guards por rol
-    data/                  # consultas de lectura (día, semana, estadísticas)
-    actions/                # Server Actions de escritura (Maite)
+    data/                  # consultas de lectura (día, semana, estadísticas, usuarias)
+    actions/                # Server Actions de escritura (logs de usuaria + admin)
     seed-core.ts             # lógica de sembrado, compartida por el script y el endpoint
     seed-data/                # dieta_maite_seed.json
     nutrition.ts              # fórmulas: kcal ejercicio, balance diario, semáforo, semana

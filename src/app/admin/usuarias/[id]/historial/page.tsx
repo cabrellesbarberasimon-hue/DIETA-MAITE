@@ -1,16 +1,19 @@
 import Link from "next/link";
-import { getPrimaryUsuaria } from "@/lib/data/usuaria";
+import { getUsuariaById } from "@/lib/data/usuaria";
 import { getWeekSummary } from "@/lib/data/week";
 import { dateKeyToDate, getWeekStart, todayKey, toDateKey, today as todayDate } from "@/lib/nutrition";
 import { fmtDateShort, fmtKcal, fmtNum, fmtSigned } from "@/lib/format";
 import { Semaforo } from "@/components/Semaforo";
 
-export default async function AdminHistorialPage({
+export default async function AdminUsuariaHistorialPage({
+  params,
   searchParams,
 }: {
+  params: Promise<{ id: string }>;
   searchParams: Promise<{ week?: string }>;
 }) {
-  const usuaria = await getPrimaryUsuaria();
+  const { id } = await params;
+  const usuaria = await getUsuariaById(id);
   const { week } = await searchParams;
 
   const refDate = week ? dateKeyToDate(week) : dateKeyToDate(todayKey());
@@ -25,7 +28,7 @@ export default async function AdminHistorialPage({
     <div className="mx-auto max-w-md space-y-5">
       <div className="flex items-center justify-between">
         <Link
-          href={`/admin/historial?week=${prevWeekKey}`}
+          href={`/admin/usuarias/${usuaria.id}/historial?week=${prevWeekKey}`}
           className="rounded-lg px-3 py-2 text-sm font-medium text-slate-500 active:bg-slate-100"
         >
           ← Anterior
@@ -37,7 +40,7 @@ export default async function AdminHistorialPage({
           <span className="px-3 py-2 text-sm text-slate-300">Siguiente →</span>
         ) : (
           <Link
-            href={`/admin/historial?week=${nextWeekKey}`}
+            href={`/admin/usuarias/${usuaria.id}/historial?week=${nextWeekKey}`}
             className="rounded-lg px-3 py-2 text-sm font-medium text-slate-500 active:bg-slate-100"
           >
             Siguiente →
@@ -80,7 +83,7 @@ export default async function AdminHistorialPage({
           day.hasData ? (
             <Link
               key={day.dateKey}
-              href={`/admin/historial/${day.dateKey}`}
+              href={`/admin/usuarias/${usuaria.id}/historial/${day.dateKey}`}
               className="flex items-center justify-between rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200 active:bg-slate-50"
             >
               <div>
