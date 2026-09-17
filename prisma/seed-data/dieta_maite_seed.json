@@ -1,0 +1,391 @@
+{
+  "dias": {
+    "LUNES": {
+      "tipo_dia": "CARDIO (caminar/trotar 40')",
+      "comidas": {
+        "DESAYUNO": {
+          "descripcion": "Cortado: café + leche semidesnatada 20 ml + ½ cucharadita (de café) de azúcar blanco",
+          "kcal": 18,
+          "proteina_g": 1,
+          "carbohidratos_g": 3,
+          "grasas_g": 0
+        },
+        "ALMUERZO": {
+          "descripcion": "Bocadillo PAVO: pan blanco 70 g + pavo 92% 50 g (2 lonchas) + queso semicurado 30 g (2-3 lonchitas triangulares) + tomate restregado 60 g",
+          "kcal": 351,
+          "proteina_g": 23,
+          "carbohidratos_g": 40,
+          "grasas_g": 11
+        },
+        "COMIDA": {
+          "descripcion": "Arroz 45 g en crudo + pollo 170 g crudo a la plancha + AOVE 12 g + salteado de judía verde 120 g + zanahoria 60 g + cebolla 70 g + salsa de soja 10 ml",
+          "kcal": 533,
+          "proteina_g": 47,
+          "carbohidratos_g": 44,
+          "grasas_g": 18
+        },
+        "COMIDA_LIBRE_SOCIAL": {
+          "descripcion": "—",
+          "kcal": 0,
+          "proteina_g": 0,
+          "carbohidratos_g": 0,
+          "grasas_g": 0
+        },
+        "CENA": {
+          "descripcion": "Merluza 170 g cruda al horno + patata cocida 145 g (peso cocido) + AOVE 15 g + al horno: calabacín 120 g + pimiento rojo 80 g",
+          "kcal": 427,
+          "proteina_g": 35,
+          "carbohidratos_g": 31,
+          "grasas_g": 18
+        }
+      },
+      "total_ingesta_planificada": {
+        "kcal": 1329,
+        "proteina_g": 106,
+        "carbohidratos_g": 118,
+        "grasas_g": 47
+      },
+      "objetivo": {
+        "kcal": 1290,
+        "proteina_g": 100,
+        "carbohidratos_g": 120,
+        "grasas_g": 47
+      }
+    },
+    "MARTES": {
+      "tipo_dia": "DESCANSO / PASEO",
+      "comidas": {
+        "DESAYUNO": {
+          "descripcion": "Cortado: café + leche semidesnatada 20 ml + ½ cucharadita (de café) de azúcar blanco",
+          "kcal": 18,
+          "proteina_g": 1,
+          "carbohidratos_g": 3,
+          "grasas_g": 0
+        },
+        "ALMUERZO": {
+          "descripcion": "Bocadillo PAVO: pan blanco 70 g + pavo 92% 50 g (2 lonchas) + queso semicurado 30 g (2-3 lonchitas triangulares) + tomate restregado 60 g",
+          "kcal": 351,
+          "proteina_g": 23,
+          "carbohidratos_g": 40,
+          "grasas_g": 11
+        },
+        "COMIDA": {
+          "descripcion": "Ensalada de salmón ahumado y feta: salmón ahumado 130 g + queso feta 40 g + aguacate 50 g + tomates cherry 130 g + pepino 100 g + brotes 40 g + AOVE 4 g + sal · con pan blanco 40 g · AOVE reducido a 4 g: parte de la grasa del día se reserva para hacer la pechuga de la cena",
+          "kcal": 524,
+          "proteina_g": 37,
+          "carbohidratos_g": 31,
+          "grasas_g": 27
+        },
+        "COMIDA_LIBRE_SOCIAL": {
+          "descripcion": "—",
+          "kcal": 0,
+          "proteina_g": 0,
+          "carbohidratos_g": 0,
+          "grasas_g": 0
+        },
+        "CENA": {
+          "descripcion": "Pechuga de pollo 100 g cruda a la plancha con AOVE 4 g + boniato asado 180 g (peso asado) + al horno: pimiento rojo 100 g + calabacín 120 g",
+          "kcal": 369,
+          "proteina_g": 29,
+          "carbohidratos_g": 46,
+          "grasas_g": 9
+        }
+      },
+      "total_ingesta_planificada": {
+        "kcal": 1262,
+        "proteina_g": 90,
+        "carbohidratos_g": 120,
+        "grasas_g": 47
+      },
+      "objetivo": {
+        "kcal": 1290,
+        "proteina_g": 100,
+        "carbohidratos_g": 120,
+        "grasas_g": 47
+      }
+    },
+    "MIÉRCOLES": {
+      "tipo_dia": "CARDIO (caminar/trotar 40')",
+      "comidas": {
+        "DESAYUNO": {
+          "descripcion": "Cortado: café + leche semidesnatada 20 ml + ½ cucharadita (de café) de azúcar blanco",
+          "kcal": 18,
+          "proteina_g": 1,
+          "carbohidratos_g": 3,
+          "grasas_g": 0
+        },
+        "ALMUERZO": {
+          "descripcion": "Bocadillo SERRANO: pan blanco 70 g + jamón serrano reserva 40 g (3 lonchas) + queso semicurado 30 g (2-3 lonchitas triangulares) + tomate restregado 60 g",
+          "kcal": 395,
+          "proteina_g": 26,
+          "carbohidratos_g": 39,
+          "grasas_g": 15
+        },
+        "COMIDA": {
+          "descripcion": "PAD THAI casero (sin azúcar ni cacahuete): noodles de arroz 40 g en seco + pollo 130 g crudo a la plancha + champiñón 100 g + calabacín rallado 120 g + zanahoria rallada 60 g + cebolla 60 g + salsa de soja 10 ml + AOVE 10 g · saltear la verdura primero SIN aceite y añadir el AOVE al final fuera del fuego",
+          "kcal": 480,
+          "proteina_g": 38,
+          "carbohidratos_g": 49,
+          "grasas_g": 15
+        },
+        "COMIDA_LIBRE_SOCIAL": {
+          "descripcion": "—",
+          "kcal": 0,
+          "proteina_g": 0,
+          "carbohidratos_g": 0,
+          "grasas_g": 0
+        },
+        "CENA": {
+          "descripcion": "Pechuga de pollo 100 g cruda a la plancha + patata cocida 120 g (peso cocido) + AOVE 12 g + brócoli 130 g + zanahoria 70 g, ambos hervidos o al vapor",
+          "kcal": 358,
+          "proteina_g": 25,
+          "carbohidratos_g": 27,
+          "grasas_g": 18
+        }
+      },
+      "total_ingesta_planificada": {
+        "kcal": 1251,
+        "proteina_g": 90,
+        "carbohidratos_g": 118,
+        "grasas_g": 48
+      },
+      "objetivo": {
+        "kcal": 1290,
+        "proteina_g": 100,
+        "carbohidratos_g": 120,
+        "grasas_g": 47
+      }
+    },
+    "JUEVES": {
+      "tipo_dia": "DESCANSO / PASEO",
+      "comidas": {
+        "DESAYUNO": {
+          "descripcion": "Cortado: café + leche semidesnatada 20 ml + ½ cucharadita (de café) de azúcar blanco",
+          "kcal": 18,
+          "proteina_g": 1,
+          "carbohidratos_g": 3,
+          "grasas_g": 0
+        },
+        "ALMUERZO": {
+          "descripcion": "Bocadillo SERRANO: pan blanco 70 g + jamón serrano reserva 40 g (3 lonchas) + queso semicurado 30 g (2-3 lonchitas triangulares) + tomate restregado 60 g",
+          "kcal": 395,
+          "proteina_g": 26,
+          "carbohidratos_g": 39,
+          "grasas_g": 15
+        },
+        "COMIDA": {
+          "descripcion": "PAD THAI casero (sin azúcar ni cacahuete): noodles de arroz 45 g en seco + pollo 140 g crudo a la plancha + champiñón 100 g + calabacín rallado 120 g + zanahoria rallada 60 g + cebolla 60 g + salsa de soja 10 ml + AOVE 8 g · saltear la verdura primero SIN aceite (suelta agua) y añadir el AOVE al final fuera del fuego, para que no lo absorba el champiñón",
+          "kcal": 492,
+          "proteina_g": 41,
+          "carbohidratos_g": 53,
+          "grasas_g": 13
+        },
+        "COMIDA_LIBRE_SOCIAL": {
+          "descripcion": "—",
+          "kcal": 0,
+          "proteina_g": 0,
+          "carbohidratos_g": 0,
+          "grasas_g": 0
+        },
+        "CENA": {
+          "descripcion": "Salmón 140 g crudo a la plancha + patata cocida 130 g (peso cocido) + AOVE 4 g + judía verde 120 g + zanahoria 80 g, hervidas",
+          "kcal": 397,
+          "proteina_g": 31,
+          "carbohidratos_g": 29,
+          "grasas_g": 18
+        }
+      },
+      "total_ingesta_planificada": {
+        "kcal": 1302,
+        "proteina_g": 99,
+        "carbohidratos_g": 124,
+        "grasas_g": 46
+      },
+      "objetivo": {
+        "kcal": 1290,
+        "proteina_g": 100,
+        "carbohidratos_g": 120,
+        "grasas_g": 47
+      }
+    },
+    "VIERNES": {
+      "tipo_dia": "CARDIO (caminar/trotar 40')",
+      "comidas": {
+        "DESAYUNO": {
+          "descripcion": "Cortado: café + leche semidesnatada 20 ml + ½ cucharadita (de café) de azúcar blanco",
+          "kcal": 18,
+          "proteina_g": 1,
+          "carbohidratos_g": 3,
+          "grasas_g": 0
+        },
+        "ALMUERZO": {
+          "descripcion": "⚠ PENDIENTE — PREGUNTAR A SIMON (nutricionista) qué bocadillo poner el viernes. Provisional: mismo que el de pavo (pan blanco 70 g + pavo 92% 50 g (2 lonchas) + queso semicurado 30 g (2-3 lonchitas triangulares) + tomate restregado 60 g).",
+          "kcal": 351,
+          "proteina_g": 23,
+          "carbohidratos_g": 40,
+          "grasas_g": 11
+        },
+        "COMIDA": {
+          "descripcion": "Espaguetis 60 g en crudo + pavo 130 g crudo + tomate triturado 200 g + queso semicurado rallado 15 g + AOVE 8 g",
+          "kcal": 556,
+          "proteina_g": 44,
+          "carbohidratos_g": 52,
+          "grasas_g": 17
+        },
+        "COMIDA_LIBRE_SOCIAL": {
+          "descripcion": "CENA LIBRE — medio bocadillo de chivito + bravas + puntillas para picar. Presupuesto asignado: 1.000 kcal (celda K16 de la hoja OBJETIVOS, editable).",
+          "kcal": 1000,
+          "proteina_g": 40,
+          "carbohidratos_g": 100,
+          "grasas_g": 40
+        },
+        "CENA": {
+          "descripcion": "— (cubierto por la cena libre)",
+          "kcal": 0,
+          "proteina_g": 0,
+          "carbohidratos_g": 0,
+          "grasas_g": 0
+        }
+      },
+      "total_ingesta_planificada": {
+        "kcal": 1925,
+        "proteina_g": 108,
+        "carbohidratos_g": 195,
+        "grasas_g": 68
+      },
+      "objetivo": {
+        "kcal": 1840,
+        "proteina_g": 108,
+        "carbohidratos_g": 178,
+        "grasas_g": 68
+      }
+    },
+    "SÁBADO": {
+      "tipo_dia": "DESCANSO / PASEO",
+      "comidas": {
+        "DESAYUNO": {
+          "descripcion": "Cortado: café + leche semidesnatada 20 ml + ½ cucharadita (de café) de azúcar blanco",
+          "kcal": 18,
+          "proteina_g": 1,
+          "carbohidratos_g": 3,
+          "grasas_g": 0
+        },
+        "ALMUERZO": {
+          "descripcion": "TOSTADA de mantequilla y mermelada: pan blanco 70 g tostado + mantequilla 8 g + mermelada 15 g · Ojo: apenas aporta proteína (6 g frente a los 20 g del bocadillo de pavo), por eso el pollo de la comida sube a 210 g",
+          "kcal": 280,
+          "proteina_g": 6,
+          "carbohidratos_g": 43,
+          "grasas_g": 9
+        },
+        "COMIDA": {
+          "descripcion": "Arroz 45 g en crudo + pollo 100 g crudo a la plancha + 1 huevo a la plancha (55 g) + tomate troceado 200 g + AOVE 4 g (utilizado para cocinar) · ración realista de pollo; la proteína que falta este día se recupera en la media semanal",
+          "kcal": 432,
+          "proteina_g": 35,
+          "carbohidratos_g": 44,
+          "grasas_g": 13
+        },
+        "COMIDA_LIBRE_SOCIAL": {
+          "descripcion": "CENA LIBRE — pizza. Presupuesto asignado: 1.050 kcal (celda K17 de la hoja OBJETIVOS, editable). Equivale a ¾ de una pizza mediana de supermercado.",
+          "kcal": 1050,
+          "proteina_g": 45,
+          "carbohidratos_g": 118,
+          "grasas_g": 38
+        },
+        "CENA": {
+          "descripcion": "— (cubierto por la cena libre)",
+          "kcal": 0,
+          "proteina_g": 0,
+          "carbohidratos_g": 0,
+          "grasas_g": 0
+        }
+      },
+      "total_ingesta_planificada": {
+        "kcal": 1780,
+        "proteina_g": 87,
+        "carbohidratos_g": 208,
+        "grasas_g": 60
+      },
+      "objetivo": {
+        "kcal": 1890,
+        "proteina_g": 87,
+        "carbohidratos_g": 205,
+        "grasas_g": 61
+      }
+    },
+    "DOMINGO": {
+      "tipo_dia": "DESCANSO / PASEO",
+      "comidas": {
+        "DESAYUNO": {
+          "descripcion": "Cortado: café + leche semidesnatada 20 ml + ½ cucharadita (de café) de azúcar blanco",
+          "kcal": 18,
+          "proteina_g": 1,
+          "carbohidratos_g": 3,
+          "grasas_g": 0
+        },
+        "ALMUERZO": {
+          "descripcion": "Bocadillo pequeño SERRANO: pan blanco 35 g + jamón serrano reserva 30 g (2 lonchas) + tomate restregado 50 g",
+          "kcal": 177,
+          "proteina_g": 14,
+          "carbohidratos_g": 21,
+          "grasas_g": 4
+        },
+        "COMIDA": {
+          "descripcion": "COMIDA LIBRE — paella (cantidad moderada) + papas + olivas + mejillones enlatados. Presupuesto asignado: 900 kcal (celda K18 de la hoja OBJETIVOS, editable).",
+          "kcal": 900,
+          "proteina_g": 40,
+          "carbohidratos_g": 105,
+          "grasas_g": 30
+        },
+        "COMIDA_LIBRE_SOCIAL": {
+          "descripcion": "—",
+          "kcal": 0,
+          "proteina_g": 0,
+          "carbohidratos_g": 0,
+          "grasas_g": 0
+        },
+        "CENA": {
+          "descripcion": "Preguntar al nutricionista (SIMON) y que adapte la cena según el consumo y cumplimiento de objetivos nutricionales semanal. ",
+          "kcal": 377,
+          "proteina_g": 34,
+          "carbohidratos_g": 26,
+          "grasas_g": 14
+        }
+      },
+      "total_ingesta_planificada": {
+        "kcal": 1472,
+        "proteina_g": 89,
+        "carbohidratos_g": 155,
+        "grasas_g": 48
+      },
+      "objetivo": {
+        "kcal": 1410,
+        "proteina_g": 90,
+        "carbohidratos_g": 155,
+        "grasas_g": 47
+      }
+    }
+  },
+  "met_table": {
+    "Descanso": 0,
+    "Paseo suave": 3,
+    "Caminar rápido": 4.3,
+    "Caminar/trotar (cardio)": 6,
+    "Trotar continuo": 7.5,
+    "Fuerza / gimnasio": 4.5
+  },
+  "formula_kcal_ejercicio": "kcal = MET * 3.5 * peso_kg / 200 * minutos",
+  "perfil": {
+    "nombre": "Maite",
+    "sexo": "mujer",
+    "edad": 55,
+    "altura_cm": 159,
+    "peso_inicial_kg": 69.2,
+    "peso_objetivo_kg": 59.5,
+    "bmr_kcal": 1250,
+    "factor_actividad": 1.4,
+    "get_kcal": 1750,
+    "deficit_diario_kcal": 300,
+    "objetivo_kcal_media_dia": 1450,
+    "presupuesto_semanal_kcal": 10150
+  }
+}

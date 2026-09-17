@@ -1,0 +1,53 @@
+import { prisma } from "@/lib/prisma";
+import { getPrimaryUsuaria } from "@/lib/data/usuaria";
+import { WEEKDAY_ORDER, WEEKDAY_LABEL } from "@/lib/nutrition";
+import { CurrentWeightEditor, DayPlanCard } from "./PlanEditor";
+
+export default async function AdminPlanPage() {
+  const usuaria = await getPrimaryUsuaria();
+
+  const [dayPlans, profile, lastWeight] = await Promise.all([
+    prisma.dayPlan.findMany({ include: { comidas: { orderBy: { mealType: "asc" } } } }),
+    prisma.profile.findUnique({ where: { userId: usuaria.id } }),
+    prisma.weightLog.findFirst({ where: { userId: usuaria.id }, orderBy: { fecha: "desc" } }),
+  ]);
+
+  const dayPlansByWeekday = new Map(dayPlans.map((d) => [d.weekday, d]));
+  const pesoActual = lastWeight?.pesoKg ?? profile?.pesoInicialKg ?? 0;
+
+  return (
+    <div className="mx-auto max-w-md space-y-5">
+      <h1 className="text-lg font-bold text-slate-900">Editar plan</h1>
+
+      <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
+        <h2 className="mb-3 text-sm font-semibold text-slate-500">
+          Peso actual (usado en las fórmulas de ejercicio)
+        </h2>
+        <CurrentWeightEditor pesoActualKg={pesoActual} />
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="px-1 text-sm font-semibold text-slate-500">Menú semanal y objetivos</h2>
+        {WEEKDAY_ORDER.map((weekday) => {
+          const dayPlan = dayPlansByWeekday.get(weekday);
+          if (!dayPlan) return null;
+          return (
+            <DayPlanCard
+              key={weekday}
+              dayPlan={{
+                weekday,
+                weekdayLabel: WEEKDAY_LABEL[weekday],
+                tipoDia: dayPlan.tipoDia,
+                objetivoKcal: dayPlan.objetivoKcal,
+                objetivoProteinaG: dayPlan.objetivoProteinaG,
+                objetivoCarbohidratosG: dayPlan.objetivoCarbohidratosG,
+                objetivoGrasasG: dayPlan.objetivoGrasasG,
+                comidas: dayPlan.comidas,
+              }}
+            />
+          );
+        })}
+      </section>
+    </div>
+  );
+}

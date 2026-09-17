@@ -1,0 +1,164 @@
+// Prisma schema for Dieta Maite
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  USUARIA
+  ADMIN
+}
+
+enum Weekday {
+  LUNES
+  MARTES
+  MIERCOLES
+  JUEVES
+  VIERNES
+  SABADO
+  DOMINGO
+}
+
+enum MealType {
+  DESAYUNO
+  ALMUERZO
+  COMIDA
+  COMIDA_LIBRE_SOCIAL
+  CENA
+}
+
+enum LogSource {
+  PLANIFICADO
+  LIBRE
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  role         Role
+  createdAt    DateTime @default(now())
+
+  profile       Profile?
+  mealLogs      MealLog[]
+  exerciseLogs  ExerciseLog[]
+  weightLogs    WeightLog[]
+}
+
+/// Datos antropométricos y objetivos calóricos (uno por usuaria, editable por el admin)
+model Profile {
+  id                     String   @id @default(cuid())
+  userId                 String   @unique
+  user                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  sexo                   String
+  edad                   Int
+  alturaCm               Int
+  pesoInicialKg          Float
+  pesoObjetivoKg         Float
+  bmrKcal                Int
+  factorActividad        Float
+  getKcal                Int
+  deficitDiarioKcal      Int
+  objetivoKcalMediaDia   Int
+  presupuestoSemanalKcal Int
+  updatedAt              DateTime @updatedAt
+}
+
+/// Plan de un día de la semana: tipo de día y objetivos de kcal/macros
+model DayPlan {
+  id                    String   @id @default(cuid())
+  weekday               Weekday  @unique
+  tipoDia               String
+  objetivoKcal          Int
+  objetivoProteinaG     Int
+  objetivoCarbohidratosG Int
+  objetivoGrasasG       Int
+  updatedAt             DateTime @updatedAt
+
+  comidas PlannedMeal[]
+}
+
+/// Plato planificado del menú semanal para un día y una comida concretos
+model PlannedMeal {
+  id                String   @id @default(cuid())
+  dayPlanId         String
+  dayPlan           DayPlan  @relation(fields: [dayPlanId], references: [id], onDelete: Cascade)
+  mealType          MealType
+  descripcion       String   @db.Text
+  kcal              Int
+  proteinaG         Float
+  carbohidratosG    Float
+  grasasG           Float
+  updatedAt         DateTime @updatedAt
+
+  mealLogs MealLog[]
+
+  @@unique([dayPlanId, mealType])
+}
+
+/// Registro real de una comida consumida por la usuaria
+model MealLog {
+  id             String    @id @default(cuid())
+  userId         String
+  user           User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fecha          DateTime  @db.Date
+  mealType       MealType
+  source         LogSource
+  plannedMealId  String?
+  plannedMeal    PlannedMeal? @relation(fields: [plannedMealId], references: [id], onDelete: SetNull)
+  nombre         String
+  kcal           Int
+  proteinaG      Float
+  carbohidratosG Float
+  grasasG        Float
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([userId, fecha])
+}
+
+/// Tabla de equivalentes metabólicos (MET) por tipo de ejercicio
+model ExerciseType {
+  id     String @id @default(cuid())
+  nombre String @unique
+  met    Float
+  orden  Int    @default(0)
+
+  exerciseLogs ExerciseLog[]
+}
+
+/// Sesión de ejercicio registrada por la usuaria
+model ExerciseLog {
+  id             String       @id @default(cuid())
+  userId         String
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fecha          DateTime     @db.Date
+  exerciseTypeId String
+  exerciseType   ExerciseType @relation(fields: [exerciseTypeId], references: [id])
+  minutos        Int
+  pesoUsadoKg    Float
+  kcalQuemadas   Float
+  createdAt      DateTime     @default(now())
+
+  @@index([userId, fecha])
+}
+
+/// Registro periódico de peso de la usuaria
+model WeightLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fecha     DateTime @db.Date
+  pesoKg    Float
+  createdAt DateTime @default(now())
+
+  @@unique([userId, fecha])
+  @@index([userId, fecha])
+}
