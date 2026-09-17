@@ -42,6 +42,7 @@ cp .env.example .env
 | `AUTH_SECRET` | Secreto para firmar las cookies de sesión (`openssl rand -base64 32`) |
 | `SEED_MAITE_EMAIL` / `SEED_MAITE_PASSWORD` | Credenciales iniciales de Maite (usuaria) |
 | `SEED_SIMON_EMAIL` / `SEED_SIMON_PASSWORD` | Credenciales iniciales de Simón (admin) |
+| `SEED_TOKEN` | Solo en producción: autoriza `/api/admin/seed` (ver más abajo) |
 
 ### 3. Instalar dependencias
 
@@ -76,13 +77,23 @@ Abre http://localhost:3000 — se redirige automáticamente a `/login`.
    - `DATABASE_URL` — la cadena de conexión de Neon/Supabase/Railway.
    - `AUTH_SECRET` — un valor aleatorio largo (`openssl rand -base64 32`).
    - `TZ` — zona horaria de Maite, p. ej. `Europe/Madrid`. Importante: determina qué día es "hoy" para el registro diario y el cálculo del semáforo.
-4. **Migraciones**: antes del primer despliegue (o tras cambiar el `schema.prisma`), ejecuta desde tu máquina, apuntando al `DATABASE_URL` de producción:
+4. **Migraciones**: se aplican solas en cada deploy — el script `build` ejecuta `prisma migrate deploy` antes de `next build` (ver `package.json`). No hace falta ningún paso manual para esto.
+5. **Deploy**: Vercel construye automáticamente. Una vez desplegado, tendrás una URL real (`https://tu-app.vercel.app`) a la que Maite y Simón pueden entrar desde el móvil y añadirla a la pantalla de inicio (PWA instalable).
+6. **Sembrar los datos iniciales (una sola vez)**: las migraciones dejan las tablas creadas pero vacías. Añade estas variables de entorno más en Vercel:
+   - `SEED_TOKEN` — un valor aleatorio largo, solo para autorizar el sembrado (`openssl rand -base64 32`).
+   - `SEED_MAITE_PASSWORD` / `SEED_SIMON_PASSWORD` — las contraseñas reales de Maite y Simón.
+   - (opcional) `SEED_MAITE_EMAIL` / `SEED_SIMON_EMAIL` si no quieres los emails de ejemplo.
+
+   Redeploy, y visita una vez, desde el navegador:
+   ```
+   https://tu-app.vercel.app/api/admin/seed?token=<el valor de SEED_TOKEN>
+   ```
+   Debe responder `{"ok":true,...}`. Es idempotente (no pisa nada si lo visitas más de una vez) y no expone nada sin el token correcto. Después de usarlo puedes quitar `SEED_TOKEN` de Vercel si prefieres cerrar la puerta.
+
+   Alternativa si prefieres hacerlo desde tu propio ordenador en vez de por URL:
    ```bash
-   DATABASE_URL="<url-de-producción>" npx prisma migrate deploy
    DATABASE_URL="<url-de-producción>" SEED_MAITE_PASSWORD="..." SEED_SIMON_PASSWORD="..." npx prisma db seed
    ```
-   (Solo hace falta hacer el seed una vez, la primera vez que se crea la base de datos.)
-5. **Deploy**: Vercel construye con `next build` automáticamente. Una vez desplegado, tendrás una URL real (`https://tu-app.vercel.app`) a la que Maite y Simón pueden entrar desde el móvil y añadirla a la pantalla de inicio (PWA instalable).
 
 ### Cambiar las contraseñas iniciales
 
@@ -94,8 +105,7 @@ Las contraseñas del seed son solo para el primer arranque. Para cambiarlas desp
 prisma/
   schema.prisma        # modelo de datos
   migrations/           # migraciones versionadas
-  seed.ts               # script de seed (carga dieta_maite_seed.json)
-  seed-data/
+  seed.ts               # script de seed (CLI, usa src/lib/seed-core.ts)
 src/
   app/
     login/               # pantalla de login
@@ -107,11 +117,14 @@ src/
       page.tsx             # resumen de seguimiento (solo lectura)
       historial/            # histórico completo de Maite (solo lectura)
       plan/                 # edición del menú semanal, objetivos y peso actual
+    api/admin/seed/       # endpoint de sembrado único, protegido por SEED_TOKEN
   lib/
     auth/                 # hashing, sesión (JWT en cookie), guards por rol
     data/                  # consultas de lectura (día, semana, estadísticas)
     actions/                # Server Actions de escritura (Maite)
-    nutrition.ts            # fórmulas: kcal ejercicio, balance diario, semáforo, semana
+    seed-core.ts             # lógica de sembrado, compartida por el script y el endpoint
+    seed-data/                # dieta_maite_seed.json
+    nutrition.ts              # fórmulas: kcal ejercicio, balance diario, semáforo, semana
   proxy.ts                 # protección de rutas por rol (antes "middleware")
 ```
 
