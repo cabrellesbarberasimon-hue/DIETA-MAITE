@@ -47,13 +47,15 @@ model User {
   createdAt    DateTime @default(now())
 
   profile       Profile?
+  dayTypes      DayType[]
   dayPlans      DayPlan[]
   mealLogs      MealLog[]
   exerciseLogs  ExerciseLog[]
   weightLogs    WeightLog[]
 }
 
-/// Datos antropométricos y objetivos calóricos (uno por usuaria, editable por el admin)
+/// Datos antropométricos y objetivos calóricos (uno por usuaria, editable por el admin).
+/// La proteína y la grasa objetivo son constantes: no cambian según el día.
 model Profile {
   id                     String   @id @default(cuid())
   userId                 String   @unique
@@ -67,23 +69,39 @@ model Profile {
   factorActividad        Float
   getKcal                Int
   deficitDiarioKcal      Int
-  objetivoKcalMediaDia   Int
+  objetivoProteinaG      Int
+  objetivoGrasasG        Int
   presupuestoSemanalKcal Int
   updatedAt              DateTime @updatedAt
 }
 
-/// Plan de un día de la semana para una usuaria concreta: tipo de día y objetivos de kcal/macros
+/// Tipo de día definido por la usuaria/admin (p.ej. "Entrenamiento", "Descanso"),
+/// cada uno con su propio objetivo de carbohidratos. La proteína y la grasa
+/// objetivo no van aquí: son constantes en Profile para todos los días.
+model DayType {
+  id             String   @id @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  nombre         String
+  carbohidratosG Int
+  updatedAt      DateTime @updatedAt
+
+  dayPlans DayPlan[]
+
+  @@unique([userId, nombre])
+}
+
+/// Plan de un día de la semana para una usuaria concreta: qué tipo de día es
+/// (de donde sale el objetivo de carbohidratos; kcal se calcula a partir de
+/// proteína+carbohidratos+grasa).
 model DayPlan {
-  id                    String   @id @default(cuid())
-  userId                String
-  user                  User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  weekday               Weekday
-  tipoDia               String
-  objetivoKcal          Int
-  objetivoProteinaG     Int
-  objetivoCarbohidratosG Int
-  objetivoGrasasG       Int
-  updatedAt             DateTime @updatedAt
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  weekday   Weekday
+  dayTypeId String
+  dayType   DayType  @relation(fields: [dayTypeId], references: [id])
+  updatedAt DateTime @updatedAt
 
   comidas PlannedMeal[]
 
@@ -127,6 +145,26 @@ model MealLog {
   updatedAt      DateTime  @updatedAt
 
   @@index([userId, fecha])
+}
+
+/// Alimento de referencia (tabla de composición), valores por 100 g de porción
+/// comestible. Compartida por todas las usuarias, usada para autorrellenar
+/// kcal/macros al elegir un alimento y una cantidad en gramos.
+model Food {
+  id             String @id @default(cuid())
+  nombre         String
+  /// nombre en minúsculas y sin tildes, para que la búsqueda encuentre
+  /// "platano" al buscar "PLÁTANO" sin depender de extensiones de Postgres
+  busqueda       String
+  categoria      String
+  kcal           Int
+  proteinaG      Float
+  carbohidratosG Float
+  grasasG        Float
+
+  @@unique([nombre, categoria])
+  @@index([categoria])
+  @@index([busqueda])
 }
 
 /// Tabla de equivalentes metabólicos (MET) por tipo de ejercicio

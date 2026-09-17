@@ -13,13 +13,23 @@ Aplicación web (mobile-first, PWA instalable) para el seguimiento diario de die
 ## Modelo de datos
 
 - `User` — cualquier número de usuarias (`USUARIA`) más el/los admin (`ADMIN`).
-- `Profile` — datos antropométricos y objetivos calóricos, uno por usuaria (BMR, GET, objetivo kcal/día...).
-- `DayPlan` — un plan por usuaria y día de la semana, con su tipo de día y objetivos de kcal/macros. **Cada usuaria tiene su propio menú semanal, independiente del de las demás.**
+- `Profile` — datos antropométricos y objetivos calóricos, uno por usuaria (BMR, GET, objetivo kcal/día, **y la proteína/grasa objetivo, constantes para todos los días**).
+- `DayType` — tipos de día definidos por usuaria (p. ej. "Entrenamiento", "Descanso"), cada uno con su propio objetivo de carbohidratos.
+- `DayPlan` — qué `DayType` le toca a cada día de la semana, por usuaria. El objetivo de kcal del día no se guarda: se calcula (proteína×4 + carbohidratos×4 + grasa×9). **Cada usuaria tiene su propio menú semanal, independiente del de las demás.**
 - `PlannedMeal` — cada plato planificado del menú semanal (día + comida) de una usuaria.
 - `MealLog` — comidas realmente registradas por cada usuaria (del plan o libres), editables/borrables el mismo día.
+- `Food` — tabla de composición de ~630 alimentos (kcal/macros por 100 g), compartida por todas las usuarias; alimenta el buscador que autorrellena kcal/macros al registrar o planificar una comida.
 - `ExerciseType` — tabla MET compartida (Descanso, Paseo suave, Caminar rápido...).
 - `ExerciseLog` — sesiones de ejercicio registradas, por usuaria.
 - `WeightLog` — histórico de peso, por usuaria.
+
+### Macros: proteína y grasa fijas, carbohidratos según el día
+
+Por decisión explícita (no del Excel original): la proteína y la grasa objetivo son **siempre las mismas**, todos los días (se editan una vez en el perfil de la usuaria). Lo único que cambia día a día son los carbohidratos, y ese cambio se hace eligiendo un **tipo de día** (p. ej. "Entrenamiento" = más carbohidratos, "Descanso" = menos) en vez de tocar números sueltos. El objetivo de kcal del día sale solo de esos tres valores — nunca se edita a mano ni puede quedar desincronizado.
+
+### Buscador de alimentos
+
+Al registrar una comida (o planificar el menú desde el admin) hay un buscador con desplegable de sugerencias sobre la tabla de composición de alimentos (~630, de la Tabla Novartis). Al elegir uno y poner los gramos, calcula kcal/macros solo y rellena el resto del formulario — sigue siendo editable a mano después, y la entrada manual libre sigue disponible tal cual para lo que no esté en la tabla.
 
 ### Varias personas
 
@@ -130,19 +140,21 @@ src/
       usuarias/[id]/historial/        # histórico de esa persona (solo lectura)
       usuarias/[id]/plan/             # editar su menú semanal, perfil y peso actual
     api/admin/seed/       # endpoint de sembrado único, protegido por SEED_TOKEN
+  components/
+    FoodPicker.tsx          # buscador de alimentos con desplegable, reutilizado en varios formularios
   lib/
     auth/                 # hashing, sesión (JWT en cookie), guards por rol
     data/                  # consultas de lectura (día, semana, estadísticas, usuarias)
-    actions/                # Server Actions de escritura (logs de usuaria + admin)
+    actions/                # Server Actions de escritura (logs de usuaria, admin, búsqueda de alimentos)
     seed-core.ts             # lógica de sembrado, compartida por el script y el endpoint
-    seed-data/                # dieta_maite_seed.json
-    nutrition.ts              # fórmulas: kcal ejercicio, balance diario, semáforo, semana
+    seed-data/                # dieta_maite_seed.json, foods.json (~630 alimentos)
+    nutrition.ts              # fórmulas: kcal ejercicio, balance diario, semáforo, semana, objetivo de kcal
   proxy.ts                 # protección de rutas por rol (antes "middleware")
 ```
 
 ## Qué NO incluye (a propósito, según el encargo)
 
-- Base de datos de alimentos externa ni escáner de código de barras.
+- Escáner de código de barras (sí hay tabla de composición de alimentos con buscador, ver arriba).
 - Notificaciones push.
 - Soporte multi-idioma (todo en español).
 - Pantalla de cambio/recuperación de contraseña (ver arriba cómo cambiarla manualmente).

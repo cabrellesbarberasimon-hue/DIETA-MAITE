@@ -7,6 +7,7 @@ import {
   editMealLogAction,
   deleteMealLogAction,
 } from "@/lib/actions/logs";
+import { FoodPicker, type FoodPickerValues } from "@/components/FoodPicker";
 
 type PlannedMeal = {
   id: string;
@@ -175,32 +176,61 @@ function FreeMealForm({
   onSubmit: (values: MealValues) => void;
   pending: boolean;
 }) {
+  const [fields, setFields] = useState({ nombre: "", kcal: "", proteinaG: "", carbohidratosG: "", grasasG: "" });
+
+  function applyFood(values: FoodPickerValues) {
+    setFields({
+      nombre: values.nombre,
+      kcal: String(values.kcal),
+      proteinaG: String(values.proteinaG),
+      carbohidratosG: String(values.carbohidratosG),
+      grasasG: String(values.grasasG),
+    });
+  }
+
   return (
     <form
       className="mt-3 space-y-2 border-t border-slate-100 pt-3"
       onSubmit={(e) => {
         e.preventDefault();
-        const form = new FormData(e.currentTarget);
         onSubmit({
-          nombre: String(form.get("nombre") ?? ""),
-          kcal: Number(form.get("kcal") ?? 0),
-          proteinaG: Number(form.get("proteinaG") ?? 0),
-          carbohidratosG: Number(form.get("carbohidratosG") ?? 0),
-          grasasG: Number(form.get("grasasG") ?? 0),
+          nombre: fields.nombre,
+          kcal: Number(fields.kcal) || 0,
+          proteinaG: Number(fields.proteinaG) || 0,
+          carbohidratosG: Number(fields.carbohidratosG) || 0,
+          grasasG: Number(fields.grasasG) || 0,
         });
       }}
     >
+      <FoodPicker onApply={applyFood} />
       <input
-        name="nombre"
+        value={fields.nombre}
+        onChange={(e) => setFields((f) => ({ ...f, nombre: e.target.value }))}
         required
         placeholder="¿Qué has comido?"
         className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
       />
       <div className="grid grid-cols-4 gap-2">
-        <NumberField name="kcal" placeholder="kcal" />
-        <NumberField name="proteinaG" placeholder="prot. g" />
-        <NumberField name="carbohidratosG" placeholder="carb. g" />
-        <NumberField name="grasasG" placeholder="gras. g" />
+        <NumberFieldControlled
+          value={fields.kcal}
+          placeholder="kcal"
+          onChange={(v) => setFields((f) => ({ ...f, kcal: v }))}
+        />
+        <NumberFieldControlled
+          value={fields.proteinaG}
+          placeholder="prot. g"
+          onChange={(v) => setFields((f) => ({ ...f, proteinaG: v }))}
+        />
+        <NumberFieldControlled
+          value={fields.carbohidratosG}
+          placeholder="carb. g"
+          onChange={(v) => setFields((f) => ({ ...f, carbohidratosG: v }))}
+        />
+        <NumberFieldControlled
+          value={fields.grasasG}
+          placeholder="gras. g"
+          onChange={(v) => setFields((f) => ({ ...f, grasasG: v }))}
+        />
       </div>
       <button
         type="submit"
@@ -224,33 +254,67 @@ function EditLogForm({
   onCancel: () => void;
   pending: boolean;
 }) {
+  const [fields, setFields] = useState({
+    nombre: log.nombre,
+    kcal: String(log.kcal),
+    proteinaG: String(log.proteinaG),
+    carbohidratosG: String(log.carbohidratosG),
+    grasasG: String(log.grasasG),
+  });
+
+  function applyFood(values: FoodPickerValues) {
+    setFields({
+      nombre: values.nombre,
+      kcal: String(values.kcal),
+      proteinaG: String(values.proteinaG),
+      carbohidratosG: String(values.carbohidratosG),
+      grasasG: String(values.grasasG),
+    });
+  }
+
   return (
     <li className="rounded-xl bg-slate-50 p-3">
       <form
         className="space-y-2"
         onSubmit={(e) => {
           e.preventDefault();
-          const form = new FormData(e.currentTarget);
           onSave({
-            nombre: String(form.get("nombre") ?? ""),
-            kcal: Number(form.get("kcal") ?? 0),
-            proteinaG: Number(form.get("proteinaG") ?? 0),
-            carbohidratosG: Number(form.get("carbohidratosG") ?? 0),
-            grasasG: Number(form.get("grasasG") ?? 0),
+            nombre: fields.nombre,
+            kcal: Number(fields.kcal) || 0,
+            proteinaG: Number(fields.proteinaG) || 0,
+            carbohidratosG: Number(fields.carbohidratosG) || 0,
+            grasasG: Number(fields.grasasG) || 0,
           });
         }}
       >
+        <FoodPicker onApply={applyFood} />
         <input
-          name="nombre"
-          defaultValue={log.nombre}
+          value={fields.nombre}
+          onChange={(e) => setFields((f) => ({ ...f, nombre: e.target.value }))}
           required
           className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
         />
         <div className="grid grid-cols-4 gap-2">
-          <NumberField name="kcal" defaultValue={log.kcal} placeholder="kcal" />
-          <NumberField name="proteinaG" defaultValue={log.proteinaG} placeholder="prot. g" />
-          <NumberField name="carbohidratosG" defaultValue={log.carbohidratosG} placeholder="carb. g" />
-          <NumberField name="grasasG" defaultValue={log.grasasG} placeholder="gras. g" />
+          <NumberFieldControlled
+            value={fields.kcal}
+            placeholder="kcal"
+            onChange={(v) => setFields((f) => ({ ...f, kcal: v }))}
+          />
+          <NumberFieldControlled
+            value={fields.proteinaG}
+            placeholder="prot. g"
+            onChange={(v) => setFields((f) => ({ ...f, proteinaG: v }))}
+          />
+          <NumberFieldControlled
+            value={fields.carbohidratosG}
+            placeholder="carb. g"
+            onChange={(v) => setFields((f) => ({ ...f, carbohidratosG: v }))}
+          />
+          <NumberFieldControlled
+            value={fields.grasasG}
+            placeholder="gras. g"
+            onChange={(v) => setFields((f) => ({ ...f, grasasG: v }))}
+          />
         </div>
         <div className="flex gap-2">
           <button
@@ -273,23 +337,23 @@ function EditLogForm({
   );
 }
 
-function NumberField({
-  name,
+function NumberFieldControlled({
+  value,
   placeholder,
-  defaultValue,
+  onChange,
 }: {
-  name: string;
+  value: string;
   placeholder: string;
-  defaultValue?: number;
+  onChange: (v: string) => void;
 }) {
   return (
     <input
-      name={name}
       type="number"
       inputMode="decimal"
       step="0.1"
       min={0}
-      defaultValue={defaultValue}
+      value={value}
+      onChange={(e) => onChange(e.target.value)}
       placeholder={placeholder}
       required
       className="w-full rounded-lg border border-slate-300 px-2 py-2 text-sm"

@@ -70,7 +70,7 @@ export async function getWeekSummary(userId: string, weekStart: Date): Promise<W
       weekdayLabel: WEEKDAY_LABEL[WEEKDAY_ORDER[i]],
       hasData: true,
       kcalIngeridas: day.macrosIngeridos.kcal,
-      objetivoKcal: day.dayPlan.objetivoKcal,
+      objetivoKcal: day.objetivos.kcal,
       deficitReal: day.balance.deficitReal,
       semaforo: day.balance.semaforo,
     });

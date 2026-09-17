@@ -1,0 +1,5058 @@
+[
+  {
+    "nombre": "ACEITE DE CACAHUETE",
+    "categoria": "Aceites y grasas",
+    "kcal": 900,
+    "proteinaG": 0,
+    "carbohidratosG": 0,
+    "grasasG": 100
+  },
+  {
+    "nombre": "ACEITE DE CÁRTAMO",
+    "categoria": "Aceites y grasas",
+    "kcal": 900,
+    "proteinaG": 0,
+    "carbohidratosG": 0,
+    "grasasG": 100
+  },
+  {
+    "nombre": "ACEITE DE COCO",
+    "categoria": "Aceites y grasas",
+    "kcal": 900,
+    "proteinaG": 0,
+    "carbohidratosG": 0,
+    "grasasG": 100
+  },
+  {
+    "nombre": "ACEITE DE COLZA",
+    "categoria": "Aceites y grasas",
+    "kcal": 900,
+    "proteinaG": 0,
+    "carbohidratosG": 0,
+    "grasasG": 100
+  },
+  {
+    "nombre": "ACEITE DE GERMEN DE TRIGO",
+    "categoria": "Aceites y grasas",
+    "kcal": 900,
+    "proteinaG": 0,
+    "carbohidratosG": 0,
+    "grasasG": 100
+  },
+  {
+    "nombre": "ACEITE DE GIRASOL",
+    "categoria": "Aceites y grasas",
+    "kcal": 900,
+    "proteinaG": 0,
+    "carbohidratosG": 0,
+    "grasasG": 100
+  },
+  {
+    "nombre": "ACEITE DE MAÍZ",
+    "categoria": "Aceites y grasas",
+    "kcal": 900,
+    "proteinaG": 0,
+    "carbohidratosG": 0,
+    "grasasG": 100
+  },
+  {
+    "nombre": "ACEITE DE NUEZ",
+    "categoria": "Aceites y grasas",
+    "kcal": 900,
+    "proteinaG": 0,
+    "carbohidratosG": 0,
+    "grasasG": 100
+  },
+  {
+    "nombre": "ACEITE DE OLIVA",
+    "categoria": "Aceites y grasas",
+    "kcal": 900,
+    "proteinaG": 0,
+    "carbohidratosG": 0,
+    "grasasG": 100
+  },
+  {
+    "nombre": "ACEITE DE PEPITA DE UVA",
+    "categoria": "Aceites y grasas",
+    "kcal": 899,
+    "proteinaG": 0,
+    "carbohidratosG": 0,
+    "grasasG": 99.9
+  },
+  {
+    "nombre": "ACEITE DE SOJA",
+    "categoria": "Aceites y grasas",
+    "kcal": 900,
+    "proteinaG": 0,
+    "carbohidratosG": 0,
+    "grasasG": 100
+  },
+  {
+    "nombre": "ACEITE HÍGADO BACALAO",
+    "categoria": "Aceites y grasas",
+    "kcal": 899,
+    "proteinaG": 0,
+    "carbohidratosG": 0,
+    "grasasG": 99.9
+  },
+  {
+    "nombre": "MANTECA",
+    "categoria": "Aceites y grasas",
+    "kcal": 670,
+    "proteinaG": 10,
+    "carbohidratosG": 0,
+    "grasasG": 70
+  },
+  {
+    "nombre": "MANTEQUILLA",
+    "categoria": "Aceites y grasas",
+    "kcal": 752,
+    "proteinaG": 0.7,
+    "carbohidratosG": 0.6,
+    "grasasG": 83
+  },
+  {
+    "nombre": "MARGARINA LIGHT",
+    "categoria": "Aceites y grasas",
+    "kcal": 378,
+    "proteinaG": 0.7,
+    "carbohidratosG": 0.5,
+    "grasasG": 41.5
+  },
+  {
+    "nombre": "MARGARINA VEGETAL",
+    "categoria": "Aceites y grasas",
+    "kcal": 752,
+    "proteinaG": 0,
+    "carbohidratosG": 0.4,
+    "grasasG": 83.5
+  },
+  {
+    "nombre": "MAYONESA",
+    "categoria": "Aceites y grasas",
+    "kcal": 718,
+    "proteinaG": 1.8,
+    "carbohidratosG": 0.1,
+    "grasasG": 78.9
+  },
+  {
+    "nombre": "MAYONESA LIGTH",
+    "categoria": "Aceites y grasas",
+    "kcal": 396,
+    "proteinaG": 1,
+    "carbohidratosG": 11.6,
+    "grasasG": 38.5
+  },
+  {
+    "nombre": "NATA",
+    "categoria": "Aceites y grasas",
+    "kcal": 447,
+    "proteinaG": 1.5,
+    "carbohidratosG": 2,
+    "grasasG": 48.2
+  },
+  {
+    "nombre": "NATA MONTADA",
+    "categoria": "Aceites y grasas",
+    "kcal": 331,
+    "proteinaG": 2.1,
+    "carbohidratosG": 10.1,
+    "grasasG": 31.4
+  },
+  {
+    "nombre": "NATA/CREMA DE LECHE",
+    "categoria": "Aceites y grasas",
+    "kcal": 298,
+    "proteinaG": 3,
+    "carbohidratosG": 4,
+    "grasasG": 30
+  },
+  {
+    "nombre": "AGUARDIENTE",
+    "categoria": "Bebidas",
+    "kcal": 280,
+    "proteinaG": 0,
+    "carbohidratosG": 0,
+    "grasasG": 0
+  },
+  {
+    "nombre": "ANÍS",
+    "categoria": "Bebidas",
+    "kcal": 312,
+    "proteinaG": 0,
+    "carbohidratosG": 30,
+    "grasasG": 0
+  },
+  {
+    "nombre": "AQUARIUS",
+    "categoria": "Bebidas",
+    "kcal": 25,
+    "proteinaG": 0,
+    "carbohidratosG": 6.3,
+    "grasasG": 0
+  },
+  {
+    "nombre": "BATIDO CACAO",
+    "categoria": "Bebidas",
+    "kcal": 100,
+    "proteinaG": 3.8,
+    "carbohidratosG": 10.9,
+    "grasasG": 4.6
+  },
+  {
+    "nombre": "CAFÉ",
+    "categoria": "Bebidas",
+    "kcal": 5,
+    "proteinaG": 0.3,
+    "carbohidratosG": 0.8,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "CAVA",
+    "categoria": "Bebidas",
+    "kcal": 65,
+    "proteinaG": 0,
+    "carbohidratosG": 0.2,
+    "grasasG": 0
+  },
+  {
+    "nombre": "CERVEZA",
+    "categoria": "Bebidas",
+    "kcal": 45,
+    "proteinaG": 0.4,
+    "carbohidratosG": 4,
+    "grasasG": 0
+  },
+  {
+    "nombre": "CERVEZA NEGRA",
+    "categoria": "Bebidas",
+    "kcal": 37,
+    "proteinaG": 0.3,
+    "carbohidratosG": 4,
+    "grasasG": 0
+  },
+  {
+    "nombre": "COLA",
+    "categoria": "Bebidas",
+    "kcal": 42,
+    "proteinaG": 0,
+    "carbohidratosG": 10.5,
+    "grasasG": 0
+  },
+  {
+    "nombre": "COÑAC",
+    "categoria": "Bebidas",
+    "kcal": 243,
+    "proteinaG": 0,
+    "carbohidratosG": 0,
+    "grasasG": 0
+  },
+  {
+    "nombre": "EKO (MALTA)",
+    "categoria": "Bebidas",
+    "kcal": 374,
+    "proteinaG": 6,
+    "carbohidratosG": 87.4,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "GASEOSA LIGHT",
+    "categoria": "Bebidas",
+    "kcal": 1,
+    "proteinaG": 0,
+    "carbohidratosG": 0.1,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "GASEOSAS/REFRESCOS",
+    "categoria": "Bebidas",
+    "kcal": 48,
+    "proteinaG": 0,
+    "carbohidratosG": 12,
+    "grasasG": 0
+  },
+  {
+    "nombre": "GATORADE",
+    "categoria": "Bebidas",
+    "kcal": 24,
+    "proteinaG": 0,
+    "carbohidratosG": 6,
+    "grasasG": 0
+  },
+  {
+    "nombre": "GINEBRA",
+    "categoria": "Bebidas",
+    "kcal": 244,
+    "proteinaG": 0,
+    "carbohidratosG": 0,
+    "grasasG": 0
+  },
+  {
+    "nombre": "ISOSTAR",
+    "categoria": "Bebidas",
+    "kcal": 26,
+    "proteinaG": 0,
+    "carbohidratosG": 6.7,
+    "grasasG": 0
+  },
+  {
+    "nombre": "LECHE DE ALMENDRAS",
+    "categoria": "Bebidas",
+    "kcal": 335,
+    "proteinaG": 5,
+    "carbohidratosG": 54,
+    "grasasG": 11
+  },
+  {
+    "nombre": "RON",
+    "categoria": "Bebidas",
+    "kcal": 244,
+    "proteinaG": 0,
+    "carbohidratosG": 0,
+    "grasasG": 0
+  },
+  {
+    "nombre": "SIDRA DULCE",
+    "categoria": "Bebidas",
+    "kcal": 33,
+    "proteinaG": 0,
+    "carbohidratosG": 5,
+    "grasasG": 0
+  },
+  {
+    "nombre": "SIDRA SECA",
+    "categoria": "Bebidas",
+    "kcal": 35,
+    "proteinaG": 0,
+    "carbohidratosG": 0,
+    "grasasG": 0
+  },
+  {
+    "nombre": "SODA/SIFÓN",
+    "categoria": "Bebidas",
+    "kcal": 0,
+    "proteinaG": 0,
+    "carbohidratosG": 0,
+    "grasasG": 0
+  },
+  {
+    "nombre": "TÉ",
+    "categoria": "Bebidas",
+    "kcal": 2,
+    "proteinaG": 0.1,
+    "carbohidratosG": 0.4,
+    "grasasG": 0
+  },
+  {
+    "nombre": "VERMUT DULCE",
+    "categoria": "Bebidas",
+    "kcal": 160,
+    "proteinaG": 0.3,
+    "carbohidratosG": 14,
+    "grasasG": 0
+  },
+  {
+    "nombre": "VINAGRE",
+    "categoria": "Bebidas",
+    "kcal": 25,
+    "proteinaG": 0.4,
+    "carbohidratosG": 0.6,
+    "grasasG": 0
+  },
+  {
+    "nombre": "VINO DE JEREZ",
+    "categoria": "Bebidas",
+    "kcal": 160,
+    "proteinaG": 0.3,
+    "carbohidratosG": 14,
+    "grasasG": 0
+  },
+  {
+    "nombre": "VINO DE MESA",
+    "categoria": "Bebidas",
+    "kcal": 70,
+    "proteinaG": 0,
+    "carbohidratosG": 2.1,
+    "grasasG": 0
+  },
+  {
+    "nombre": "VINO DE OPORTO",
+    "categoria": "Bebidas",
+    "kcal": 160,
+    "proteinaG": 0.3,
+    "carbohidratosG": 14,
+    "grasasG": 0
+  },
+  {
+    "nombre": "WHISKY",
+    "categoria": "Bebidas",
+    "kcal": 244,
+    "proteinaG": 0,
+    "carbohidratosG": 0,
+    "grasasG": 0
+  },
+  {
+    "nombre": "BIZCOCHO (1)",
+    "categoria": "Bollería",
+    "kcal": 331,
+    "proteinaG": 4.7,
+    "carbohidratosG": 77.2,
+    "grasasG": 2.5
+  },
+  {
+    "nombre": "BIZCOCHO (2)",
+    "categoria": "Bollería",
+    "kcal": 456,
+    "proteinaG": 5.6,
+    "carbohidratosG": 79.1,
+    "grasasG": 15.2
+  },
+  {
+    "nombre": "BIZCOCHO DE CHOCOLATE",
+    "categoria": "Bollería",
+    "kcal": 456,
+    "proteinaG": 7.4,
+    "carbohidratosG": 50.4,
+    "grasasG": 26.4
+  },
+  {
+    "nombre": "BOLLO/ENSAIMADA",
+    "categoria": "Bollería",
+    "kcal": 469,
+    "proteinaG": 6.4,
+    "carbohidratosG": 65.5,
+    "grasasG": 22
+  },
+  {
+    "nombre": "BUÑUELOS (1)",
+    "categoria": "Bollería",
+    "kcal": 408,
+    "proteinaG": 6.3,
+    "carbohidratosG": 51.6,
+    "grasasG": 20.1
+  },
+  {
+    "nombre": "CAKE",
+    "categoria": "Bollería",
+    "kcal": 456,
+    "proteinaG": 5.6,
+    "carbohidratosG": 79.1,
+    "grasasG": 15.2
+  },
+  {
+    "nombre": "CROISSANT DE CHOCOLATE",
+    "categoria": "Bollería",
+    "kcal": 469,
+    "proteinaG": 6.4,
+    "carbohidratosG": 65.5,
+    "grasasG": 22
+  },
+  {
+    "nombre": "DONUTS/CROISSANT",
+    "categoria": "Bollería",
+    "kcal": 456,
+    "proteinaG": 5.6,
+    "carbohidratosG": 79.1,
+    "grasasG": 15.2
+  },
+  {
+    "nombre": "GALLETA CON CHOCOLATE",
+    "categoria": "Bollería",
+    "kcal": 524,
+    "proteinaG": 5.7,
+    "carbohidratosG": 67.4,
+    "grasasG": 27.6
+  },
+  {
+    "nombre": "GALLETA MANTEQUILLA (dan)",
+    "categoria": "Bollería",
+    "kcal": 397,
+    "proteinaG": 6.7,
+    "carbohidratosG": 74.3,
+    "grasasG": 8.2
+  },
+  {
+    "nombre": "GALLETA MARÍA",
+    "categoria": "Bollería",
+    "kcal": 436,
+    "proteinaG": 7,
+    "carbohidratosG": 74,
+    "grasasG": 14.5
+  },
+  {
+    "nombre": "GALLETA SALADA",
+    "categoria": "Bollería",
+    "kcal": 464,
+    "proteinaG": 10.8,
+    "carbohidratosG": 75.8,
+    "grasasG": 13.1
+  },
+  {
+    "nombre": "GANCHITOS",
+    "categoria": "Bollería",
+    "kcal": 504,
+    "proteinaG": 9.9,
+    "carbohidratosG": 56.9,
+    "grasasG": 26.2
+  },
+  {
+    "nombre": "MAGDALENAS",
+    "categoria": "Bollería",
+    "kcal": 469,
+    "proteinaG": 6.4,
+    "carbohidratosG": 65.5,
+    "grasasG": 22
+  },
+  {
+    "nombre": "MELINDROS/ROSCOS",
+    "categoria": "Bollería",
+    "kcal": 440,
+    "proteinaG": 10.8,
+    "carbohidratosG": 75.8,
+    "grasasG": 12.5
+  },
+  {
+    "nombre": "PASTA HOJALDRE cocida",
+    "categoria": "Bollería",
+    "kcal": 565,
+    "proteinaG": 5.8,
+    "carbohidratosG": 47.4,
+    "grasasG": 40.5
+  },
+  {
+    "nombre": "PASTA LIONESA (Choux) cocida",
+    "categoria": "Bollería",
+    "kcal": 330,
+    "proteinaG": 8.5,
+    "carbohidratosG": 30.7,
+    "grasasG": 20.1
+  },
+  {
+    "nombre": "PASTAS DE TÉ",
+    "categoria": "Bollería",
+    "kcal": 456,
+    "proteinaG": 5.6,
+    "carbohidratosG": 79.1,
+    "grasasG": 15.2
+  },
+  {
+    "nombre": "PASTEL DE MANZANA",
+    "categoria": "Bollería",
+    "kcal": 311,
+    "proteinaG": 3.6,
+    "carbohidratosG": 40.1,
+    "grasasG": 15.1
+  },
+  {
+    "nombre": "PASTEL DE QUESO",
+    "categoria": "Bollería",
+    "kcal": 414,
+    "proteinaG": 19.8,
+    "carbohidratosG": 40.4,
+    "grasasG": 19.2
+  },
+  {
+    "nombre": "PASTEL MANZANA HOJALDRE",
+    "categoria": "Bollería",
+    "kcal": 456,
+    "proteinaG": 5.6,
+    "carbohidratosG": 79.1,
+    "grasasG": 15.2
+  },
+  {
+    "nombre": "REPOSTERÍA",
+    "categoria": "Bollería",
+    "kcal": 387,
+    "proteinaG": 5.2,
+    "carbohidratosG": 49.2,
+    "grasasG": 20.2
+  },
+  {
+    "nombre": "BACÓN",
+    "categoria": "Cárnicos",
+    "kcal": 665,
+    "proteinaG": 8.4,
+    "carbohidratosG": 1,
+    "grasasG": 69.3
+  },
+  {
+    "nombre": "BALLENA",
+    "categoria": "Cárnicos",
+    "kcal": 134,
+    "proteinaG": 23.2,
+    "carbohidratosG": 2.2,
+    "grasasG": 3.3
+  },
+  {
+    "nombre": "BUEY GRASO FILETE",
+    "categoria": "Cárnicos",
+    "kcal": 176,
+    "proteinaG": 20.2,
+    "carbohidratosG": 0,
+    "grasasG": 10.6
+  },
+  {
+    "nombre": "BUEY SEMIGRASO",
+    "categoria": "Cárnicos",
+    "kcal": 158,
+    "proteinaG": 21.3,
+    "carbohidratosG": 0,
+    "grasasG": 7.4
+  },
+  {
+    "nombre": "BUEY SOLOMILLO",
+    "categoria": "Cárnicos",
+    "kcal": 111,
+    "proteinaG": 20.4,
+    "carbohidratosG": 0,
+    "grasasG": 3.3
+  },
+  {
+    "nombre": "BUTIFARRA COCIDA",
+    "categoria": "Cárnicos",
+    "kcal": 390,
+    "proteinaG": 14.1,
+    "carbohidratosG": 0.3,
+    "grasasG": 36
+  },
+  {
+    "nombre": "BUTIFARRA Y SALCHICHA",
+    "categoria": "Cárnicos",
+    "kcal": 326,
+    "proteinaG": 13,
+    "carbohidratosG": 1.2,
+    "grasasG": 30
+  },
+  {
+    "nombre": "CABALLO",
+    "categoria": "Cárnicos",
+    "kcal": 110,
+    "proteinaG": 21,
+    "carbohidratosG": 1,
+    "grasasG": 2
+  },
+  {
+    "nombre": "CABEZA DE JABALÍ",
+    "categoria": "Cárnicos",
+    "kcal": 540,
+    "proteinaG": 20.4,
+    "carbohidratosG": 0.8,
+    "grasasG": 50.6
+  },
+  {
+    "nombre": "CABRITO",
+    "categoria": "Cárnicos",
+    "kcal": 113,
+    "proteinaG": 19.3,
+    "carbohidratosG": 0,
+    "grasasG": 4
+  },
+  {
+    "nombre": "CALLOS",
+    "categoria": "Cárnicos",
+    "kcal": 81,
+    "proteinaG": 14.6,
+    "carbohidratosG": 0,
+    "grasasG": 2.5
+  },
+  {
+    "nombre": "CARNE PICADA",
+    "categoria": "Cárnicos",
+    "kcal": 265,
+    "proteinaG": 15.2,
+    "carbohidratosG": 5.3,
+    "grasasG": 20.5
+  },
+  {
+    "nombre": "CERDO CHULETAS",
+    "categoria": "Cárnicos",
+    "kcal": 330,
+    "proteinaG": 15,
+    "carbohidratosG": 0,
+    "grasasG": 30
+  },
+  {
+    "nombre": "CERDO CORAZÓN",
+    "categoria": "Cárnicos",
+    "kcal": 109,
+    "proteinaG": 16.9,
+    "carbohidratosG": 0,
+    "grasasG": 3.6
+  },
+  {
+    "nombre": "CERDO COSTILLAS",
+    "categoria": "Cárnicos",
+    "kcal": 280,
+    "proteinaG": 17.1,
+    "carbohidratosG": 0,
+    "grasasG": 23.6
+  },
+  {
+    "nombre": "CERDO HÍGADO",
+    "categoria": "Cárnicos",
+    "kcal": 153,
+    "proteinaG": 21,
+    "carbohidratosG": 1.5,
+    "grasasG": 7
+  },
+  {
+    "nombre": "CERDO LOMO",
+    "categoria": "Cárnicos",
+    "kcal": 208,
+    "proteinaG": 16,
+    "carbohidratosG": 0,
+    "grasasG": 29.5
+  },
+  {
+    "nombre": "CERDO MAGRO",
+    "categoria": "Cárnicos",
+    "kcal": 155,
+    "proteinaG": 20,
+    "carbohidratosG": 0,
+    "grasasG": 8.3
+  },
+  {
+    "nombre": "CERDO PANCETA",
+    "categoria": "Cárnicos",
+    "kcal": 469,
+    "proteinaG": 12.5,
+    "carbohidratosG": 0,
+    "grasasG": 46.6
+  },
+  {
+    "nombre": "CERDO PIES",
+    "categoria": "Cárnicos",
+    "kcal": 290,
+    "proteinaG": 16,
+    "carbohidratosG": 0.5,
+    "grasasG": 25
+  },
+  {
+    "nombre": "CERDO SEMIGRASO",
+    "categoria": "Cárnicos",
+    "kcal": 273,
+    "proteinaG": 16.6,
+    "carbohidratosG": 0,
+    "grasasG": 23
+  },
+  {
+    "nombre": "CERDO TOCINO",
+    "categoria": "Cárnicos",
+    "kcal": 673,
+    "proteinaG": 8.4,
+    "carbohidratosG": 0,
+    "grasasG": 71
+  },
+  {
+    "nombre": "CHICHARRÓN",
+    "categoria": "Cárnicos",
+    "kcal": 601,
+    "proteinaG": 22,
+    "carbohidratosG": 0,
+    "grasasG": 57
+  },
+  {
+    "nombre": "CHORIZO/SOBRASADA (1)",
+    "categoria": "Cárnicos",
+    "kcal": 468,
+    "proteinaG": 17.6,
+    "carbohidratosG": 0,
+    "grasasG": 44.2
+  },
+  {
+    "nombre": "CHORIZO/SOBRASADA (2)",
+    "categoria": "Cárnicos",
+    "kcal": 384,
+    "proteinaG": 22,
+    "carbohidratosG": 2,
+    "grasasG": 32.1
+  },
+  {
+    "nombre": "CHOTO",
+    "categoria": "Cárnicos",
+    "kcal": 161,
+    "proteinaG": 19.5,
+    "carbohidratosG": 0,
+    "grasasG": 7.9
+  },
+  {
+    "nombre": "CODORNIZ/PERDIZ (1)",
+    "categoria": "Cárnicos",
+    "kcal": 114,
+    "proteinaG": 25,
+    "carbohidratosG": 0.5,
+    "grasasG": 1.4
+  },
+  {
+    "nombre": "CODORNIZ/PERDIZ (2)",
+    "categoria": "Cárnicos",
+    "kcal": 106,
+    "proteinaG": 23,
+    "carbohidratosG": 0,
+    "grasasG": 1.6
+  },
+  {
+    "nombre": "CONEJO/LIEBRE",
+    "categoria": "Cárnicos",
+    "kcal": 162,
+    "proteinaG": 22,
+    "carbohidratosG": 0,
+    "grasasG": 8
+  },
+  {
+    "nombre": "CORDERO CHULETA",
+    "categoria": "Cárnicos",
+    "kcal": 225,
+    "proteinaG": 18,
+    "carbohidratosG": 0,
+    "grasasG": 17
+  },
+  {
+    "nombre": "CORDERO CORAZÓN",
+    "categoria": "Cárnicos",
+    "kcal": 169,
+    "proteinaG": 16.8,
+    "carbohidratosG": 0,
+    "grasasG": 10
+  },
+  {
+    "nombre": "CORDERO COSTILLA",
+    "categoria": "Cárnicos",
+    "kcal": 215,
+    "proteinaG": 18,
+    "carbohidratosG": 0,
+    "grasasG": 17
+  },
+  {
+    "nombre": "CORDERO HÍGADO",
+    "categoria": "Cárnicos",
+    "kcal": 132,
+    "proteinaG": 21,
+    "carbohidratosG": 3,
+    "grasasG": 4
+  },
+  {
+    "nombre": "CORDERO PIERNA",
+    "categoria": "Cárnicos",
+    "kcal": 248,
+    "proteinaG": 17,
+    "carbohidratosG": 0,
+    "grasasG": 19
+  },
+  {
+    "nombre": "FAISÁN",
+    "categoria": "Cárnicos",
+    "kcal": 116,
+    "proteinaG": 22.8,
+    "carbohidratosG": 0,
+    "grasasG": 2.8
+  },
+  {
+    "nombre": "FOIE-GRAS/PATÉ",
+    "categoria": "Cárnicos",
+    "kcal": 518,
+    "proteinaG": 7,
+    "carbohidratosG": 10,
+    "grasasG": 50
+  },
+  {
+    "nombre": "GALLINA",
+    "categoria": "Cárnicos",
+    "kcal": 369,
+    "proteinaG": 24,
+    "carbohidratosG": 0,
+    "grasasG": 29.5
+  },
+  {
+    "nombre": "GANSO",
+    "categoria": "Cárnicos",
+    "kcal": 273,
+    "proteinaG": 29.1,
+    "carbohidratosG": 0,
+    "grasasG": 17.5
+  },
+  {
+    "nombre": "GELATINA",
+    "categoria": "Cárnicos",
+    "kcal": 337,
+    "proteinaG": 84.4,
+    "carbohidratosG": 0,
+    "grasasG": 0
+  },
+  {
+    "nombre": "HAMBURGUESA",
+    "categoria": "Cárnicos",
+    "kcal": 265,
+    "proteinaG": 15.2,
+    "carbohidratosG": 5.3,
+    "grasasG": 20.5
+  },
+  {
+    "nombre": "HAMBURGUESA (carne picada)",
+    "categoria": "Cárnicos",
+    "kcal": 265,
+    "proteinaG": 15.2,
+    "carbohidratosG": 5.3,
+    "grasasG": 20.5
+  },
+  {
+    "nombre": "HAMBURGUESA Big Mac (McD)",
+    "categoria": "Cárnicos",
+    "kcal": 260,
+    "proteinaG": 11.7,
+    "carbohidratosG": 19.7,
+    "grasasG": 15
+  },
+  {
+    "nombre": "HAMBURGUESA Mc Donald",
+    "categoria": "Cárnicos",
+    "kcal": 255,
+    "proteinaG": 12.1,
+    "carbohidratosG": 30,
+    "grasasG": 9.3
+  },
+  {
+    "nombre": "HAMBURGUESA Queso (McD)",
+    "categoria": "Cárnicos",
+    "kcal": 267,
+    "proteinaG": 12.9,
+    "carbohidratosG": 26.9,
+    "grasasG": 11.9
+  },
+  {
+    "nombre": "JAMÓN COCIDO",
+    "categoria": "Cárnicos",
+    "kcal": 352,
+    "proteinaG": 21.5,
+    "carbohidratosG": 0.8,
+    "grasasG": 29.2
+  },
+  {
+    "nombre": "JAMÓN DEL PAÍS",
+    "categoria": "Cárnicos",
+    "kcal": 380,
+    "proteinaG": 17,
+    "carbohidratosG": 0,
+    "grasasG": 35
+  },
+  {
+    "nombre": "JAMÓN SERRANO",
+    "categoria": "Cárnicos",
+    "kcal": 170,
+    "proteinaG": 33,
+    "carbohidratosG": 0,
+    "grasasG": 4.4
+  },
+  {
+    "nombre": "JAMÓN YORK",
+    "categoria": "Cárnicos",
+    "kcal": 289,
+    "proteinaG": 20.9,
+    "carbohidratosG": 0,
+    "grasasG": 22.1
+  },
+  {
+    "nombre": "LENGUAS",
+    "categoria": "Cárnicos",
+    "kcal": 186,
+    "proteinaG": 16.8,
+    "carbohidratosG": 0,
+    "grasasG": 13.2
+  },
+  {
+    "nombre": "LOMO EMBUCHADO",
+    "categoria": "Cárnicos",
+    "kcal": 380,
+    "proteinaG": 17,
+    "carbohidratosG": 0,
+    "grasasG": 35
+  },
+  {
+    "nombre": "LONGANIZA",
+    "categoria": "Cárnicos",
+    "kcal": 152,
+    "proteinaG": 20,
+    "carbohidratosG": 0,
+    "grasasG": 8
+  },
+  {
+    "nombre": "MOLLEJAS",
+    "categoria": "Cárnicos",
+    "kcal": 131,
+    "proteinaG": 15.3,
+    "carbohidratosG": 0,
+    "grasasG": 7.8
+  },
+  {
+    "nombre": "MORCILLAS",
+    "categoria": "Cárnicos",
+    "kcal": 430,
+    "proteinaG": 19.5,
+    "carbohidratosG": 3,
+    "grasasG": 37.8
+  },
+  {
+    "nombre": "MORTADELA (1)",
+    "categoria": "Cárnicos",
+    "kcal": 310,
+    "proteinaG": 14,
+    "carbohidratosG": 3,
+    "grasasG": 21
+  },
+  {
+    "nombre": "MORTADELA (2)",
+    "categoria": "Cárnicos",
+    "kcal": 265,
+    "proteinaG": 19,
+    "carbohidratosG": 0,
+    "grasasG": 21
+  },
+  {
+    "nombre": "PATO",
+    "categoria": "Cárnicos",
+    "kcal": 200,
+    "proteinaG": 22,
+    "carbohidratosG": 0.5,
+    "grasasG": 14
+  },
+  {
+    "nombre": "PAVO",
+    "categoria": "Cárnicos",
+    "kcal": 223,
+    "proteinaG": 31.9,
+    "carbohidratosG": 0,
+    "grasasG": 9.6
+  },
+  {
+    "nombre": "PIES DE CERDO",
+    "categoria": "Cárnicos",
+    "kcal": 290,
+    "proteinaG": 16,
+    "carbohidratosG": 0.5,
+    "grasasG": 25
+  },
+  {
+    "nombre": "POLLO ASADO",
+    "categoria": "Cárnicos",
+    "kcal": 161,
+    "proteinaG": 26.4,
+    "carbohidratosG": 0,
+    "grasasG": 6.2
+  },
+  {
+    "nombre": "POLLO BRUTO",
+    "categoria": "Cárnicos",
+    "kcal": 85,
+    "proteinaG": 14.3,
+    "carbohidratosG": 0,
+    "grasasG": 3
+  },
+  {
+    "nombre": "POLLO CORAZÓN",
+    "categoria": "Cárnicos",
+    "kcal": 132,
+    "proteinaG": 17.3,
+    "carbohidratosG": 0,
+    "grasasG": 5.8
+  },
+  {
+    "nombre": "POLLO DESHUESADO",
+    "categoria": "Cárnicos",
+    "kcal": 121,
+    "proteinaG": 20.5,
+    "carbohidratosG": 0,
+    "grasasG": 4.3
+  },
+  {
+    "nombre": "POLLO FILETES",
+    "categoria": "Cárnicos",
+    "kcal": 112,
+    "proteinaG": 21.8,
+    "carbohidratosG": 0,
+    "grasasG": 2.8
+  },
+  {
+    "nombre": "POLLO HÍGADO",
+    "categoria": "Cárnicos",
+    "kcal": 129,
+    "proteinaG": 19.7,
+    "carbohidratosG": 2.9,
+    "grasasG": 3.7
+  },
+  {
+    "nombre": "RIÑONES",
+    "categoria": "Cárnicos",
+    "kcal": 109,
+    "proteinaG": 16,
+    "carbohidratosG": 0,
+    "grasasG": 5
+  },
+  {
+    "nombre": "SALAMI",
+    "categoria": "Cárnicos",
+    "kcal": 459,
+    "proteinaG": 18.5,
+    "carbohidratosG": 1.8,
+    "grasasG": 42
+  },
+  {
+    "nombre": "SALCHICHA DE FRANKFURT",
+    "categoria": "Cárnicos",
+    "kcal": 235,
+    "proteinaG": 12,
+    "carbohidratosG": 3,
+    "grasasG": 19.5
+  },
+  {
+    "nombre": "SALCHICHA FRESCA",
+    "categoria": "Cárnicos",
+    "kcal": 295,
+    "proteinaG": 12.9,
+    "carbohidratosG": 0,
+    "grasasG": 27
+  },
+  {
+    "nombre": "SALCHICHAS FRANKFURT",
+    "categoria": "Cárnicos",
+    "kcal": 315,
+    "proteinaG": 20.4,
+    "carbohidratosG": 0.6,
+    "grasasG": 25
+  },
+  {
+    "nombre": "SALCHICHÓN (1)",
+    "categoria": "Cárnicos",
+    "kcal": 454,
+    "proteinaG": 25.8,
+    "carbohidratosG": 2,
+    "grasasG": 38.1
+  },
+  {
+    "nombre": "SALCHICHÓN (2)",
+    "categoria": "Cárnicos",
+    "kcal": 294,
+    "proteinaG": 14,
+    "carbohidratosG": 1,
+    "grasasG": 26
+  },
+  {
+    "nombre": "SANGRE",
+    "categoria": "Cárnicos",
+    "kcal": 81,
+    "proteinaG": 18,
+    "carbohidratosG": 0,
+    "grasasG": 1
+  },
+  {
+    "nombre": "SESOS",
+    "categoria": "Cárnicos",
+    "kcal": 113,
+    "proteinaG": 10.3,
+    "carbohidratosG": 0,
+    "grasasG": 8
+  },
+  {
+    "nombre": "TERNERA CHULETA",
+    "categoria": "Cárnicos",
+    "kcal": 168,
+    "proteinaG": 19,
+    "carbohidratosG": 0,
+    "grasasG": 10
+  },
+  {
+    "nombre": "TERNERA FILETE",
+    "categoria": "Cárnicos",
+    "kcal": 181,
+    "proteinaG": 19,
+    "carbohidratosG": 0.5,
+    "grasasG": 11
+  },
+  {
+    "nombre": "TERNERA HÍGADO",
+    "categoria": "Cárnicos",
+    "kcal": 140,
+    "proteinaG": 19,
+    "carbohidratosG": 5.3,
+    "grasasG": 3.8
+  },
+  {
+    "nombre": "TERNERA LENGUA",
+    "categoria": "Cárnicos",
+    "kcal": 207,
+    "proteinaG": 16,
+    "carbohidratosG": 0.4,
+    "grasasG": 15
+  },
+  {
+    "nombre": "TERNERA RIÑÓN",
+    "categoria": "Cárnicos",
+    "kcal": 86,
+    "proteinaG": 16,
+    "carbohidratosG": 0,
+    "grasasG": 2.6
+  },
+  {
+    "nombre": "TERNERA SESOS",
+    "categoria": "Cárnicos",
+    "kcal": 125,
+    "proteinaG": 10.4,
+    "carbohidratosG": 0.8,
+    "grasasG": 8.6
+  },
+  {
+    "nombre": "TERNERA SOLOMILLO",
+    "categoria": "Cárnicos",
+    "kcal": 90,
+    "proteinaG": 18.8,
+    "carbohidratosG": 0,
+    "grasasG": 1.7
+  },
+  {
+    "nombre": "TRIPAS",
+    "categoria": "Cárnicos",
+    "kcal": 100,
+    "proteinaG": 19,
+    "carbohidratosG": 0,
+    "grasasG": 2
+  },
+  {
+    "nombre": "VACUNO CHULETA",
+    "categoria": "Cárnicos",
+    "kcal": 253,
+    "proteinaG": 17,
+    "carbohidratosG": 0,
+    "grasasG": 20.5
+  },
+  {
+    "nombre": "VACUNO CORAZÓN",
+    "categoria": "Cárnicos",
+    "kcal": 118,
+    "proteinaG": 15.9,
+    "carbohidratosG": 0,
+    "grasasG": 5.1
+  },
+  {
+    "nombre": "VACUNO MAGRA",
+    "categoria": "Cárnicos",
+    "kcal": 131,
+    "proteinaG": 20.7,
+    "carbohidratosG": 0,
+    "grasasG": 5.4
+  },
+  {
+    "nombre": "VACUNO SEMIGRASO",
+    "categoria": "Cárnicos",
+    "kcal": 256,
+    "proteinaG": 16.7,
+    "carbohidratosG": 0,
+    "grasasG": 21
+  },
+  {
+    "nombre": "ALMIDÓN DE MAÍZ",
+    "categoria": "Cereales y pasta",
+    "kcal": 346,
+    "proteinaG": 0.4,
+    "carbohidratosG": 85.9,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "ALMIDÓN DE TRIGO",
+    "categoria": "Cereales y pasta",
+    "kcal": 348,
+    "proteinaG": 0.4,
+    "carbohidratosG": 86.1,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "ANILLOS avena integ.“Cheerios”",
+    "categoria": "Cereales y pasta",
+    "kcal": 391,
+    "proteinaG": 15.1,
+    "carbohidratosG": 69.1,
+    "grasasG": 6.4
+  },
+  {
+    "nombre": "ANILLOS nuez/miel “CheErios”",
+    "categoria": "Cereales y pasta",
+    "kcal": 371,
+    "proteinaG": 11,
+    "carbohidratosG": 80,
+    "grasasG": 2.4
+  },
+  {
+    "nombre": "ARROZ BLANCO",
+    "categoria": "Cereales y pasta",
+    "kcal": 354,
+    "proteinaG": 7.6,
+    "carbohidratosG": 77,
+    "grasasG": 1.7
+  },
+  {
+    "nombre": "ARROZ INFLADO",
+    "categoria": "Cereales y pasta",
+    "kcal": 369,
+    "proteinaG": 6.1,
+    "carbohidratosG": 89.7,
+    "grasasG": 0.9
+  },
+  {
+    "nombre": "ARROZ inflado chocol. (Pascual)",
+    "categoria": "Cereales y pasta",
+    "kcal": 380,
+    "proteinaG": 6,
+    "carbohidratosG": 86.6,
+    "grasasG": 1.1
+  },
+  {
+    "nombre": "ARROZ inflado chocolateado",
+    "categoria": "Cereales y pasta",
+    "kcal": 358,
+    "proteinaG": 5.3,
+    "carbohidratosG": 87.4,
+    "grasasG": 1
+  },
+  {
+    "nombre": "ARROZ INTEGRAL",
+    "categoria": "Cereales y pasta",
+    "kcal": 350,
+    "proteinaG": 8,
+    "carbohidratosG": 77,
+    "grasasG": 1.1
+  },
+  {
+    "nombre": "ARROZ tostado inflado (Kellog”",
+    "categoria": "Cereales y pasta",
+    "kcal": 369,
+    "proteinaG": 6.1,
+    "carbohidratosG": 89.7,
+    "grasasG": 0.9
+  },
+  {
+    "nombre": "ARROZ tostado inflado“Pascual”",
+    "categoria": "Cereales y pasta",
+    "kcal": 374,
+    "proteinaG": 7.1,
+    "carbohidratosG": 84,
+    "grasasG": 1.1
+  },
+  {
+    "nombre": "AVENA",
+    "categoria": "Cereales y pasta",
+    "kcal": 367,
+    "proteinaG": 14,
+    "carbohidratosG": 66.5,
+    "grasasG": 5
+  },
+  {
+    "nombre": "BISCOTTE",
+    "categoria": "Cereales y pasta",
+    "kcal": 411,
+    "proteinaG": 10,
+    "carbohidratosG": 75,
+    "grasasG": 4.3
+  },
+  {
+    "nombre": "CENTENO",
+    "categoria": "Cereales y pasta",
+    "kcal": 299,
+    "proteinaG": 8.8,
+    "carbohidratosG": 60.7,
+    "grasasG": 1.7
+  },
+  {
+    "nombre": "CEREAL DESAYUNO CON MIEL",
+    "categoria": "Cereales y pasta",
+    "kcal": 386,
+    "proteinaG": 4.4,
+    "carbohidratosG": 91.3,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "CEREAL DESAYUNO SIN ÁZUC",
+    "categoria": "Cereales y pasta",
+    "kcal": 386,
+    "proteinaG": 7.9,
+    "carbohidratosG": 85.3,
+    "grasasG": 0.4
+  },
+  {
+    "nombre": "CEREAL INTEGRAL",
+    "categoria": "Cereales y pasta",
+    "kcal": 261,
+    "proteinaG": 14,
+    "carbohidratosG": 46.6,
+    "grasasG": 3.4
+  },
+  {
+    "nombre": "CEREAL integral “All Bran”",
+    "categoria": "Cereales y pasta",
+    "kcal": 252,
+    "proteinaG": 15.1,
+    "carbohidratosG": 43,
+    "grasasG": 3.4
+  },
+  {
+    "nombre": "CHOCOKRISPIS",
+    "categoria": "Cereales y pasta",
+    "kcal": 358,
+    "proteinaG": 5.3,
+    "carbohidratosG": 87.4,
+    "grasasG": 1
+  },
+  {
+    "nombre": "COPOS arroz/miel “Pascual”",
+    "categoria": "Cereales y pasta",
+    "kcal": 377,
+    "proteinaG": 5,
+    "carbohidratosG": 87,
+    "grasasG": 1
+  },
+  {
+    "nombre": "COPOS arroz/trigo “Kellog”",
+    "categoria": "Cereales y pasta",
+    "kcal": 380,
+    "proteinaG": 15.3,
+    "carbohidratosG": 82.5,
+    "grasasG": 1
+  },
+  {
+    "nombre": "COPOS DE MAÍZ",
+    "categoria": "Cereales y pasta",
+    "kcal": 360,
+    "proteinaG": 7.9,
+    "carbohidratosG": 85.9,
+    "grasasG": 0.7
+  },
+  {
+    "nombre": "COPOS DE MAÍZ CON AZÚCAR",
+    "categoria": "Cereales y pasta",
+    "kcal": 377,
+    "proteinaG": 5.3,
+    "carbohidratosG": 93.7,
+    "grasasG": 0.5
+  },
+  {
+    "nombre": "COPOS maíz tostado “Pascual”",
+    "categoria": "Cereales y pasta",
+    "kcal": 376,
+    "proteinaG": 7.6,
+    "carbohidratosG": 83,
+    "grasasG": 1.5
+  },
+  {
+    "nombre": "COPOS máiz/miel/cacah.”Kellog”",
+    "categoria": "Cereales y pasta",
+    "kcal": 398,
+    "proteinaG": 7.4,
+    "carbohidratosG": 88.6,
+    "grasasG": 4
+  },
+  {
+    "nombre": "COPOS trigo int./salvado”Kellog”",
+    "categoria": "Cereales y pasta",
+    "kcal": 319,
+    "proteinaG": 10.2,
+    "carbohidratosG": 69.7,
+    "grasasG": 1.9
+  },
+  {
+    "nombre": "CORNFLAKES",
+    "categoria": "Cereales y pasta",
+    "kcal": 350,
+    "proteinaG": 7.9,
+    "carbohidratosG": 84.4,
+    "grasasG": 0.3
+  },
+  {
+    "nombre": "CRISPIS",
+    "categoria": "Cereales y pasta",
+    "kcal": 351,
+    "proteinaG": 6.2,
+    "carbohidratosG": 86.1,
+    "grasasG": 0.4
+  },
+  {
+    "nombre": "ESPAGUETIS",
+    "categoria": "Cereales y pasta",
+    "kcal": 342,
+    "proteinaG": 12,
+    "carbohidratosG": 74.1,
+    "grasasG": 1.8
+  },
+  {
+    "nombre": "FROSTIS",
+    "categoria": "Cereales y pasta",
+    "kcal": 355,
+    "proteinaG": 5.3,
+    "carbohidratosG": 88.6,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "GERMEN DE TRIGO (1)",
+    "categoria": "Cereales y pasta",
+    "kcal": 301,
+    "proteinaG": 26.6,
+    "carbohidratosG": 23.5,
+    "grasasG": 9.2
+  },
+  {
+    "nombre": "GERMEN DE TRIGO (2)",
+    "categoria": "Cereales y pasta",
+    "kcal": 301,
+    "proteinaG": 26.6,
+    "carbohidratosG": 23.6,
+    "grasasG": 9.2
+  },
+  {
+    "nombre": "HARINA DE ARROZ",
+    "categoria": "Cereales y pasta",
+    "kcal": 366,
+    "proteinaG": 6.4,
+    "carbohidratosG": 80.1,
+    "grasasG": 0.8
+  },
+  {
+    "nombre": "HARINA DE AVENA",
+    "categoria": "Cereales y pasta",
+    "kcal": 401,
+    "proteinaG": 13.8,
+    "carbohidratosG": 67.8,
+    "grasasG": 7.1
+  },
+  {
+    "nombre": "HARINA DE CEBADA",
+    "categoria": "Cereales y pasta",
+    "kcal": 359,
+    "proteinaG": 9.1,
+    "carbohidratosG": 76.2,
+    "grasasG": 1.5
+  },
+  {
+    "nombre": "HARINA DE CENTENO",
+    "categoria": "Cereales y pasta",
+    "kcal": 335,
+    "proteinaG": 8.2,
+    "carbohidratosG": 75.9,
+    "grasasG": 2
+  },
+  {
+    "nombre": "HARINA DE MAÍZ",
+    "categoria": "Cereales y pasta",
+    "kcal": 349,
+    "proteinaG": 9.5,
+    "carbohidratosG": 70,
+    "grasasG": 3.5
+  },
+  {
+    "nombre": "HARINA DE SOJA",
+    "categoria": "Cereales y pasta",
+    "kcal": 447,
+    "proteinaG": 36.8,
+    "carbohidratosG": 23.5,
+    "grasasG": 23.5
+  },
+  {
+    "nombre": "HARINA DE TRIGO",
+    "categoria": "Cereales y pasta",
+    "kcal": 353,
+    "proteinaG": 9.5,
+    "carbohidratosG": 75,
+    "grasasG": 1.2
+  },
+  {
+    "nombre": "HARINA INTEGRAL",
+    "categoria": "Cereales y pasta",
+    "kcal": 340,
+    "proteinaG": 10.5,
+    "carbohidratosG": 71,
+    "grasasG": 1.5
+  },
+  {
+    "nombre": "LASAÑA pasta",
+    "categoria": "Cereales y pasta",
+    "kcal": 346,
+    "proteinaG": 11.9,
+    "carbohidratosG": 74.8,
+    "grasasG": 2
+  },
+  {
+    "nombre": "MACARRONES",
+    "categoria": "Cereales y pasta",
+    "kcal": 348,
+    "proteinaG": 12,
+    "carbohidratosG": 75.8,
+    "grasasG": 1.8
+  },
+  {
+    "nombre": "MAÍZ",
+    "categoria": "Cereales y pasta",
+    "kcal": 333,
+    "proteinaG": 8.5,
+    "carbohidratosG": 64.6,
+    "grasasG": 3.8
+  },
+  {
+    "nombre": "MUESLI",
+    "categoria": "Cereales y pasta",
+    "kcal": 366,
+    "proteinaG": 10.5,
+    "carbohidratosG": 67.1,
+    "grasasG": 7.8
+  },
+  {
+    "nombre": "MUSLI “kellogg's”",
+    "categoria": "Cereales y pasta",
+    "kcal": 364,
+    "proteinaG": 10.6,
+    "carbohidratosG": 71.1,
+    "grasasG": 5.9
+  },
+  {
+    "nombre": "MUSLI 5 granos",
+    "categoria": "Cereales y pasta",
+    "kcal": 366,
+    "proteinaG": 10.5,
+    "carbohidratosG": 67.1,
+    "grasasG": 8.1
+  },
+  {
+    "nombre": "PALOMITAS DE MAÍZ",
+    "categoria": "Cereales y pasta",
+    "kcal": 534,
+    "proteinaG": 8.4,
+    "carbohidratosG": 57.2,
+    "grasasG": 30.2
+  },
+  {
+    "nombre": "PAN BLANCO",
+    "categoria": "Cereales y pasta",
+    "kcal": 255,
+    "proteinaG": 7,
+    "carbohidratosG": 55,
+    "grasasG": 0.8
+  },
+  {
+    "nombre": "PAN DE CENTENO",
+    "categoria": "Cereales y pasta",
+    "kcal": 241,
+    "proteinaG": 7,
+    "carbohidratosG": 51,
+    "grasasG": 1
+  },
+  {
+    "nombre": "PAN DE MAÍZ",
+    "categoria": "Cereales y pasta",
+    "kcal": 227,
+    "proteinaG": 6.4,
+    "carbohidratosG": 43.8,
+    "grasasG": 1.9
+  },
+  {
+    "nombre": "PAN DE VIENA",
+    "categoria": "Cereales y pasta",
+    "kcal": 263,
+    "proteinaG": 9.3,
+    "carbohidratosG": 52.2,
+    "grasasG": 3.3
+  },
+  {
+    "nombre": "PAN INTEGRAL",
+    "categoria": "Cereales y pasta",
+    "kcal": 239,
+    "proteinaG": 8,
+    "carbohidratosG": 49,
+    "grasasG": 1.2
+  },
+  {
+    "nombre": "PAN TOSTADO INTEGRAL",
+    "categoria": "Cereales y pasta",
+    "kcal": 362,
+    "proteinaG": 10,
+    "carbohidratosG": 75,
+    "grasasG": 2.5
+  },
+  {
+    "nombre": "PAN TRIGO MOLDE BLANCO",
+    "categoria": "Cereales y pasta",
+    "kcal": 233,
+    "proteinaG": 7.8,
+    "carbohidratosG": 49.7,
+    "grasasG": 1.7
+  },
+  {
+    "nombre": "PAN TRIGO MOLDE INTEGRAL",
+    "categoria": "Cereales y pasta",
+    "kcal": 216,
+    "proteinaG": 8.8,
+    "carbohidratosG": 41.8,
+    "grasasG": 2.7
+  },
+  {
+    "nombre": "PASTA",
+    "categoria": "Cereales y pasta",
+    "kcal": 368,
+    "proteinaG": 12.8,
+    "carbohidratosG": 76.5,
+    "grasasG": 1.2
+  },
+  {
+    "nombre": "PASTAS AL HUEVO",
+    "categoria": "Cereales y pasta",
+    "kcal": 362,
+    "proteinaG": 12.3,
+    "carbohidratosG": 69.9,
+    "grasasG": 2.8
+  },
+  {
+    "nombre": "SÉMOLA DE TRIGO",
+    "categoria": "Cereales y pasta",
+    "kcal": 368,
+    "proteinaG": 12.8,
+    "carbohidratosG": 76.5,
+    "grasasG": 1.2
+  },
+  {
+    "nombre": "TAPIOCA",
+    "categoria": "Cereales y pasta",
+    "kcal": 338,
+    "proteinaG": 1.5,
+    "carbohidratosG": 82,
+    "grasasG": 0.6
+  },
+  {
+    "nombre": "TRIGO INFLADO",
+    "categoria": "Cereales y pasta",
+    "kcal": 386,
+    "proteinaG": 8,
+    "carbohidratosG": 89.6,
+    "grasasG": 2
+  },
+  {
+    "nombre": "TRIGO inflado/azucarad “Kellog”",
+    "categoria": "Cereales y pasta",
+    "kcal": 371,
+    "proteinaG": 7,
+    "carbohidratosG": 89.1,
+    "grasasG": 1
+  },
+  {
+    "nombre": "TRIGO inflado/miel “Pascual”",
+    "categoria": "Cereales y pasta",
+    "kcal": 389,
+    "proteinaG": 8.9,
+    "carbohidratosG": 84.3,
+    "grasasG": 1.8
+  },
+  {
+    "nombre": "AZÚCAR",
+    "categoria": "Dulces",
+    "kcal": 398,
+    "proteinaG": 0,
+    "carbohidratosG": 99.5,
+    "grasasG": 0
+  },
+  {
+    "nombre": "BOMBÓN",
+    "categoria": "Dulces",
+    "kcal": 458,
+    "proteinaG": 4.8,
+    "carbohidratosG": 66,
+    "grasasG": 21.2
+  },
+  {
+    "nombre": "CACAO POLVO AZUCARADO",
+    "categoria": "Dulces",
+    "kcal": 366,
+    "proteinaG": 5.5,
+    "carbohidratosG": 77.4,
+    "grasasG": 6
+  },
+  {
+    "nombre": "CACAO POLVO sin azúcar TAZA",
+    "categoria": "Dulces",
+    "kcal": 315,
+    "proteinaG": 18,
+    "carbohidratosG": 51.5,
+    "grasasG": 5.5
+  },
+  {
+    "nombre": "CARAMELOS",
+    "categoria": "Dulces",
+    "kcal": 378,
+    "proteinaG": 0.8,
+    "carbohidratosG": 94,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "CHICLE con azúcar",
+    "categoria": "Dulces",
+    "kcal": 310,
+    "proteinaG": 0,
+    "carbohidratosG": 95.2,
+    "grasasG": 0
+  },
+  {
+    "nombre": "CHOCOLATE",
+    "categoria": "Dulces",
+    "kcal": 518,
+    "proteinaG": 7.8,
+    "carbohidratosG": 56.4,
+    "grasasG": 30.6
+  },
+  {
+    "nombre": "CHOCOLATE BOUNTY",
+    "categoria": "Dulces",
+    "kcal": 489,
+    "proteinaG": 4.6,
+    "carbohidratosG": 58,
+    "grasasG": 26.6
+  },
+  {
+    "nombre": "CHOCOLATE CON LECHE",
+    "categoria": "Dulces",
+    "kcal": 550,
+    "proteinaG": 6,
+    "carbohidratosG": 56,
+    "grasasG": 34
+  },
+  {
+    "nombre": "CHOCOLATE MARS",
+    "categoria": "Dulces",
+    "kcal": 459,
+    "proteinaG": 5.6,
+    "carbohidratosG": 65.9,
+    "grasasG": 19.3
+  },
+  {
+    "nombre": "CHOCOLATE NEGRO +AZÚCAR",
+    "categoria": "Dulces",
+    "kcal": 530,
+    "proteinaG": 2,
+    "carbohidratosG": 63,
+    "grasasG": 30
+  },
+  {
+    "nombre": "CHOCOLATE RAIDERS",
+    "categoria": "Dulces",
+    "kcal": 482,
+    "proteinaG": 6.5,
+    "carbohidratosG": 58.8,
+    "grasasG": 24.6
+  },
+  {
+    "nombre": "COLACAO LIGHT",
+    "categoria": "Dulces",
+    "kcal": 315,
+    "proteinaG": 18.8,
+    "carbohidratosG": 51.5,
+    "grasasG": 5.5
+  },
+  {
+    "nombre": "COMPOTA",
+    "categoria": "Dulces",
+    "kcal": 66,
+    "proteinaG": 0.3,
+    "carbohidratosG": 17.3,
+    "grasasG": 0
+  },
+  {
+    "nombre": "CONFITURA",
+    "categoria": "Dulces",
+    "kcal": 292,
+    "proteinaG": 0.6,
+    "carbohidratosG": 69.2,
+    "grasasG": 2.1
+  },
+  {
+    "nombre": "CREMA CHOCO-AVELLANAS",
+    "categoria": "Dulces",
+    "kcal": 549,
+    "proteinaG": 6.2,
+    "carbohidratosG": 60.5,
+    "grasasG": 33
+  },
+  {
+    "nombre": "GELATINA ROYAL SABORIZAD",
+    "categoria": "Dulces",
+    "kcal": 60,
+    "proteinaG": 1.7,
+    "carbohidratosG": 12.5,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "GOMAS DE FRUTAS",
+    "categoria": "Dulces",
+    "kcal": 172,
+    "proteinaG": 1,
+    "carbohidratosG": 44.8,
+    "grasasG": 0
+  },
+  {
+    "nombre": "HELADO “SORBETE” (polo)",
+    "categoria": "Dulces",
+    "kcal": 139,
+    "proteinaG": 1.5,
+    "carbohidratosG": 29.1,
+    "grasasG": 1.8
+  },
+  {
+    "nombre": "JALEAS",
+    "categoria": "Dulces",
+    "kcal": 245,
+    "proteinaG": 0.2,
+    "carbohidratosG": 65,
+    "grasasG": 0
+  },
+  {
+    "nombre": "MERMELADAS",
+    "categoria": "Dulces",
+    "kcal": 280,
+    "proteinaG": 0.5,
+    "carbohidratosG": 70,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "MERMELADAS SIN AZÚCAR",
+    "categoria": "Dulces",
+    "kcal": 145,
+    "proteinaG": 0.4,
+    "carbohidratosG": 35,
+    "grasasG": 0.3
+  },
+  {
+    "nombre": "MIEL",
+    "categoria": "Dulces",
+    "kcal": 300,
+    "proteinaG": 0.5,
+    "carbohidratosG": 75,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "PASTEL manzana “MacDonald”",
+    "categoria": "Dulces",
+    "kcal": 313,
+    "proteinaG": 2.6,
+    "carbohidratosG": 36.1,
+    "grasasG": 17.8
+  },
+  {
+    "nombre": "TURRÓN/MAZAPÁN",
+    "categoria": "Dulces",
+    "kcal": 470,
+    "proteinaG": 10,
+    "carbohidratosG": 57.4,
+    "grasasG": 23.9
+  },
+  {
+    "nombre": "ACEITUNAS",
+    "categoria": "Frutas",
+    "kcal": 149,
+    "proteinaG": 0.7,
+    "carbohidratosG": 8,
+    "grasasG": 12.7
+  },
+  {
+    "nombre": "ACEROLA",
+    "categoria": "Frutas",
+    "kcal": 17,
+    "proteinaG": 0.2,
+    "carbohidratosG": 3.6,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "AGUACATE",
+    "categoria": "Frutas",
+    "kcal": 167,
+    "proteinaG": 2.1,
+    "carbohidratosG": 4.7,
+    "grasasG": 16.4
+  },
+  {
+    "nombre": "ALBARICOQUE",
+    "categoria": "Frutas",
+    "kcal": 44,
+    "proteinaG": 0.8,
+    "carbohidratosG": 10,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "ALBARICOQUE SECO",
+    "categoria": "Frutas",
+    "kcal": 188,
+    "proteinaG": 4.8,
+    "carbohidratosG": 43.4,
+    "grasasG": 0.7
+  },
+  {
+    "nombre": "ARÁNDANO",
+    "categoria": "Frutas",
+    "kcal": 53,
+    "proteinaG": 0.8,
+    "carbohidratosG": 13.1,
+    "grasasG": 0.6
+  },
+  {
+    "nombre": "BANANA",
+    "categoria": "Frutas",
+    "kcal": 92,
+    "proteinaG": 1.2,
+    "carbohidratosG": 21.4,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "CAQUIS",
+    "categoria": "Frutas",
+    "kcal": 64,
+    "proteinaG": 0.5,
+    "carbohidratosG": 15,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "CEREZAS",
+    "categoria": "Frutas",
+    "kcal": 77,
+    "proteinaG": 1.2,
+    "carbohidratosG": 17,
+    "grasasG": 0.5
+  },
+  {
+    "nombre": "CHIRIMOYA",
+    "categoria": "Frutas",
+    "kcal": 78,
+    "proteinaG": 1,
+    "carbohidratosG": 18,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "CIRUELA",
+    "categoria": "Frutas",
+    "kcal": 44,
+    "proteinaG": 0.8,
+    "carbohidratosG": 10,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "CIRUELA SECA",
+    "categoria": "Frutas",
+    "kcal": 290,
+    "proteinaG": 2.3,
+    "carbohidratosG": 70,
+    "grasasG": 0.4
+  },
+  {
+    "nombre": "COCO",
+    "categoria": "Frutas",
+    "kcal": 646,
+    "proteinaG": 6,
+    "carbohidratosG": 16,
+    "grasasG": 62
+  },
+  {
+    "nombre": "DÁTIL",
+    "categoria": "Frutas",
+    "kcal": 279,
+    "proteinaG": 2.2,
+    "carbohidratosG": 71,
+    "grasasG": 0.4
+  },
+  {
+    "nombre": "DÁTIL SECO",
+    "categoria": "Frutas",
+    "kcal": 306,
+    "proteinaG": 2.2,
+    "carbohidratosG": 73,
+    "grasasG": 0.6
+  },
+  {
+    "nombre": "FRAMBUESA",
+    "categoria": "Frutas",
+    "kcal": 40,
+    "proteinaG": 1,
+    "carbohidratosG": 8,
+    "grasasG": 0.6
+  },
+  {
+    "nombre": "FRESAS",
+    "categoria": "Frutas",
+    "kcal": 36,
+    "proteinaG": 0.7,
+    "carbohidratosG": 7,
+    "grasasG": 0.6
+  },
+  {
+    "nombre": "FRESÓN",
+    "categoria": "Frutas",
+    "kcal": 25,
+    "proteinaG": 1.8,
+    "carbohidratosG": 5.3,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "GRANADA",
+    "categoria": "Frutas",
+    "kcal": 65,
+    "proteinaG": 0.7,
+    "carbohidratosG": 14.8,
+    "grasasG": 0.3
+  },
+  {
+    "nombre": "GROSELLA",
+    "categoria": "Frutas",
+    "kcal": 42,
+    "proteinaG": 1.3,
+    "carbohidratosG": 9.5,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "GUAYABA",
+    "categoria": "Frutas",
+    "kcal": 35,
+    "proteinaG": 0.9,
+    "carbohidratosG": 6.7,
+    "grasasG": 0.5
+  },
+  {
+    "nombre": "GUINDA",
+    "categoria": "Frutas",
+    "kcal": 55,
+    "proteinaG": 0.6,
+    "carbohidratosG": 13.3,
+    "grasasG": 0
+  },
+  {
+    "nombre": "HIGO",
+    "categoria": "Frutas",
+    "kcal": 80,
+    "proteinaG": 1,
+    "carbohidratosG": 18,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "HIGO CHUMBO",
+    "categoria": "Frutas",
+    "kcal": 36,
+    "proteinaG": 1,
+    "carbohidratosG": 7.1,
+    "grasasG": 0.4
+  },
+  {
+    "nombre": "HIGO SECO",
+    "categoria": "Frutas",
+    "kcal": 275,
+    "proteinaG": 4.2,
+    "carbohidratosG": 62,
+    "grasasG": 1
+  },
+  {
+    "nombre": "JÍNJOL o AZUFAIFA",
+    "categoria": "Frutas",
+    "kcal": 105,
+    "proteinaG": 1.4,
+    "carbohidratosG": 24.1,
+    "grasasG": 0.3
+  },
+  {
+    "nombre": "KIWI",
+    "categoria": "Frutas",
+    "kcal": 51,
+    "proteinaG": 1,
+    "carbohidratosG": 9.1,
+    "grasasG": 0.6
+  },
+  {
+    "nombre": "LIMA",
+    "categoria": "Frutas",
+    "kcal": 32,
+    "proteinaG": 0.5,
+    "carbohidratosG": 1.9,
+    "grasasG": 2.4
+  },
+  {
+    "nombre": "LIMÓN",
+    "categoria": "Frutas",
+    "kcal": 39,
+    "proteinaG": 0.3,
+    "carbohidratosG": 9,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "MACEDONIA",
+    "categoria": "Frutas",
+    "kcal": 102,
+    "proteinaG": 0.3,
+    "carbohidratosG": 25,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "MANDARINA",
+    "categoria": "Frutas",
+    "kcal": 40,
+    "proteinaG": 0.8,
+    "carbohidratosG": 9,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "MANGO",
+    "categoria": "Frutas",
+    "kcal": 64,
+    "proteinaG": 0.5,
+    "carbohidratosG": 15.3,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "MANZANA",
+    "categoria": "Frutas",
+    "kcal": 52,
+    "proteinaG": 0.3,
+    "carbohidratosG": 12,
+    "grasasG": 0.4
+  },
+  {
+    "nombre": "MELOCOTÓN",
+    "categoria": "Frutas",
+    "kcal": 52,
+    "proteinaG": 0.5,
+    "carbohidratosG": 12,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "MELOCOTÓN EN ALMÍBAR",
+    "categoria": "Frutas",
+    "kcal": 84,
+    "proteinaG": 0.4,
+    "carbohidratosG": 22,
+    "grasasG": 0
+  },
+  {
+    "nombre": "MELOCOTÓN SECO",
+    "categoria": "Frutas",
+    "kcal": 104,
+    "proteinaG": 1.3,
+    "carbohidratosG": 25.7,
+    "grasasG": 0.3
+  },
+  {
+    "nombre": "MELÓN",
+    "categoria": "Frutas",
+    "kcal": 31,
+    "proteinaG": 0.8,
+    "carbohidratosG": 6.5,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "MEMBRILLO",
+    "categoria": "Frutas",
+    "kcal": 33,
+    "proteinaG": 0.5,
+    "carbohidratosG": 7.3,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "MEMBRILLO DULCE",
+    "categoria": "Frutas",
+    "kcal": 215,
+    "proteinaG": 0,
+    "carbohidratosG": 57,
+    "grasasG": 0
+  },
+  {
+    "nombre": "MORAS",
+    "categoria": "Frutas",
+    "kcal": 37,
+    "proteinaG": 0.9,
+    "carbohidratosG": 6,
+    "grasasG": 1
+  },
+  {
+    "nombre": "NARANJA",
+    "categoria": "Frutas",
+    "kcal": 44,
+    "proteinaG": 1,
+    "carbohidratosG": 9,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "NECTARINA",
+    "categoria": "Frutas",
+    "kcal": 64,
+    "proteinaG": 0.6,
+    "carbohidratosG": 17.1,
+    "grasasG": 0
+  },
+  {
+    "nombre": "NÍSPOLA",
+    "categoria": "Frutas",
+    "kcal": 97,
+    "proteinaG": 0.4,
+    "carbohidratosG": 23,
+    "grasasG": 0.4
+  },
+  {
+    "nombre": "OLIVA",
+    "categoria": "Frutas",
+    "kcal": 200,
+    "proteinaG": 0.7,
+    "carbohidratosG": 8,
+    "grasasG": 20
+  },
+  {
+    "nombre": "OLIVA NEGRA",
+    "categoria": "Frutas",
+    "kcal": 294,
+    "proteinaG": 2,
+    "carbohidratosG": 4,
+    "grasasG": 30
+  },
+  {
+    "nombre": "OLIVA VERDE",
+    "categoria": "Frutas",
+    "kcal": 117,
+    "proteinaG": 1.3,
+    "carbohidratosG": 0,
+    "grasasG": 12.5
+  },
+  {
+    "nombre": "PAPAYA (1)",
+    "categoria": "Frutas",
+    "kcal": 12,
+    "proteinaG": 0.5,
+    "carbohidratosG": 2.4,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "PAPAYA (2)",
+    "categoria": "Frutas",
+    "kcal": 45,
+    "proteinaG": 0.6,
+    "carbohidratosG": 10.3,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "PERA",
+    "categoria": "Frutas",
+    "kcal": 61,
+    "proteinaG": 0.4,
+    "carbohidratosG": 14,
+    "grasasG": 0.4
+  },
+  {
+    "nombre": "PIÑA",
+    "categoria": "Frutas",
+    "kcal": 51,
+    "proteinaG": 0.5,
+    "carbohidratosG": 12,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "PIÑA EN ALMÍBAR",
+    "categoria": "Frutas",
+    "kcal": 84,
+    "proteinaG": 0.4,
+    "carbohidratosG": 22,
+    "grasasG": 0
+  },
+  {
+    "nombre": "PLÁTANO",
+    "categoria": "Frutas",
+    "kcal": 90,
+    "proteinaG": 1.4,
+    "carbohidratosG": 20,
+    "grasasG": 0.5
+  },
+  {
+    "nombre": "POMELO",
+    "categoria": "Frutas",
+    "kcal": 30,
+    "proteinaG": 0.6,
+    "carbohidratosG": 6,
+    "grasasG": 0.3
+  },
+  {
+    "nombre": "SANDÍA",
+    "categoria": "Frutas",
+    "kcal": 30,
+    "proteinaG": 0.4,
+    "carbohidratosG": 6.7,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "TAMARINDO",
+    "categoria": "Frutas",
+    "kcal": 238,
+    "proteinaG": 2.3,
+    "carbohidratosG": 56.7,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "UVA",
+    "categoria": "Frutas",
+    "kcal": 81,
+    "proteinaG": 1,
+    "carbohidratosG": 17,
+    "grasasG": 1
+  },
+  {
+    "nombre": "UVA NEGRA",
+    "categoria": "Frutas",
+    "kcal": 110,
+    "proteinaG": 1.5,
+    "carbohidratosG": 26,
+    "grasasG": 0
+  },
+  {
+    "nombre": "UVA PASA",
+    "categoria": "Frutas",
+    "kcal": 324,
+    "proteinaG": 3,
+    "carbohidratosG": 75,
+    "grasasG": 1.3
+  },
+  {
+    "nombre": "ZUMO DE FRUTA",
+    "categoria": "Frutas",
+    "kcal": 45,
+    "proteinaG": 0.4,
+    "carbohidratosG": 11.5,
+    "grasasG": 0
+  },
+  {
+    "nombre": "ZUMO DE MANZANA",
+    "categoria": "Frutas",
+    "kcal": 47,
+    "proteinaG": 0.1,
+    "carbohidratosG": 11.8,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "ZUMO DE MELOCOTÓN",
+    "categoria": "Frutas",
+    "kcal": 61,
+    "proteinaG": 1.1,
+    "carbohidratosG": 14.9,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "ZUMO DE NARANJA",
+    "categoria": "Frutas",
+    "kcal": 42,
+    "proteinaG": 0.6,
+    "carbohidratosG": 10,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "ZUMO DE PIÑA",
+    "categoria": "Frutas",
+    "kcal": 51,
+    "proteinaG": 0.4,
+    "carbohidratosG": 12.1,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "ZUMO DE POMELO",
+    "categoria": "Frutas",
+    "kcal": 95,
+    "proteinaG": 1.7,
+    "carbohidratosG": 22.9,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "ZUMO DE UVA",
+    "categoria": "Frutas",
+    "kcal": 38,
+    "proteinaG": 2.5,
+    "carbohidratosG": 8,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "ALMENDRAS",
+    "categoria": "Frutos secos",
+    "kcal": 620,
+    "proteinaG": 20,
+    "carbohidratosG": 17,
+    "grasasG": 54
+  },
+  {
+    "nombre": "AVELLANAS",
+    "categoria": "Frutos secos",
+    "kcal": 675,
+    "proteinaG": 15,
+    "carbohidratosG": 6,
+    "grasasG": 66
+  },
+  {
+    "nombre": "CACAHUETES",
+    "categoria": "Frutos secos",
+    "kcal": 637,
+    "proteinaG": 23,
+    "carbohidratosG": 26,
+    "grasasG": 49
+  },
+  {
+    "nombre": "CASTAÑAS",
+    "categoria": "Frutos secos",
+    "kcal": 199,
+    "proteinaG": 4,
+    "carbohidratosG": 40,
+    "grasasG": 2.6
+  },
+  {
+    "nombre": "FRUTOS SECOS (mezcla)",
+    "categoria": "Frutos secos",
+    "kcal": 607,
+    "proteinaG": 22.9,
+    "carbohidratosG": 7.9,
+    "grasasG": 54.1
+  },
+  {
+    "nombre": "GIRASOL (PIPAS)",
+    "categoria": "Frutos secos",
+    "kcal": 535,
+    "proteinaG": 27,
+    "carbohidratosG": 20,
+    "grasasG": 43
+  },
+  {
+    "nombre": "NUECES Y PASAS (mezcla)",
+    "categoria": "Frutos secos",
+    "kcal": 481,
+    "proteinaG": 14.1,
+    "carbohidratosG": 31.5,
+    "grasasG": 34.1
+  },
+  {
+    "nombre": "NUEZ/PIÑÓN",
+    "categoria": "Frutos secos",
+    "kcal": 660,
+    "proteinaG": 15,
+    "carbohidratosG": 15,
+    "grasasG": 60
+  },
+  {
+    "nombre": "PISTACHO",
+    "categoria": "Frutos secos",
+    "kcal": 581,
+    "proteinaG": 17.6,
+    "carbohidratosG": 11.5,
+    "grasasG": 51.6
+  },
+  {
+    "nombre": "CLARA",
+    "categoria": "Huevos",
+    "kcal": 48,
+    "proteinaG": 11,
+    "carbohidratosG": 0.7,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "HUEVO DE GALLINA",
+    "categoria": "Huevos",
+    "kcal": 150,
+    "proteinaG": 12.5,
+    "carbohidratosG": 0,
+    "grasasG": 11.1
+  },
+  {
+    "nombre": "HUEVO DE PATO",
+    "categoria": "Huevos",
+    "kcal": 198,
+    "proteinaG": 13,
+    "carbohidratosG": 0.7,
+    "grasasG": 14.4
+  },
+  {
+    "nombre": "HUEVO DE PAVA",
+    "categoria": "Huevos",
+    "kcal": 165,
+    "proteinaG": 13.7,
+    "carbohidratosG": 0,
+    "grasasG": 12.2
+  },
+  {
+    "nombre": "HUEVO ENTERO",
+    "categoria": "Huevos",
+    "kcal": 162,
+    "proteinaG": 13,
+    "carbohidratosG": 0.6,
+    "grasasG": 12
+  },
+  {
+    "nombre": "YEMA",
+    "categoria": "Huevos",
+    "kcal": 368,
+    "proteinaG": 16,
+    "carbohidratosG": 0.6,
+    "grasasG": 33
+  },
+  {
+    "nombre": "YEMA DESECADA",
+    "categoria": "Huevos",
+    "kcal": 714,
+    "proteinaG": 31.7,
+    "carbohidratosG": 2.1,
+    "grasasG": 59.3
+  },
+  {
+    "nombre": "ARROZ con leche “Danone”",
+    "categoria": "Lácteos",
+    "kcal": 114,
+    "proteinaG": 2.7,
+    "carbohidratosG": 23.3,
+    "grasasG": 1.7
+  },
+  {
+    "nombre": "BATIDO cacao esteril “Puleva”",
+    "categoria": "Lácteos",
+    "kcal": 78,
+    "proteinaG": 3,
+    "carbohidratosG": 12.8,
+    "grasasG": 2
+  },
+  {
+    "nombre": "BATIDO cacao UHT “Puleva”",
+    "categoria": "Lácteos",
+    "kcal": 78,
+    "proteinaG": 3,
+    "carbohidratosG": 12.8,
+    "grasasG": 2
+  },
+  {
+    "nombre": "BATIDO DE CACAO",
+    "categoria": "Lácteos",
+    "kcal": 100,
+    "proteinaG": 3.8,
+    "carbohidratosG": 10.9,
+    "grasasG": 4.6
+  },
+  {
+    "nombre": "BATIDO fresa estéril “Puleva”",
+    "categoria": "Lácteos",
+    "kcal": 62,
+    "proteinaG": 2.8,
+    "carbohidratosG": 11.2,
+    "grasasG": 1
+  },
+  {
+    "nombre": "BATIDO fresa UHT “Puleva”",
+    "categoria": "Lácteos",
+    "kcal": 62,
+    "proteinaG": 2.8,
+    "carbohidratosG": 11.2,
+    "grasasG": 1
+  },
+  {
+    "nombre": "BATIDO LÁCTEO",
+    "categoria": "Lácteos",
+    "kcal": 98,
+    "proteinaG": 3.8,
+    "carbohidratosG": 10.9,
+    "grasasG": 4.6
+  },
+  {
+    "nombre": "BATIDO vainilla estéril ”Puleva”",
+    "categoria": "Lácteos",
+    "kcal": 59,
+    "proteinaG": 2.9,
+    "carbohidratosG": 10.3,
+    "grasasG": 1
+  },
+  {
+    "nombre": "BATIDO vainilla UHT “Puleva”",
+    "categoria": "Lácteos",
+    "kcal": 59,
+    "proteinaG": 2.9,
+    "carbohidratosG": 10.3,
+    "grasasG": 1
+  },
+  {
+    "nombre": "CREMA choco/nata “Danone”",
+    "categoria": "Lácteos",
+    "kcal": 147,
+    "proteinaG": 2.9,
+    "carbohidratosG": 20.9,
+    "grasasG": 6.3
+  },
+  {
+    "nombre": "CREMA choco/nata lig.“Danone”",
+    "categoria": "Lácteos",
+    "kcal": 83,
+    "proteinaG": 3.9,
+    "carbohidratosG": 9.9,
+    "grasasG": 3.3
+  },
+  {
+    "nombre": "CREMA chocol. ligera “Danone”",
+    "categoria": "Lácteos",
+    "kcal": 72,
+    "proteinaG": 3.4,
+    "carbohidratosG": 9.8,
+    "grasasG": 2.4
+  },
+  {
+    "nombre": "CREMA chocolate “Danone”",
+    "categoria": "Lácteos",
+    "kcal": 130,
+    "proteinaG": 3.3,
+    "carbohidratosG": 20.5,
+    "grasasG": 4.4
+  },
+  {
+    "nombre": "CREMA coco “Danone”",
+    "categoria": "Lácteos",
+    "kcal": 119,
+    "proteinaG": 3,
+    "carbohidratosG": 18.6,
+    "grasasG": 4.1
+  },
+  {
+    "nombre": "CREMA DE LECHE/NATA",
+    "categoria": "Lácteos",
+    "kcal": 298,
+    "proteinaG": 3,
+    "carbohidratosG": 4,
+    "grasasG": 30
+  },
+  {
+    "nombre": "CREMA DE QUESO",
+    "categoria": "Lácteos",
+    "kcal": 396,
+    "proteinaG": 9,
+    "carbohidratosG": 0,
+    "grasasG": 40
+  },
+  {
+    "nombre": "CREMA natillas y FLAN",
+    "categoria": "Lácteos",
+    "kcal": 116,
+    "proteinaG": 3.8,
+    "carbohidratosG": 16.8,
+    "grasasG": 4.2
+  },
+  {
+    "nombre": "CREMA turrón “Danone”",
+    "categoria": "Lácteos",
+    "kcal": 103,
+    "proteinaG": 3.5,
+    "carbohidratosG": 17.4,
+    "grasasG": 2.6
+  },
+  {
+    "nombre": "CREMA vainilla/mousse chocolat",
+    "categoria": "Lácteos",
+    "kcal": 124,
+    "proteinaG": 3.3,
+    "carbohidratosG": 22.5,
+    "grasasG": 2.9
+  },
+  {
+    "nombre": "CUAJADA",
+    "categoria": "Lácteos",
+    "kcal": 96,
+    "proteinaG": 3.6,
+    "carbohidratosG": 1.4,
+    "grasasG": 4
+  },
+  {
+    "nombre": "CUAJADA “Danone”",
+    "categoria": "Lácteos",
+    "kcal": 92,
+    "proteinaG": 4.5,
+    "carbohidratosG": 7,
+    "grasasG": 5.3
+  },
+  {
+    "nombre": "FLAN",
+    "categoria": "Lácteos",
+    "kcal": 116,
+    "proteinaG": 3.8,
+    "carbohidratosG": 16.8,
+    "grasasG": 4.2
+  },
+  {
+    "nombre": "FLAN de huevo “Danone”",
+    "categoria": "Lácteos",
+    "kcal": 126,
+    "proteinaG": 4.6,
+    "carbohidratosG": 23.4,
+    "grasasG": 2.2
+  },
+  {
+    "nombre": "FLAN de huevo ligero “Danone”",
+    "categoria": "Lácteos",
+    "kcal": 74,
+    "proteinaG": 5.6,
+    "carbohidratosG": 7.9,
+    "grasasG": 2.4
+  },
+  {
+    "nombre": "FLAN HUEVO/NATILLAS",
+    "categoria": "Lácteos",
+    "kcal": 126,
+    "proteinaG": 4.6,
+    "carbohidratosG": 21.9,
+    "grasasG": 2.2
+  },
+  {
+    "nombre": "FLAN vainilla/caramelo “Danone",
+    "categoria": "Lácteos",
+    "kcal": 102,
+    "proteinaG": 2.5,
+    "carbohidratosG": 20.1,
+    "grasasG": 1.8
+  },
+  {
+    "nombre": "FLAN VAINILLA/NATILLAS",
+    "categoria": "Lácteos",
+    "kcal": 102,
+    "proteinaG": 2.6,
+    "carbohidratosG": 17.4,
+    "grasasG": 1.8
+  },
+  {
+    "nombre": "HELADO / MOUSSE",
+    "categoria": "Lácteos",
+    "kcal": 204,
+    "proteinaG": 4.5,
+    "carbohidratosG": 25.4,
+    "grasasG": 10.1
+  },
+  {
+    "nombre": "HELADOS LÁCTEOS",
+    "categoria": "Lácteos",
+    "kcal": 167,
+    "proteinaG": 3.7,
+    "carbohidratosG": 24.8,
+    "grasasG": 6.6
+  },
+  {
+    "nombre": "HORCHATA chufa “Che”",
+    "categoria": "Lácteos",
+    "kcal": 70,
+    "proteinaG": 0.6,
+    "carbohidratosG": 12.2,
+    "grasasG": 2.4
+  },
+  {
+    "nombre": "KÉFIR",
+    "categoria": "Lácteos",
+    "kcal": 66,
+    "proteinaG": 3.3,
+    "carbohidratosG": 4.8,
+    "grasasG": 3.5
+  },
+  {
+    "nombre": "LECHE CONDENS. SIN AZÚCAR",
+    "categoria": "Lácteos",
+    "kcal": 160,
+    "proteinaG": 8,
+    "carbohidratosG": 10.9,
+    "grasasG": 9.3
+  },
+  {
+    "nombre": "LECHE CONDENSADA",
+    "categoria": "Lácteos",
+    "kcal": 350,
+    "proteinaG": 10,
+    "carbohidratosG": 54,
+    "grasasG": 10.4
+  },
+  {
+    "nombre": "LECHE de BURRA",
+    "categoria": "Lácteos",
+    "kcal": 40,
+    "proteinaG": 2,
+    "carbohidratosG": 6.1,
+    "grasasG": 1
+  },
+  {
+    "nombre": "LECHE DE CABRA",
+    "categoria": "Lácteos",
+    "kcal": 72,
+    "proteinaG": 3.9,
+    "carbohidratosG": 4.6,
+    "grasasG": 4.5
+  },
+  {
+    "nombre": "LECHE de MUJER (10º postpart)",
+    "categoria": "Lácteos",
+    "kcal": 67,
+    "proteinaG": 1.1,
+    "carbohidratosG": 7.1,
+    "grasasG": 4
+  },
+  {
+    "nombre": "LECHE DE OVEJA",
+    "categoria": "Lácteos",
+    "kcal": 96,
+    "proteinaG": 5.3,
+    "carbohidratosG": 4.3,
+    "grasasG": 6.5
+  },
+  {
+    "nombre": "LECHE DE VACA CONCENTRAD.",
+    "categoria": "Lácteos",
+    "kcal": 150,
+    "proteinaG": 8.2,
+    "carbohidratosG": 10,
+    "grasasG": 8.8
+  },
+  {
+    "nombre": "LECHE DE VACA DESCRENADA",
+    "categoria": "Lácteos",
+    "kcal": 36,
+    "proteinaG": 3.6,
+    "carbohidratosG": 5,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "LECHE DE VACA EN POLVO",
+    "categoria": "Lácteos",
+    "kcal": 500,
+    "proteinaG": 25,
+    "carbohidratosG": 37,
+    "grasasG": 26
+  },
+  {
+    "nombre": "LECHE DE VACA FRESCA",
+    "categoria": "Lácteos",
+    "kcal": 68,
+    "proteinaG": 3.5,
+    "carbohidratosG": 4.6,
+    "grasasG": 3.9
+  },
+  {
+    "nombre": "LECHE DE VACA SEMIDESCRE.",
+    "categoria": "Lácteos",
+    "kcal": 49,
+    "proteinaG": 3.5,
+    "carbohidratosG": 5,
+    "grasasG": 1.7
+  },
+  {
+    "nombre": "LECHE desna A+D UHT“Puleva”",
+    "categoria": "Lácteos",
+    "kcal": 34,
+    "proteinaG": 3.3,
+    "carbohidratosG": 4.9,
+    "grasasG": 0.3
+  },
+  {
+    "nombre": "LECHE desna Calcio UHT“Pulev”",
+    "categoria": "Lácteos",
+    "kcal": 39,
+    "proteinaG": 3.9,
+    "carbohidratosG": 5.6,
+    "grasasG": 0.3
+  },
+  {
+    "nombre": "LECHE entera estéril “Puleva”",
+    "categoria": "Lácteos",
+    "kcal": 62,
+    "proteinaG": 3.1,
+    "carbohidratosG": 4.5,
+    "grasasG": 3.6
+  },
+  {
+    "nombre": "LECHE entera pasterizada “Pulev",
+    "categoria": "Lácteos",
+    "kcal": 62,
+    "proteinaG": 3.1,
+    "carbohidratosG": 4.6,
+    "grasasG": 3.6
+  },
+  {
+    "nombre": "LECHE entera UHT (Puleva)",
+    "categoria": "Lácteos",
+    "kcal": 62,
+    "proteinaG": 3.1,
+    "carbohidratosG": 4.5,
+    "grasasG": 3.6
+  },
+  {
+    "nombre": "LECHE merengada estéril “Pulev",
+    "categoria": "Lácteos",
+    "kcal": 81,
+    "proteinaG": 3,
+    "carbohidratosG": 10.7,
+    "grasasG": 3.2
+  },
+  {
+    "nombre": "LECHE merengada UHT “Puleva”",
+    "categoria": "Lácteos",
+    "kcal": 81,
+    "proteinaG": 3,
+    "carbohidratosG": 10.7,
+    "grasasG": 3.2
+  },
+  {
+    "nombre": "LECHE semi Calcio UHT “Puleva",
+    "categoria": "Lácteos",
+    "kcal": 51,
+    "proteinaG": 3.9,
+    "carbohidratosG": 5.6,
+    "grasasG": 1.6
+  },
+  {
+    "nombre": "LECHE VACA POLVO DESCR..",
+    "categoria": "Lácteos",
+    "kcal": 373,
+    "proteinaG": 38,
+    "carbohidratosG": 53,
+    "grasasG": 1
+  },
+  {
+    "nombre": "MOUSSE",
+    "categoria": "Lácteos",
+    "kcal": 177,
+    "proteinaG": 4.3,
+    "carbohidratosG": 21.8,
+    "grasasG": 8.2
+  },
+  {
+    "nombre": "MOUSSE chocolate “Danone”",
+    "categoria": "Lácteos",
+    "kcal": 177,
+    "proteinaG": 4.3,
+    "carbohidratosG": 23,
+    "grasasG": 8.1
+  },
+  {
+    "nombre": "NATILLAS",
+    "categoria": "Lácteos",
+    "kcal": 116,
+    "proteinaG": 3.8,
+    "carbohidratosG": 16.8,
+    "grasasG": 4.2
+  },
+  {
+    "nombre": "Natillas “Danone”",
+    "categoria": "Lácteos",
+    "kcal": 126,
+    "proteinaG": 3.1,
+    "carbohidratosG": 19.6,
+    "grasasG": 4.4
+  },
+  {
+    "nombre": "PETIT SUISSE chocolate",
+    "categoria": "Lácteos",
+    "kcal": 210,
+    "proteinaG": 4.7,
+    "carbohidratosG": 25.1,
+    "grasasG": 10.8
+  },
+  {
+    "nombre": "PETIT SUISSE frutas",
+    "categoria": "Lácteos",
+    "kcal": 158,
+    "proteinaG": 7.1,
+    "carbohidratosG": 15.8,
+    "grasasG": 7.8
+  },
+  {
+    "nombre": "PETIT SUISSE frutas ligero",
+    "categoria": "Lácteos",
+    "kcal": 125,
+    "proteinaG": 7.1,
+    "carbohidratosG": 17.3,
+    "grasasG": 3.5
+  },
+  {
+    "nombre": "PETIT SUISSE frutas/cereales",
+    "categoria": "Lácteos",
+    "kcal": 161,
+    "proteinaG": 7.2,
+    "carbohidratosG": 16.5,
+    "grasasG": 7.8
+  },
+  {
+    "nombre": "PETIT SUISSE nat. azuc. ligero",
+    "categoria": "Lácteos",
+    "kcal": 123,
+    "proteinaG": 7.8,
+    "carbohidratosG": 15.3,
+    "grasasG": 3.8
+  },
+  {
+    "nombre": "PETIT SUISSE natural azucarad",
+    "categoria": "Lácteos",
+    "kcal": 164,
+    "proteinaG": 7.6,
+    "carbohidratosG": 15.4,
+    "grasasG": 8.4
+  },
+  {
+    "nombre": "PETIT SUISSE sabores",
+    "categoria": "Lácteos",
+    "kcal": 164,
+    "proteinaG": 7.5,
+    "carbohidratosG": 15.5,
+    "grasasG": 8.4
+  },
+  {
+    "nombre": "PETITE SUISSE NATURAL",
+    "categoria": "Lácteos",
+    "kcal": 173,
+    "proteinaG": 8.4,
+    "carbohidratosG": 4.1,
+    "grasasG": 13.6
+  },
+  {
+    "nombre": "PETITE SUISSE SABORES",
+    "categoria": "Lácteos",
+    "kcal": 164,
+    "proteinaG": 7.8,
+    "carbohidratosG": 13.5,
+    "grasasG": 8.8
+  },
+  {
+    "nombre": "QUARK “Danone”",
+    "categoria": "Lácteos",
+    "kcal": 107,
+    "proteinaG": 9.2,
+    "carbohidratosG": 3.6,
+    "grasasG": 6.3
+  },
+  {
+    "nombre": "QUESO AZUL",
+    "categoria": "Lácteos",
+    "kcal": 371,
+    "proteinaG": 21.1,
+    "carbohidratosG": 0.7,
+    "grasasG": 29.8
+  },
+  {
+    "nombre": "QUESO BLANCO DESNATADO",
+    "categoria": "Lácteos",
+    "kcal": 70,
+    "proteinaG": 10,
+    "carbohidratosG": 3.1,
+    "grasasG": 1.6
+  },
+  {
+    "nombre": "QUESO BRIE",
+    "categoria": "Lácteos",
+    "kcal": 329,
+    "proteinaG": 20.6,
+    "carbohidratosG": 0,
+    "grasasG": 27.5
+  },
+  {
+    "nombre": "QUESO CAMMEMBERT",
+    "categoria": "Lácteos",
+    "kcal": 312,
+    "proteinaG": 20,
+    "carbohidratosG": 4,
+    "grasasG": 24
+  },
+  {
+    "nombre": "QUESO CHEDDAR",
+    "categoria": "Lácteos",
+    "kcal": 405,
+    "proteinaG": 26,
+    "carbohidratosG": 0,
+    "grasasG": 33.5
+  },
+  {
+    "nombre": "QUESO DE BOLA",
+    "categoria": "Lácteos",
+    "kcal": 349,
+    "proteinaG": 29,
+    "carbohidratosG": 2,
+    "grasasG": 25
+  },
+  {
+    "nombre": "QUESO DE BURGOS",
+    "categoria": "Lácteos",
+    "kcal": 174,
+    "proteinaG": 15,
+    "carbohidratosG": 4,
+    "grasasG": 11
+  },
+  {
+    "nombre": "QUESO DE CABRALES",
+    "categoria": "Lácteos",
+    "kcal": 389,
+    "proteinaG": 21,
+    "carbohidratosG": 2,
+    "grasasG": 33
+  },
+  {
+    "nombre": "QUESO DE GRUYERE",
+    "categoria": "Lácteos",
+    "kcal": 391,
+    "proteinaG": 29,
+    "carbohidratosG": 1.5,
+    "grasasG": 30
+  },
+  {
+    "nombre": "QUESO DE ROQUEFORT",
+    "categoria": "Lácteos",
+    "kcal": 405,
+    "proteinaG": 23,
+    "carbohidratosG": 2,
+    "grasasG": 35
+  },
+  {
+    "nombre": "QUESO EMMENTAL",
+    "categoria": "Lácteos",
+    "kcal": 415,
+    "proteinaG": 28,
+    "carbohidratosG": 1.5,
+    "grasasG": 33
+  },
+  {
+    "nombre": "QUESO EN PORCIONES",
+    "categoria": "Lácteos",
+    "kcal": 280,
+    "proteinaG": 18,
+    "carbohidratosG": 2.5,
+    "grasasG": 22
+  },
+  {
+    "nombre": "QUESO fresc. desn. frut. Danone",
+    "categoria": "Lácteos",
+    "kcal": 109,
+    "proteinaG": 8.6,
+    "carbohidratosG": 16.5,
+    "grasasG": 1.4
+  },
+  {
+    "nombre": "QUESO FRESCO",
+    "categoria": "Lácteos",
+    "kcal": 353,
+    "proteinaG": 11.3,
+    "carbohidratosG": 3,
+    "grasasG": 31.5
+  },
+  {
+    "nombre": "QUESO fresco desnat. “Danone”",
+    "categoria": "Lácteos",
+    "kcal": 70,
+    "proteinaG": 10,
+    "carbohidratosG": 4.1,
+    "grasasG": 1.6
+  },
+  {
+    "nombre": "QUESO FRESCO DESNATADO",
+    "categoria": "Lácteos",
+    "kcal": 68,
+    "proteinaG": 10.5,
+    "carbohidratosG": 3.2,
+    "grasasG": 1.6
+  },
+  {
+    "nombre": "QUESO GALLEGO (1)",
+    "categoria": "Lácteos",
+    "kcal": 351,
+    "proteinaG": 23,
+    "carbohidratosG": 2,
+    "grasasG": 28
+  },
+  {
+    "nombre": "QUESO GALLEGO (2)",
+    "categoria": "Lácteos",
+    "kcal": 352,
+    "proteinaG": 23,
+    "carbohidratosG": 2,
+    "grasasG": 28
+  },
+  {
+    "nombre": "QUESO Gervais nat. lig. Danone",
+    "categoria": "Lácteos",
+    "kcal": 140,
+    "proteinaG": 14.2,
+    "carbohidratosG": 4.2,
+    "grasasG": 7.5
+  },
+  {
+    "nombre": "QUESO Gervais natural“Danone”",
+    "categoria": "Lácteos",
+    "kcal": 266,
+    "proteinaG": 6.9,
+    "carbohidratosG": 3.8,
+    "grasasG": 24.9
+  },
+  {
+    "nombre": "QUESO Gervais variedad.Danone",
+    "categoria": "Lácteos",
+    "kcal": 269,
+    "proteinaG": 7.5,
+    "carbohidratosG": 3.6,
+    "grasasG": 25
+  },
+  {
+    "nombre": "QUESO LONCHAS “SVELTESSE”",
+    "categoria": "Lácteos",
+    "kcal": 180,
+    "proteinaG": 21,
+    "carbohidratosG": 2.5,
+    "grasasG": 9.5
+  },
+  {
+    "nombre": "QUESO MANCHEGO CURADO",
+    "categoria": "Lácteos",
+    "kcal": 420,
+    "proteinaG": 32,
+    "carbohidratosG": 1,
+    "grasasG": 32
+  },
+  {
+    "nombre": "QUESO MANCHEGO FRESCO",
+    "categoria": "Lácteos",
+    "kcal": 333,
+    "proteinaG": 26,
+    "carbohidratosG": 0,
+    "grasasG": 25
+  },
+  {
+    "nombre": "QUESO MANCHEGO SEMICUR.",
+    "categoria": "Lácteos",
+    "kcal": 376,
+    "proteinaG": 29,
+    "carbohidratosG": 0.5,
+    "grasasG": 28.7
+  },
+  {
+    "nombre": "QUESO MOZZARELLA",
+    "categoria": "Lácteos",
+    "kcal": 375,
+    "proteinaG": 29,
+    "carbohidratosG": 0.5,
+    "grasasG": 30
+  },
+  {
+    "nombre": "QUESO PARMESANO",
+    "categoria": "Lácteos",
+    "kcal": 393,
+    "proteinaG": 40,
+    "carbohidratosG": 2,
+    "grasasG": 25
+  },
+  {
+    "nombre": "QUESO VILLALÓN",
+    "categoria": "Lácteos",
+    "kcal": 491,
+    "proteinaG": 17.5,
+    "carbohidratosG": 1.9,
+    "grasasG": 46
+  },
+  {
+    "nombre": "REQUESÓN",
+    "categoria": "Lácteos",
+    "kcal": 96,
+    "proteinaG": 13.6,
+    "carbohidratosG": 1.4,
+    "grasasG": 4
+  },
+  {
+    "nombre": "SPEISEQUARK",
+    "categoria": "Lácteos",
+    "kcal": 101,
+    "proteinaG": 10.5,
+    "carbohidratosG": 34,
+    "grasasG": 5
+  },
+  {
+    "nombre": "SVELTESSE QUESO",
+    "categoria": "Lácteos",
+    "kcal": 136,
+    "proteinaG": 16,
+    "carbohidratosG": 5.5,
+    "grasasG": 5.5
+  },
+  {
+    "nombre": "SVELTESSE YOGUR",
+    "categoria": "Lácteos",
+    "kcal": 50,
+    "proteinaG": 4.6,
+    "carbohidratosG": 7.1,
+    "grasasG": 0.4
+  },
+  {
+    "nombre": "YOGUR Bio frutas “Danone”",
+    "categoria": "Lácteos",
+    "kcal": 100,
+    "proteinaG": 3.6,
+    "carbohidratosG": 15.9,
+    "grasasG": 2.8
+  },
+  {
+    "nombre": "YOGUR Bio frutas/fibra“Danone”",
+    "categoria": "Lácteos",
+    "kcal": 100,
+    "proteinaG": 3.6,
+    "carbohidratosG": 15.9,
+    "grasasG": 2.8
+  },
+  {
+    "nombre": "YOGUR Bio natural “Danone”",
+    "categoria": "Lácteos",
+    "kcal": 65,
+    "proteinaG": 3.5,
+    "carbohidratosG": 5.5,
+    "grasasG": 3.3
+  },
+  {
+    "nombre": "YOGUR Bio zumo+vit.A”Danone",
+    "categoria": "Lácteos",
+    "kcal": 101,
+    "proteinaG": 3.8,
+    "carbohidratosG": 14.3,
+    "grasasG": 3.5
+  },
+  {
+    "nombre": "YOGUR chocolate “Danone”",
+    "categoria": "Lácteos",
+    "kcal": 113,
+    "proteinaG": 3.4,
+    "carbohidratosG": 21.6,
+    "grasasG": 2
+  },
+  {
+    "nombre": "YOGUR DE FRUTA",
+    "categoria": "Lácteos",
+    "kcal": 100,
+    "proteinaG": 3,
+    "carbohidratosG": 15.9,
+    "grasasG": 2.2
+  },
+  {
+    "nombre": "YOGUR desnat/frutas “Danone”",
+    "categoria": "Lácteos",
+    "kcal": 82,
+    "proteinaG": 4,
+    "carbohidratosG": 17.5,
+    "grasasG": 0
+  },
+  {
+    "nombre": "YOGUR desnat/sabores“Danone”",
+    "categoria": "Lácteos",
+    "kcal": 77,
+    "proteinaG": 4,
+    "carbohidratosG": 16.1,
+    "grasasG": 0
+  },
+  {
+    "nombre": "YOGUR desnatado",
+    "categoria": "Lácteos",
+    "kcal": 37,
+    "proteinaG": 4.5,
+    "carbohidratosG": 4.4,
+    "grasasG": 0.3
+  },
+  {
+    "nombre": "YOGUR DESNATADO",
+    "categoria": "Lácteos",
+    "kcal": 42,
+    "proteinaG": 4.6,
+    "carbohidratosG": 5.4,
+    "grasasG": 0.5
+  },
+  {
+    "nombre": "YOGUR desnatado con frutas",
+    "categoria": "Lácteos",
+    "kcal": 91,
+    "proteinaG": 4.3,
+    "carbohidratosG": 18.9,
+    "grasasG": 0.3
+  },
+  {
+    "nombre": "YOGUR DESNATADO FRUTAS",
+    "categoria": "Lácteos",
+    "kcal": 90,
+    "proteinaG": 4.3,
+    "carbohidratosG": 18.9,
+    "grasasG": 0.4
+  },
+  {
+    "nombre": "YOGUR enriquec. sabor”Danone”",
+    "categoria": "Lácteos",
+    "kcal": 99,
+    "proteinaG": 3,
+    "carbohidratosG": 15.3,
+    "grasasG": 3.2
+  },
+  {
+    "nombre": "YOGUR ENRIQUECIDO",
+    "categoria": "Lácteos",
+    "kcal": 60,
+    "proteinaG": 3.7,
+    "carbohidratosG": 3.7,
+    "grasasG": 3.6
+  },
+  {
+    "nombre": "YOGUR frut.flavour ligth “Danon",
+    "categoria": "Lácteos",
+    "kcal": 45,
+    "proteinaG": 4.1,
+    "carbohidratosG": 7.6,
+    "grasasG": 0
+  },
+  {
+    "nombre": "YOGUR frut.flavour origi.Yoplait",
+    "categoria": "Lácteos",
+    "kcal": 105,
+    "proteinaG": 4.7,
+    "carbohidratosG": 18.8,
+    "grasasG": 1.7
+  },
+  {
+    "nombre": "YOGUR frutas “Danone”",
+    "categoria": "Lácteos",
+    "kcal": 100,
+    "proteinaG": 3,
+    "carbohidratosG": 22,
+    "grasasG": 2.2
+  },
+  {
+    "nombre": "YOGUR líquido",
+    "categoria": "Lácteos",
+    "kcal": 68,
+    "proteinaG": 2.5,
+    "carbohidratosG": 13.3,
+    "grasasG": 0.8
+  },
+  {
+    "nombre": "YOGUR líquido Dan’up frutas",
+    "categoria": "Lácteos",
+    "kcal": 81,
+    "proteinaG": 1.8,
+    "carbohidratosG": 14.4,
+    "grasasG": 1.8
+  },
+  {
+    "nombre": "YOGUR líquido Dan’up natu/azúc",
+    "categoria": "Lácteos",
+    "kcal": 75,
+    "proteinaG": 2.7,
+    "carbohidratosG": 12.5,
+    "grasasG": 1.9
+  },
+  {
+    "nombre": "YOGUR nat.enriq.azúc “Danone”",
+    "categoria": "Lácteos",
+    "kcal": 96,
+    "proteinaG": 3,
+    "carbohidratosG": 14.5,
+    "grasasG": 3.2
+  },
+  {
+    "nombre": "YOGUR NATURAL",
+    "categoria": "Lácteos",
+    "kcal": 62,
+    "proteinaG": 3.4,
+    "carbohidratosG": 4,
+    "grasasG": 3.2
+  },
+  {
+    "nombre": "YOGUR natural azúcar “Danone”",
+    "categoria": "Lácteos",
+    "kcal": 98,
+    "proteinaG": 3.3,
+    "carbohidratosG": 16.2,
+    "grasasG": 2.6
+  },
+  {
+    "nombre": "YOGUR natural desnat.”Danone”",
+    "categoria": "Lácteos",
+    "kcal": 45,
+    "proteinaG": 4.4,
+    "carbohidratosG": 7.1,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "YOGUR savia/prot.soja/frutas",
+    "categoria": "Lácteos",
+    "kcal": 78,
+    "proteinaG": 4.7,
+    "carbohidratosG": 15.6,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "YOGUR vainill no graso“Yoplait”",
+    "categoria": "Lácteos",
+    "kcal": 77,
+    "proteinaG": 4.8,
+    "carbohidratosG": 15.4,
+    "grasasG": 0
+  },
+  {
+    "nombre": "YOGUR vainilla “Yoplait”",
+    "categoria": "Lácteos",
+    "kcal": 101,
+    "proteinaG": 5.3,
+    "carbohidratosG": 17,
+    "grasasG": 1.7
+  },
+  {
+    "nombre": "GARBANZOS",
+    "categoria": "Legumbres",
+    "kcal": 361,
+    "proteinaG": 18,
+    "carbohidratosG": 61,
+    "grasasG": 5
+  },
+  {
+    "nombre": "GUISANTES SECOS",
+    "categoria": "Legumbres",
+    "kcal": 317,
+    "proteinaG": 21.6,
+    "carbohidratosG": 56,
+    "grasasG": 2.3
+  },
+  {
+    "nombre": "HABAS SECAS",
+    "categoria": "Legumbres",
+    "kcal": 343,
+    "proteinaG": 23,
+    "carbohidratosG": 59,
+    "grasasG": 1.5
+  },
+  {
+    "nombre": "JUDÍAS SECAS",
+    "categoria": "Legumbres",
+    "kcal": 330,
+    "proteinaG": 19,
+    "carbohidratosG": 60,
+    "grasasG": 1.5
+  },
+  {
+    "nombre": "LENTEJAS",
+    "categoria": "Legumbres",
+    "kcal": 336,
+    "proteinaG": 24,
+    "carbohidratosG": 56,
+    "grasasG": 1.8
+  },
+  {
+    "nombre": "SOJA EN GRANO",
+    "categoria": "Legumbres",
+    "kcal": 422,
+    "proteinaG": 35,
+    "carbohidratosG": 30,
+    "grasasG": 18
+  },
+  {
+    "nombre": "SOJA FRESCA",
+    "categoria": "Legumbres",
+    "kcal": 137,
+    "proteinaG": 13.7,
+    "carbohidratosG": 10.3,
+    "grasasG": 4.8
+  },
+  {
+    "nombre": "SOJA SECA",
+    "categoria": "Legumbres",
+    "kcal": 370,
+    "proteinaG": 35.9,
+    "carbohidratosG": 15.8,
+    "grasasG": 18.6
+  },
+  {
+    "nombre": "ANCAS DE RANA",
+    "categoria": "Otros",
+    "kcal": 70,
+    "proteinaG": 16.5,
+    "carbohidratosG": 0,
+    "grasasG": 0.3
+  },
+  {
+    "nombre": "CARACOLES",
+    "categoria": "Otros",
+    "kcal": 67,
+    "proteinaG": 15,
+    "carbohidratosG": 0,
+    "grasasG": 0.8
+  },
+  {
+    "nombre": "ABADEJO",
+    "categoria": "Pescados y mariscos",
+    "kcal": 76,
+    "proteinaG": 17.4,
+    "carbohidratosG": 0,
+    "grasasG": 0.7
+  },
+  {
+    "nombre": "ALMEJAS LATA",
+    "categoria": "Pescados y mariscos",
+    "kcal": 47,
+    "proteinaG": 10.7,
+    "carbohidratosG": 0,
+    "grasasG": 0.5
+  },
+  {
+    "nombre": "ALMEJAS/CHIRLAS",
+    "categoria": "Pescados y mariscos",
+    "kcal": 50,
+    "proteinaG": 11,
+    "carbohidratosG": 0,
+    "grasasG": 0.9
+  },
+  {
+    "nombre": "ANCHOAS",
+    "categoria": "Pescados y mariscos",
+    "kcal": 175,
+    "proteinaG": 20,
+    "carbohidratosG": 0.6,
+    "grasasG": 10.3
+  },
+  {
+    "nombre": "ANCHOAS EN ACEITE",
+    "categoria": "Pescados y mariscos",
+    "kcal": 206,
+    "proteinaG": 21.7,
+    "carbohidratosG": 0.3,
+    "grasasG": 13.2
+  },
+  {
+    "nombre": "ANGUILAS",
+    "categoria": "Pescados y mariscos",
+    "kcal": 200,
+    "proteinaG": 14,
+    "carbohidratosG": 0,
+    "grasasG": 15.5
+  },
+  {
+    "nombre": "ANGULAS",
+    "categoria": "Pescados y mariscos",
+    "kcal": 205,
+    "proteinaG": 16.3,
+    "carbohidratosG": 0,
+    "grasasG": 15.5
+  },
+  {
+    "nombre": "ARENQUE AHUMADO",
+    "categoria": "Pescados y mariscos",
+    "kcal": 209,
+    "proteinaG": 23,
+    "carbohidratosG": 0,
+    "grasasG": 13
+  },
+  {
+    "nombre": "ARENQUE SECO",
+    "categoria": "Pescados y mariscos",
+    "kcal": 122,
+    "proteinaG": 17,
+    "carbohidratosG": 0,
+    "grasasG": 6
+  },
+  {
+    "nombre": "ATÚN",
+    "categoria": "Pescados y mariscos",
+    "kcal": 225,
+    "proteinaG": 27,
+    "carbohidratosG": 0,
+    "grasasG": 13
+  },
+  {
+    "nombre": "ATÚN EN ACEITE",
+    "categoria": "Pescados y mariscos",
+    "kcal": 280,
+    "proteinaG": 25,
+    "carbohidratosG": 0,
+    "grasasG": 20
+  },
+  {
+    "nombre": "ATÚN EN ESCABECHE",
+    "categoria": "Pescados y mariscos",
+    "kcal": 168,
+    "proteinaG": 15,
+    "carbohidratosG": 0,
+    "grasasG": 12
+  },
+  {
+    "nombre": "BACALADILLA",
+    "categoria": "Pescados y mariscos",
+    "kcal": 76,
+    "proteinaG": 17.4,
+    "carbohidratosG": 0,
+    "grasasG": 0.7
+  },
+  {
+    "nombre": "BACALAO FRESCO",
+    "categoria": "Pescados y mariscos",
+    "kcal": 74,
+    "proteinaG": 17,
+    "carbohidratosG": 0,
+    "grasasG": 0.7
+  },
+  {
+    "nombre": "BACALAO SALADO",
+    "categoria": "Pescados y mariscos",
+    "kcal": 107,
+    "proteinaG": 26,
+    "carbohidratosG": 0,
+    "grasasG": 0.4
+  },
+  {
+    "nombre": "BACALAO SECO",
+    "categoria": "Pescados y mariscos",
+    "kcal": 322,
+    "proteinaG": 75,
+    "carbohidratosG": 0,
+    "grasasG": 2.5
+  },
+  {
+    "nombre": "BESUGO",
+    "categoria": "Pescados y mariscos",
+    "kcal": 118,
+    "proteinaG": 16,
+    "carbohidratosG": 0,
+    "grasasG": 6
+  },
+  {
+    "nombre": "BONITO (1)",
+    "categoria": "Pescados y mariscos",
+    "kcal": 138,
+    "proteinaG": 21,
+    "carbohidratosG": 0,
+    "grasasG": 6
+  },
+  {
+    "nombre": "BONITO (2)",
+    "categoria": "Pescados y mariscos",
+    "kcal": 147,
+    "proteinaG": 26.7,
+    "carbohidratosG": 0,
+    "grasasG": 4.5
+  },
+  {
+    "nombre": "BOQUERÓN",
+    "categoria": "Pescados y mariscos",
+    "kcal": 129,
+    "proteinaG": 17.6,
+    "carbohidratosG": 0.6,
+    "grasasG": 6.3
+  },
+  {
+    "nombre": "BRECA/FANECA",
+    "categoria": "Pescados y mariscos",
+    "kcal": 74,
+    "proteinaG": 15.4,
+    "carbohidratosG": 1,
+    "grasasG": 1
+  },
+  {
+    "nombre": "CABALLA",
+    "categoria": "Pescados y mariscos",
+    "kcal": 153,
+    "proteinaG": 15,
+    "carbohidratosG": 0.8,
+    "grasasG": 10
+  },
+  {
+    "nombre": "CALAMAR/SIMILAR",
+    "categoria": "Pescados y mariscos",
+    "kcal": 82,
+    "proteinaG": 17,
+    "carbohidratosG": 0.5,
+    "grasasG": 1.3
+  },
+  {
+    "nombre": "CALAMARES LATA",
+    "categoria": "Pescados y mariscos",
+    "kcal": 88,
+    "proteinaG": 17,
+    "carbohidratosG": 0.5,
+    "grasasG": 2
+  },
+  {
+    "nombre": "CANGREJO/NÉCORA",
+    "categoria": "Pescados y mariscos",
+    "kcal": 85,
+    "proteinaG": 16,
+    "carbohidratosG": 0.6,
+    "grasasG": 1.6
+  },
+  {
+    "nombre": "CARPA",
+    "categoria": "Pescados y mariscos",
+    "kcal": 498,
+    "proteinaG": 18,
+    "carbohidratosG": 0,
+    "grasasG": 5.2
+  },
+  {
+    "nombre": "CAVIAR",
+    "categoria": "Pescados y mariscos",
+    "kcal": 233,
+    "proteinaG": 29,
+    "carbohidratosG": 0,
+    "grasasG": 13
+  },
+  {
+    "nombre": "CENTOLLO",
+    "categoria": "Pescados y mariscos",
+    "kcal": 127,
+    "proteinaG": 20.1,
+    "carbohidratosG": 0,
+    "grasasG": 5.2
+  },
+  {
+    "nombre": "CHANQUETE",
+    "categoria": "Pescados y mariscos",
+    "kcal": 79,
+    "proteinaG": 11.4,
+    "carbohidratosG": 1.8,
+    "grasasG": 3
+  },
+  {
+    "nombre": "CIGALA",
+    "categoria": "Pescados y mariscos",
+    "kcal": 67,
+    "proteinaG": 15,
+    "carbohidratosG": 0,
+    "grasasG": 0.8
+  },
+  {
+    "nombre": "CONGRIO",
+    "categoria": "Pescados y mariscos",
+    "kcal": 112,
+    "proteinaG": 20,
+    "carbohidratosG": 0,
+    "grasasG": 3
+  },
+  {
+    "nombre": "DORADA",
+    "categoria": "Pescados y mariscos",
+    "kcal": 77,
+    "proteinaG": 17,
+    "carbohidratosG": 0,
+    "grasasG": 1
+  },
+  {
+    "nombre": "GALLO",
+    "categoria": "Pescados y mariscos",
+    "kcal": 73,
+    "proteinaG": 16,
+    "carbohidratosG": 0,
+    "grasasG": 1
+  },
+  {
+    "nombre": "GAMBAS",
+    "categoria": "Pescados y mariscos",
+    "kcal": 96,
+    "proteinaG": 21,
+    "carbohidratosG": 0,
+    "grasasG": 1.3
+  },
+  {
+    "nombre": "HUEVA FRESCA",
+    "categoria": "Pescados y mariscos",
+    "kcal": 113,
+    "proteinaG": 24.3,
+    "carbohidratosG": 0,
+    "grasasG": 1.8
+  },
+  {
+    "nombre": "JUREL",
+    "categoria": "Pescados y mariscos",
+    "kcal": 127,
+    "proteinaG": 15.7,
+    "carbohidratosG": 0.8,
+    "grasasG": 6.8
+  },
+  {
+    "nombre": "LANGOSTA",
+    "categoria": "Pescados y mariscos",
+    "kcal": 67,
+    "proteinaG": 15,
+    "carbohidratosG": 0,
+    "grasasG": 0.8
+  },
+  {
+    "nombre": "LANGOSTINO",
+    "categoria": "Pescados y mariscos",
+    "kcal": 96,
+    "proteinaG": 21,
+    "carbohidratosG": 0,
+    "grasasG": 1.3
+  },
+  {
+    "nombre": "LENGUADO",
+    "categoria": "Pescados y mariscos",
+    "kcal": 73,
+    "proteinaG": 16,
+    "carbohidratosG": 0,
+    "grasasG": 1
+  },
+  {
+    "nombre": "LUBINA",
+    "categoria": "Pescados y mariscos",
+    "kcal": 118,
+    "proteinaG": 16,
+    "carbohidratosG": 0,
+    "grasasG": 6
+  },
+  {
+    "nombre": "MEJILLÓN",
+    "categoria": "Pescados y mariscos",
+    "kcal": 74,
+    "proteinaG": 12,
+    "carbohidratosG": 2.2,
+    "grasasG": 1.9
+  },
+  {
+    "nombre": "MEJILLÓN LATA",
+    "categoria": "Pescados y mariscos",
+    "kcal": 82,
+    "proteinaG": 12,
+    "carbohidratosG": 2,
+    "grasasG": 2.9
+  },
+  {
+    "nombre": "MERLUZA",
+    "categoria": "Pescados y mariscos",
+    "kcal": 86,
+    "proteinaG": 17,
+    "carbohidratosG": 0,
+    "grasasG": 2
+  },
+  {
+    "nombre": "MERO",
+    "categoria": "Pescados y mariscos",
+    "kcal": 118,
+    "proteinaG": 16,
+    "carbohidratosG": 0,
+    "grasasG": 6
+  },
+  {
+    "nombre": "MUJOL",
+    "categoria": "Pescados y mariscos",
+    "kcal": 127,
+    "proteinaG": 15.8,
+    "carbohidratosG": 0.8,
+    "grasasG": 6.8
+  },
+  {
+    "nombre": "OSTRAS",
+    "categoria": "Pescados y mariscos",
+    "kcal": 80,
+    "proteinaG": 10,
+    "carbohidratosG": 6,
+    "grasasG": 1.8
+  },
+  {
+    "nombre": "PALOMETA",
+    "categoria": "Pescados y mariscos",
+    "kcal": 125,
+    "proteinaG": 20,
+    "carbohidratosG": 0,
+    "grasasG": 5
+  },
+  {
+    "nombre": "PERCEBES",
+    "categoria": "Pescados y mariscos",
+    "kcal": 247,
+    "proteinaG": 13.6,
+    "carbohidratosG": 0,
+    "grasasG": 0.5
+  },
+  {
+    "nombre": "PESCADILLA",
+    "categoria": "Pescados y mariscos",
+    "kcal": 72,
+    "proteinaG": 16,
+    "carbohidratosG": 0.8,
+    "grasasG": 0.6
+  },
+  {
+    "nombre": "PEZ ESPADA",
+    "categoria": "Pescados y mariscos",
+    "kcal": 110,
+    "proteinaG": 17,
+    "carbohidratosG": 1,
+    "grasasG": 4.3
+  },
+  {
+    "nombre": "PULPO",
+    "categoria": "Pescados y mariscos",
+    "kcal": 57,
+    "proteinaG": 10.6,
+    "carbohidratosG": 1.5,
+    "grasasG": 1
+  },
+  {
+    "nombre": "RAPE",
+    "categoria": "Pescados y mariscos",
+    "kcal": 86,
+    "proteinaG": 17,
+    "carbohidratosG": 0,
+    "grasasG": 2
+  },
+  {
+    "nombre": "RAYA",
+    "categoria": "Pescados y mariscos",
+    "kcal": 79,
+    "proteinaG": 17.1,
+    "carbohidratosG": 0.8,
+    "grasasG": 0.9
+  },
+  {
+    "nombre": "RODABALLO",
+    "categoria": "Pescados y mariscos",
+    "kcal": 102,
+    "proteinaG": 16.1,
+    "carbohidratosG": 1.3,
+    "grasasG": 3.6
+  },
+  {
+    "nombre": "SALMÓN",
+    "categoria": "Pescados y mariscos",
+    "kcal": 172,
+    "proteinaG": 16,
+    "carbohidratosG": 0,
+    "grasasG": 12
+  },
+  {
+    "nombre": "SALMÓN AHUMADO",
+    "categoria": "Pescados y mariscos",
+    "kcal": 154,
+    "proteinaG": 20,
+    "carbohidratosG": 0,
+    "grasasG": 8.2
+  },
+  {
+    "nombre": "SALMÓN/REO",
+    "categoria": "Pescados y mariscos",
+    "kcal": 182,
+    "proteinaG": 18.4,
+    "carbohidratosG": 0,
+    "grasasG": 12
+  },
+  {
+    "nombre": "SALMONETE",
+    "categoria": "Pescados y mariscos",
+    "kcal": 97,
+    "proteinaG": 14.1,
+    "carbohidratosG": 2,
+    "grasasG": 3.7
+  },
+  {
+    "nombre": "SARDINA EN ACEITE",
+    "categoria": "Pescados y mariscos",
+    "kcal": 192,
+    "proteinaG": 21,
+    "carbohidratosG": 0,
+    "grasasG": 12
+  },
+  {
+    "nombre": "SARDINA EN ESCABECHE",
+    "categoria": "Pescados y mariscos",
+    "kcal": 131,
+    "proteinaG": 15,
+    "carbohidratosG": 0.8,
+    "grasasG": 7.5
+  },
+  {
+    "nombre": "SARDINA EN TOMATE",
+    "categoria": "Pescados y mariscos",
+    "kcal": 184,
+    "proteinaG": 16.8,
+    "carbohidratosG": 0.5,
+    "grasasG": 12.8
+  },
+  {
+    "nombre": "SARDINA/BOQUERÓN",
+    "categoria": "Pescados y mariscos",
+    "kcal": 151,
+    "proteinaG": 21,
+    "carbohidratosG": 0,
+    "grasasG": 7.5
+  },
+  {
+    "nombre": "SARGO",
+    "categoria": "Pescados y mariscos",
+    "kcal": 103,
+    "proteinaG": 15,
+    "carbohidratosG": 1,
+    "grasasG": 4.4
+  },
+  {
+    "nombre": "TRUCHA",
+    "categoria": "Pescados y mariscos",
+    "kcal": 94,
+    "proteinaG": 18,
+    "carbohidratosG": 0,
+    "grasasG": 3
+  },
+  {
+    "nombre": "VIEIRA",
+    "categoria": "Pescados y mariscos",
+    "kcal": 84,
+    "proteinaG": 19,
+    "carbohidratosG": 0,
+    "grasasG": 0.9
+  },
+  {
+    "nombre": "BUÑUELOS (2)",
+    "categoria": "Precocinados",
+    "kcal": 123,
+    "proteinaG": 8.1,
+    "carbohidratosG": 6.3,
+    "grasasG": 7.3
+  },
+  {
+    "nombre": "CANALONES",
+    "categoria": "Precocinados",
+    "kcal": 127,
+    "proteinaG": 11.9,
+    "carbohidratosG": 4.4,
+    "grasasG": 6.9
+  },
+  {
+    "nombre": "CANAPÉS",
+    "categoria": "Precocinados",
+    "kcal": 234,
+    "proteinaG": 9.4,
+    "carbohidratosG": 24.8,
+    "grasasG": 11.5
+  },
+  {
+    "nombre": "CHURROS",
+    "categoria": "Precocinados",
+    "kcal": 348,
+    "proteinaG": 4.6,
+    "carbohidratosG": 40,
+    "grasasG": 20
+  },
+  {
+    "nombre": "CREMA apio (Campbell)",
+    "categoria": "Precocinados",
+    "kcal": 88,
+    "proteinaG": 1.7,
+    "carbohidratosG": 7,
+    "grasasG": 6.1
+  },
+  {
+    "nombre": "CREMA camarón (Campbell)",
+    "categoria": "Precocinados",
+    "kcal": 79,
+    "proteinaG": 1.7,
+    "carbohidratosG": 7,
+    "grasasG": 5.2
+  },
+  {
+    "nombre": "CREMA champiñón (Campbell)",
+    "categoria": "Precocinados",
+    "kcal": 88,
+    "proteinaG": 1.7,
+    "carbohidratosG": 7,
+    "grasasG": 6.1
+  },
+  {
+    "nombre": "CREMA de patatas (Campbell)",
+    "categoria": "Precocinados",
+    "kcal": 70,
+    "proteinaG": 0.8,
+    "carbohidratosG": 10.5,
+    "grasasG": 2.6
+  },
+  {
+    "nombre": "CREMA de pollo (Campbell)",
+    "categoria": "Precocinados",
+    "kcal": 97,
+    "proteinaG": 1.7,
+    "carbohidratosG": 7.9,
+    "grasasG": 6.1
+  },
+  {
+    "nombre": "CREMA espárragos (Campbell)",
+    "categoria": "Precocinados",
+    "kcal": 70,
+    "proteinaG": 1.7,
+    "carbohidratosG": 8.8,
+    "grasasG": 3.5
+  },
+  {
+    "nombre": "CREMA judías/bacon (Campbell)",
+    "categoria": "Precocinados",
+    "kcal": 123,
+    "proteinaG": 5.2,
+    "carbohidratosG": 18.4,
+    "grasasG": 3.5
+  },
+  {
+    "nombre": "CREMA pollo/champi. (Campbell)",
+    "categoria": "Precocinados",
+    "kcal": 106,
+    "proteinaG": 2.6,
+    "carbohidratosG": 7,
+    "grasasG": 7
+  },
+  {
+    "nombre": "CROQUETAS",
+    "categoria": "Precocinados",
+    "kcal": 123,
+    "proteinaG": 8.1,
+    "carbohidratosG": 6.3,
+    "grasasG": 7.3
+  },
+  {
+    "nombre": "CUBITO DE CALDO",
+    "categoria": "Precocinados",
+    "kcal": 259,
+    "proteinaG": 15.8,
+    "carbohidratosG": 0,
+    "grasasG": 21.8
+  },
+  {
+    "nombre": "EMPANADILLA DE ATÚN",
+    "categoria": "Precocinados",
+    "kcal": 243,
+    "proteinaG": 7.3,
+    "carbohidratosG": 25.6,
+    "grasasG": 12.4
+  },
+  {
+    "nombre": "FILETE PESCADO “McDonald”",
+    "categoria": "Precocinados",
+    "kcal": 309,
+    "proteinaG": 9.7,
+    "carbohidratosG": 26.6,
+    "grasasG": 18.3
+  },
+  {
+    "nombre": "JAMÓN Y QUESO EMPANADO",
+    "categoria": "Precocinados",
+    "kcal": 214,
+    "proteinaG": 7.9,
+    "carbohidratosG": 24.1,
+    "grasasG": 9.6
+  },
+  {
+    "nombre": "LASAÑA",
+    "categoria": "Precocinados",
+    "kcal": 147,
+    "proteinaG": 6.8,
+    "carbohidratosG": 12.3,
+    "grasasG": 7.8
+  },
+  {
+    "nombre": "MINESTRONE “Campbell”",
+    "categoria": "Precocinados",
+    "kcal": 70,
+    "proteinaG": 2.6,
+    "carbohidratosG": 11.4,
+    "grasasG": 1.7
+  },
+  {
+    "nombre": "PESCADO EMPANADO",
+    "categoria": "Precocinados",
+    "kcal": 178,
+    "proteinaG": 12.6,
+    "carbohidratosG": 16.1,
+    "grasasG": 7.5
+  },
+  {
+    "nombre": "PIZZA",
+    "categoria": "Precocinados",
+    "kcal": 234,
+    "proteinaG": 9.4,
+    "carbohidratosG": 24.8,
+    "grasasG": 11.5
+  },
+  {
+    "nombre": "POLLO EMPANADO",
+    "categoria": "Precocinados",
+    "kcal": 283,
+    "proteinaG": 13.1,
+    "carbohidratosG": 15.6,
+    "grasasG": 18.7
+  },
+  {
+    "nombre": "PURÉ merluz/becham. “Sandoz”",
+    "categoria": "Precocinados",
+    "kcal": 97,
+    "proteinaG": 5,
+    "carbohidratosG": 9.5,
+    "grasasG": 4.3
+  },
+  {
+    "nombre": "PURÉ pavo/arroz/zana”Sandoz”",
+    "categoria": "Precocinados",
+    "kcal": 94,
+    "proteinaG": 5,
+    "carbohidratosG": 10.8,
+    "grasasG": 3.4
+  },
+  {
+    "nombre": "PURÉ pollo/pasta/cham”Sandoz”",
+    "categoria": "Precocinados",
+    "kcal": 98,
+    "proteinaG": 5.6,
+    "carbohidratosG": 9.9,
+    "grasasG": 4
+  },
+  {
+    "nombre": "PURÉ pollo/verduras “Sandoz”",
+    "categoria": "Precocinados",
+    "kcal": 101,
+    "proteinaG": 5.6,
+    "carbohidratosG": 10.4,
+    "grasasG": 4.1
+  },
+  {
+    "nombre": "PURÉ ternera/jardinera”Sandoz”",
+    "categoria": "Precocinados",
+    "kcal": 101,
+    "proteinaG": 5,
+    "carbohidratosG": 11.3,
+    "grasasG": 3.9
+  },
+  {
+    "nombre": "ROLLITOS DE PRIMAVERA",
+    "categoria": "Precocinados",
+    "kcal": 258,
+    "proteinaG": 8.7,
+    "carbohidratosG": 20.8,
+    "grasasG": 15.6
+  },
+  {
+    "nombre": "SALSA agridulce “McDonald”",
+    "categoria": "Precocinados",
+    "kcal": 170,
+    "proteinaG": 0.6,
+    "carbohidratosG": 43.1,
+    "grasasG": 0.6
+  },
+  {
+    "nombre": "SALSA barbacoa “McDonald”",
+    "categoria": "Precocinados",
+    "kcal": 156,
+    "proteinaG": 0.9,
+    "carbohidratosG": 37.8,
+    "grasasG": 1.5
+  },
+  {
+    "nombre": "SALSA mostaza caliente “McD”",
+    "categoria": "Precocinados",
+    "kcal": 233,
+    "proteinaG": 1.6,
+    "carbohidratosG": 27.3,
+    "grasasG": 12
+  },
+  {
+    "nombre": "SOPA de buey “Campbell”",
+    "categoria": "Precocinados",
+    "kcal": 70,
+    "proteinaG": 4.4,
+    "carbohidratosG": 8.8,
+    "grasasG": 1.7
+  },
+  {
+    "nombre": "SOPA de cebolla “Campbell”",
+    "categoria": "Precocinados",
+    "kcal": 88,
+    "proteinaG": 1.7,
+    "carbohidratosG": 10.5,
+    "grasasG": 4.4
+  },
+  {
+    "nombre": "SOPA DE SOBRE",
+    "categoria": "Precocinados",
+    "kcal": 49,
+    "proteinaG": 1,
+    "carbohidratosG": 5.7,
+    "grasasG": 2.6
+  },
+  {
+    "nombre": "SOPA de tomate “Campbell”",
+    "categoria": "Precocinados",
+    "kcal": 79,
+    "proteinaG": 0.8,
+    "carbohidratosG": 14.9,
+    "grasasG": 1.7
+  },
+  {
+    "nombre": "SOPA de vegetales “Campbell”",
+    "categoria": "Precocinados",
+    "kcal": 72,
+    "proteinaG": 2.6,
+    "carbohidratosG": 12.3,
+    "grasasG": 1.7
+  },
+  {
+    "nombre": "SOPA guisantes verd “Campbell”",
+    "categoria": "Precocinados",
+    "kcal": 141,
+    "proteinaG": 7,
+    "carbohidratosG": 22,
+    "grasasG": 2.6
+  },
+  {
+    "nombre": "SOPA ostras cocidas”Campbell”",
+    "categoria": "Precocinados",
+    "kcal": 63,
+    "proteinaG": 1.7,
+    "carbohidratosG": 4.4,
+    "grasasG": 4.4
+  },
+  {
+    "nombre": "SOPA pavo/fideos “Campbell”",
+    "categoria": "Precocinados",
+    "kcal": 62,
+    "proteinaG": 2.6,
+    "carbohidratosG": 7.9,
+    "grasasG": 1.7
+  },
+  {
+    "nombre": "SOPA pavo/vegetal “Campbell”",
+    "categoria": "Precocinados",
+    "kcal": 62,
+    "proteinaG": 1.7,
+    "carbohidratosG": 7,
+    "grasasG": 2.6
+  },
+  {
+    "nombre": "SOPA pollo/vegetal “Campbell”",
+    "categoria": "Precocinados",
+    "kcal": 62,
+    "proteinaG": 2.6,
+    "carbohidratosG": 7,
+    "grasasG": 2.6
+  },
+  {
+    "nombre": "SOPA ternera/vegetal“Campbell”",
+    "categoria": "Precocinados",
+    "kcal": 61,
+    "proteinaG": 3.5,
+    "carbohidratosG": 8.8,
+    "grasasG": 1.7
+  },
+  {
+    "nombre": "SOPA vegetariana “Campbell”",
+    "categoria": "Precocinados",
+    "kcal": 70,
+    "proteinaG": 1.7,
+    "carbohidratosG": 11.4,
+    "grasasG": 1.7
+  },
+  {
+    "nombre": "TORTILLA DE PATATA",
+    "categoria": "Precocinados",
+    "kcal": 194,
+    "proteinaG": 9.2,
+    "carbohidratosG": 6.6,
+    "grasasG": 14.5
+  },
+  {
+    "nombre": "BECHAMEL",
+    "categoria": "Salsas",
+    "kcal": 115,
+    "proteinaG": 4.2,
+    "carbohidratosG": 9.2,
+    "grasasG": 6.7
+  },
+  {
+    "nombre": "KETCHUP",
+    "categoria": "Salsas",
+    "kcal": 98,
+    "proteinaG": 2.1,
+    "carbohidratosG": 24,
+    "grasasG": 0
+  },
+  {
+    "nombre": "MOSTAZA",
+    "categoria": "Salsas",
+    "kcal": 15,
+    "proteinaG": 4.7,
+    "carbohidratosG": 6.4,
+    "grasasG": 4.4
+  },
+  {
+    "nombre": "SALSA DE MOSTAZA",
+    "categoria": "Salsas",
+    "kcal": 103,
+    "proteinaG": 5.5,
+    "carbohidratosG": 5.4,
+    "grasasG": 5
+  },
+  {
+    "nombre": "SALSA DE TOMATE conserva",
+    "categoria": "Salsas",
+    "kcal": 86,
+    "proteinaG": 2.4,
+    "carbohidratosG": 8.1,
+    "grasasG": 5.1
+  },
+  {
+    "nombre": "SALSA FINA “Ligeresa”",
+    "categoria": "Salsas",
+    "kcal": 348,
+    "proteinaG": 0.6,
+    "carbohidratosG": 7.1,
+    "grasasG": 35
+  },
+  {
+    "nombre": "SALSA MAHONESA CLÁSICA",
+    "categoria": "Salsas",
+    "kcal": 831,
+    "proteinaG": 1.1,
+    "carbohidratosG": 0.5,
+    "grasasG": 91.7
+  },
+  {
+    "nombre": "SALSA MAHONESA LIGHT",
+    "categoria": "Salsas",
+    "kcal": 396,
+    "proteinaG": 1,
+    "carbohidratosG": 11.6,
+    "grasasG": 38.5
+  },
+  {
+    "nombre": "SALSA TOMATE FRITO MAGGI",
+    "categoria": "Salsas",
+    "kcal": 83,
+    "proteinaG": 1.2,
+    "carbohidratosG": 11.2,
+    "grasasG": 3.7
+  },
+  {
+    "nombre": "SALSA TOMATE FRITO SOLÍS",
+    "categoria": "Salsas",
+    "kcal": 79,
+    "proteinaG": 1.4,
+    "carbohidratosG": 9.8,
+    "grasasG": 3.8
+  },
+  {
+    "nombre": "SOFRITO",
+    "categoria": "Salsas",
+    "kcal": 116,
+    "proteinaG": 1.6,
+    "carbohidratosG": 8.8,
+    "grasasG": 8.5
+  },
+  {
+    "nombre": "ACELGAS",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 33,
+    "proteinaG": 2,
+    "carbohidratosG": 5,
+    "grasasG": 0.6
+  },
+  {
+    "nombre": "AJOS",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 139,
+    "proteinaG": 6.7,
+    "carbohidratosG": 28,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "ALCACHOFAS",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 64,
+    "proteinaG": 3.4,
+    "carbohidratosG": 12,
+    "grasasG": 0.3
+  },
+  {
+    "nombre": "APIO",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 20,
+    "proteinaG": 1.3,
+    "carbohidratosG": 3.7,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "BERENJENA",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 29,
+    "proteinaG": 1.3,
+    "carbohidratosG": 5.5,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "BERRO",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 21,
+    "proteinaG": 1.7,
+    "carbohidratosG": 3,
+    "grasasG": 0.3
+  },
+  {
+    "nombre": "BONIATO/BATATA",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 152,
+    "proteinaG": 2.2,
+    "carbohidratosG": 32,
+    "grasasG": 0.9
+  },
+  {
+    "nombre": "BRÓCOLI",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 29,
+    "proteinaG": 3.2,
+    "carbohidratosG": 4.9,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "CALABACÍN",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 31,
+    "proteinaG": 1.3,
+    "carbohidratosG": 6,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "CALABAZA",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 24,
+    "proteinaG": 1.3,
+    "carbohidratosG": 5.4,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "CARDO",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 21,
+    "proteinaG": 1.4,
+    "carbohidratosG": 3.5,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "CEBOLLA",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 47,
+    "proteinaG": 1.4,
+    "carbohidratosG": 10,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "CEBOLLA TIERNA",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 39,
+    "proteinaG": 0.9,
+    "carbohidratosG": 8.4,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "CHAMPIÑÓN/SETAS",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 28,
+    "proteinaG": 2.4,
+    "carbohidratosG": 4,
+    "grasasG": 0.3
+  },
+  {
+    "nombre": "COL CRUDA",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 28,
+    "proteinaG": 1.4,
+    "carbohidratosG": 4.3,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "COL DE BRUSELAS",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 54,
+    "proteinaG": 4,
+    "carbohidratosG": 8,
+    "grasasG": 0.7
+  },
+  {
+    "nombre": "COLIFLOR",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 30,
+    "proteinaG": 2.4,
+    "carbohidratosG": 4.9,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "ENDIBIAS",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 22,
+    "proteinaG": 1.5,
+    "carbohidratosG": 4,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "ESCAROLA",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 37,
+    "proteinaG": 1.5,
+    "carbohidratosG": 4,
+    "grasasG": 0.3
+  },
+  {
+    "nombre": "ESPÁRRAGOS",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 26,
+    "proteinaG": 2.2,
+    "carbohidratosG": 3.9,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "ESPÁRRAGOS EN LATA",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 24,
+    "proteinaG": 1.9,
+    "carbohidratosG": 3.4,
+    "grasasG": 0.3
+  },
+  {
+    "nombre": "ESPINACAS",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 32,
+    "proteinaG": 3.1,
+    "carbohidratosG": 3.6,
+    "grasasG": 0.6
+  },
+  {
+    "nombre": "ESPINACAS CONGELADAS",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 25,
+    "proteinaG": 2.3,
+    "carbohidratosG": 3.2,
+    "grasasG": 0.3
+  },
+  {
+    "nombre": "GRELOS",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 11,
+    "proteinaG": 2.7,
+    "carbohidratosG": 0.1,
+    "grasasG": 0
+  },
+  {
+    "nombre": "GUISANTES CONGELADOS",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 71,
+    "proteinaG": 5,
+    "carbohidratosG": 12,
+    "grasasG": 0.3
+  },
+  {
+    "nombre": "GUISANTES FRESCOS",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 92,
+    "proteinaG": 6,
+    "carbohidratosG": 16,
+    "grasasG": 0.4
+  },
+  {
+    "nombre": "HABAS FRESCAS",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 64,
+    "proteinaG": 5.4,
+    "carbohidratosG": 10,
+    "grasasG": 0.3
+  },
+  {
+    "nombre": "JUDÍAS TIERNAS",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 39,
+    "proteinaG": 2.4,
+    "carbohidratosG": 7,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "LECHUGA",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 18,
+    "proteinaG": 1.2,
+    "carbohidratosG": 2.9,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "LOMBARDA",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 35,
+    "proteinaG": 2.6,
+    "carbohidratosG": 5.2,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "MAÍZ COCIDO",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 50,
+    "proteinaG": 1.1,
+    "carbohidratosG": 10.7,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "MENESTRA",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 29,
+    "proteinaG": 0.8,
+    "carbohidratosG": 5.1,
+    "grasasG": 0.5
+  },
+  {
+    "nombre": "NABOS",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 29,
+    "proteinaG": 0.8,
+    "carbohidratosG": 6,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "PATATA COCIDA",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 86,
+    "proteinaG": 2,
+    "carbohidratosG": 19,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "PATATA FRITA",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 230,
+    "proteinaG": 3.3,
+    "carbohidratosG": 30.1,
+    "grasasG": 10.6
+  },
+  {
+    "nombre": "PATATA FRITA CHIPS",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 544,
+    "proteinaG": 6.7,
+    "carbohidratosG": 50,
+    "grasasG": 37
+  },
+  {
+    "nombre": "PEPINILLOS EN VINAGRE",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 12,
+    "proteinaG": 0.7,
+    "carbohidratosG": 2,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "PEPINO",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 12,
+    "proteinaG": 0.7,
+    "carbohidratosG": 2,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "PEREJIL",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 55,
+    "proteinaG": 3.7,
+    "carbohidratosG": 8,
+    "grasasG": 1
+  },
+  {
+    "nombre": "PIMIENTOS",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 22,
+    "proteinaG": 1.2,
+    "carbohidratosG": 3.8,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "PIMIENTOS DEL PIQUILLO",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 22,
+    "proteinaG": 1.2,
+    "carbohidratosG": 3.8,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "PUERROS",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 42,
+    "proteinaG": 2,
+    "carbohidratosG": 7.5,
+    "grasasG": 0.4
+  },
+  {
+    "nombre": "PURÉ DE PATATA",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 357,
+    "proteinaG": 7,
+    "carbohidratosG": 80,
+    "grasasG": 0.7
+  },
+  {
+    "nombre": "RÁBANO",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 20,
+    "proteinaG": 1.2,
+    "carbohidratosG": 4.2,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "REMOLACHA",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 40,
+    "proteinaG": 1.6,
+    "carbohidratosG": 8,
+    "grasasG": 0.1
+  },
+  {
+    "nombre": "REPOLLO",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 25,
+    "proteinaG": 1.6,
+    "carbohidratosG": 5.2,
+    "grasasG": 0.2
+  },
+  {
+    "nombre": "SOJA, brotes",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 50,
+    "proteinaG": 5.5,
+    "carbohidratosG": 4.7,
+    "grasasG": 1
+  },
+  {
+    "nombre": "TOMATE",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 22,
+    "proteinaG": 1,
+    "carbohidratosG": 4,
+    "grasasG": 0.3
+  },
+  {
+    "nombre": "TOMATE FRITO",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 73,
+    "proteinaG": 2.3,
+    "carbohidratosG": 4.2,
+    "grasasG": 6.2
+  },
+  {
+    "nombre": "TOMATE TRITURADO Conserva",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 39,
+    "proteinaG": 2.3,
+    "carbohidratosG": 5.5,
+    "grasasG": 0.5
+  },
+  {
+    "nombre": "TRUFA",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 92,
+    "proteinaG": 9,
+    "carbohidratosG": 13,
+    "grasasG": 0.5
+  },
+  {
+    "nombre": "VERDURA JULIANA",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 29,
+    "proteinaG": 0.9,
+    "carbohidratosG": 5.1,
+    "grasasG": 0.5
+  },
+  {
+    "nombre": "ZANAHORIA",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 42,
+    "proteinaG": 1.2,
+    "carbohidratosG": 9,
+    "grasasG": 0.3
+  },
+  {
+    "nombre": "ZUMO DE TOMATE",
+    "categoria": "Verduras y hortalizas",
+    "kcal": 21,
+    "proteinaG": 1,
+    "carbohidratosG": 4,
+    "grasasG": 0.2
+  }
+]

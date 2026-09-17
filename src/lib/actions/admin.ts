@@ -27,8 +27,11 @@ const createUsuariaSchema = z.object({
   factorActividad: z.coerce.number().min(0.5).max(3),
   getKcal: z.coerce.number().int().min(0).max(10000),
   deficitDiarioKcal: z.coerce.number().int().min(-2000).max(2000),
-  objetivoKcalMediaDia: z.coerce.number().int().min(0).max(10000),
+  objetivoProteinaG: z.coerce.number().int().min(0).max(1000),
+  objetivoGrasasG: z.coerce.number().int().min(0).max(1000),
   presupuestoSemanalKcal: z.coerce.number().int().min(0).max(70000),
+  carbohidratosEntrenamientoG: z.coerce.number().int().min(0).max(1000),
+  carbohidratosDescansoG: z.coerce.number().int().min(0).max(1000),
 });
 
 export async function createUsuariaAction(input: unknown) {
@@ -57,7 +60,8 @@ export async function createUsuariaAction(input: unknown) {
         factorActividad: data.factorActividad,
         getKcal: data.getKcal,
         deficitDiarioKcal: data.deficitDiarioKcal,
-        objetivoKcalMediaDia: data.objetivoKcalMediaDia,
+        objetivoProteinaG: data.objetivoProteinaG,
+        objetivoGrasasG: data.objetivoGrasasG,
         presupuestoSemanalKcal: data.presupuestoSemanalKcal,
       },
     });
@@ -66,17 +70,16 @@ export async function createUsuariaAction(input: unknown) {
       data: { userId: user.id, fecha: today(), pesoKg: data.pesoInicialKg },
     });
 
+    await tx.dayType.create({
+      data: { userId: user.id, nombre: "Entrenamiento", carbohidratosG: data.carbohidratosEntrenamientoG },
+    });
+    const descanso = await tx.dayType.create({
+      data: { userId: user.id, nombre: "Descanso", carbohidratosG: data.carbohidratosDescansoG },
+    });
+
     for (const weekday of WEEKDAYS) {
       const dayPlan = await tx.dayPlan.create({
-        data: {
-          userId: user.id,
-          weekday,
-          tipoDia: "Sin planificar",
-          objetivoKcal: data.objetivoKcalMediaDia,
-          objetivoProteinaG: 0,
-          objetivoCarbohidratosG: 0,
-          objetivoGrasasG: 0,
-        },
+        data: { userId: user.id, weekday, dayTypeId: descanso.id },
       });
 
       for (const mealType of MEAL_TYPES) {
@@ -114,7 +117,8 @@ const updateProfileSchema = z.object({
   factorActividad: z.coerce.number().min(0.5).max(3),
   getKcal: z.coerce.number().int().min(0).max(10000),
   deficitDiarioKcal: z.coerce.number().int().min(-2000).max(2000),
-  objetivoKcalMediaDia: z.coerce.number().int().min(0).max(10000),
+  objetivoProteinaG: z.coerce.number().int().min(0).max(1000),
+  objetivoGrasasG: z.coerce.number().int().min(0).max(1000),
   presupuestoSemanalKcal: z.coerce.number().int().min(0).max(70000),
 });
 
@@ -127,6 +131,8 @@ export async function updateProfileAction(input: unknown) {
 
   revalidatePath(`/admin/usuarias/${userId}`);
   revalidatePath(`/admin/usuarias/${userId}/plan`);
+  revalidatePath("/dashboard");
+  revalidatePath("/historial");
 }
 
 // ---------- Peso actual ----------
@@ -151,31 +157,96 @@ export async function updateUsuariaWeightAction(input: unknown) {
   revalidatePath(`/admin/usuarias/${data.userId}/plan`);
 }
 
+// ---------- Tipos de día ----------
+
+const createDayTypeSchema = z.object({
+  userId: z.string().min(1),
+  nombre: z.string().trim().min(1, "Ponle un nombre"),
+  carbohidratosG: z.coerce.number().int().min(0).max(1000),
+});
+
+export async function createDayTypeAction(input: unknown) {
+  await requireAdmin();
+  const data = createDayTypeSchema.parse(input);
+
+  const existing = await prisma.dayType.findUnique({
+    where: { userId_nombre: { userId: data.userId, nombre: data.nombre } },
+  });
+  if (existing) throw new Error("Ya existe un tipo de día con ese nombre.");
+
+  await prisma.dayType.create({
+    data: { userId: data.userId, nombre: data.nombre, carbohidratosG: data.carbohidratosG },
+  });
+
+  revalidatePath(`/admin/usuarias/${data.userId}/plan`);
+}
+
+const updateDayTypeSchema = z.object({
+  userId: z.string().min(1),
+  id: z.string().min(1),
+  nombre: z.string().trim().min(1, "Ponle un nombre"),
+  carbohidratosG: z.coerce.number().int().min(0).max(1000),
+});
+
+export async function updateDayTypeAction(input: unknown) {
+  await requireAdmin();
+  const data = updateDayTypeSchema.parse(input);
+
+  const dayType = await prisma.dayType.findUnique({ where: { id: data.id } });
+  if (!dayType || dayType.userId !== data.userId) throw new Error("Tipo de día no encontrado.");
+
+  await prisma.dayType.update({
+    where: { id: data.id },
+    data: { nombre: data.nombre, carbohidratosG: data.carbohidratosG },
+  });
+
+  revalidatePath(`/admin/usuarias/${data.userId}/plan`);
+  revalidatePath(`/admin/usuarias/${data.userId}`);
+  revalidatePath("/dashboard");
+  revalidatePath("/historial");
+}
+
+const deleteDayTypeSchema = z.object({
+  userId: z.string().min(1),
+  id: z.string().min(1),
+});
+
+export async function deleteDayTypeAction(input: unknown) {
+  await requireAdmin();
+  const data = deleteDayTypeSchema.parse(input);
+
+  const dayType = await prisma.dayType.findUnique({
+    where: { id: data.id },
+    include: { _count: { select: { dayPlans: true } } },
+  });
+  if (!dayType || dayType.userId !== data.userId) throw new Error("Tipo de día no encontrado.");
+  if (dayType._count.dayPlans > 0) {
+    throw new Error("No se puede borrar: hay días de la semana que usan este tipo.");
+  }
+
+  await prisma.dayType.delete({ where: { id: data.id } });
+
+  revalidatePath(`/admin/usuarias/${data.userId}/plan`);
+}
+
 // ---------- Menú semanal ----------
 
 const updateDayPlanSchema = z.object({
   userId: z.string().min(1),
   weekday: z.nativeEnum(Weekday),
-  tipoDia: z.string().trim().min(1),
-  objetivoKcal: z.coerce.number().int().min(0).max(10000),
-  objetivoProteinaG: z.coerce.number().int().min(0).max(1000),
-  objetivoCarbohidratosG: z.coerce.number().int().min(0).max(1000),
-  objetivoGrasasG: z.coerce.number().int().min(0).max(1000),
+  dayTypeId: z.string().min(1),
 });
 
 export async function updateDayPlanAction(input: unknown) {
   await requireAdmin();
   const data = updateDayPlanSchema.parse(input);
 
+  const dayType = await prisma.dayType.findUnique({ where: { id: data.dayTypeId } });
+  if (!dayType || dayType.userId !== data.userId) throw new Error("Tipo de día no encontrado.");
+
   await prisma.dayPlan.update({
     where: { userId_weekday: { userId: data.userId, weekday: data.weekday } },
-    data: {
-      tipoDia: data.tipoDia,
-      objetivoKcal: data.objetivoKcal,
-      objetivoProteinaG: data.objetivoProteinaG,
-      objetivoCarbohidratosG: data.objetivoCarbohidratosG,
-      objetivoGrasasG: data.objetivoGrasasG,
-    },
+    data: { dayTypeId: data.dayTypeId },
   });
 
   revalidatePath(`/admin/usuarias/${data.userId}/plan`);

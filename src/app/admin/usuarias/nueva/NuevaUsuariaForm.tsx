@@ -28,8 +28,11 @@ export function NuevaUsuariaForm() {
           factorActividad: form.get("factorActividad"),
           getKcal: form.get("getKcal"),
           deficitDiarioKcal: form.get("deficitDiarioKcal"),
-          objetivoKcalMediaDia: form.get("objetivoKcalMediaDia"),
+          objetivoProteinaG: form.get("objetivoProteinaG"),
+          objetivoGrasasG: form.get("objetivoGrasasG"),
           presupuestoSemanalKcal: form.get("presupuestoSemanalKcal"),
+          carbohidratosEntrenamientoG: form.get("carbohidratosEntrenamientoG"),
+          carbohidratosDescansoG: form.get("carbohidratosDescansoG"),
         }).catch((err) => {
           setError(err instanceof Error ? err.message : "Error al crear la persona");
           setPending(false);
@@ -58,7 +61,6 @@ export function NuevaUsuariaForm() {
           <Field name="bmrKcal" label="BMR (kcal)" type="number" />
           <Field name="getKcal" label="GET (kcal)" type="number" />
           <Field name="deficitDiarioKcal" label="Déficit diario (kcal)" type="number" defaultValue="300" />
-          <Field name="objetivoKcalMediaDia" label="Objetivo kcal media/día" type="number" />
           <Field
             name="presupuestoSemanalKcal"
             label="Presupuesto semanal (kcal)"
@@ -66,8 +68,25 @@ export function NuevaUsuariaForm() {
             className="col-span-2"
           />
         </div>
+      </div>
+
+      <div>
+        <h2 className="mb-2 text-sm font-semibold text-slate-500">Macros (proteína y grasa fijas siempre)</h2>
+        <div className="grid grid-cols-2 gap-2">
+          <Field name="objetivoProteinaG" label="Proteína objetivo (g)" type="number" defaultValue="100" />
+          <Field name="objetivoGrasasG" label="Grasa objetivo (g)" type="number" defaultValue="47" />
+        </div>
+      </div>
+
+      <div>
+        <h2 className="mb-2 text-sm font-semibold text-slate-500">Carbohidratos según el día</h2>
+        <div className="grid grid-cols-2 gap-2">
+          <Field name="carbohidratosEntrenamientoG" label="Día de entrenamiento (g)" type="number" defaultValue="150" />
+          <Field name="carbohidratosDescansoG" label="Día de descanso (g)" type="number" defaultValue="100" />
+        </div>
         <p className="mt-2 text-xs text-slate-400">
-          El menú semanal (platos y objetivos por día) se crea en blanco — se rellena después desde su ficha, pestaña &quot;Plan&quot;.
+          Los 7 días de la semana se crean como &quot;Descanso&quot; y el menú en blanco — se ajusta después desde
+          su ficha, pestaña &quot;Plan&quot; (qué días son de entrenamiento, y los platos de cada comida).
         </p>
       </div>
 

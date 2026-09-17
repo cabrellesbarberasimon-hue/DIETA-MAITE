@@ -2,7 +2,9 @@ import "server-only";
 import bcrypt from "bcryptjs";
 import type { PrismaClient } from "@/generated/prisma/client";
 import { today } from "@/lib/nutrition";
+import { normalizeSearchText } from "@/lib/text";
 import seed from "@/lib/seed-data/dieta_maite_seed.json";
+import foods from "@/lib/seed-data/foods.json";
 
 type SeedComida = {
   descripcion: string;
@@ -15,12 +17,6 @@ type SeedComida = {
 type SeedDia = {
   tipo_dia: string;
   comidas: Record<string, SeedComida>;
-  objetivo: {
-    kcal: number;
-    proteina_g: number;
-    carbohidratos_g: number;
-    grasas_g: number;
-  };
 };
 
 const WEEKDAY_MAP: Record<string, string> = {
@@ -43,6 +39,11 @@ const MEAL_TYPE_MAP: Record<string, string> = {
   CENA: "CENA",
 };
 
+const DEFAULT_OBJETIVO_PROTEINA_G = 100;
+const DEFAULT_OBJETIVO_GRASAS_G = 47;
+const ENTRENAMIENTO_CARBOHIDRATOS_G = 150;
+const DESCANSO_CARBOHIDRATOS_G = 100;
+
 export type SeedOptions = {
   maiteEmail: string;
   maitePassword: string;
@@ -57,11 +58,12 @@ export type SeedResult = {
 };
 
 /**
- * Carga usuarios, perfil, menú semanal y tabla MET desde dieta_maite_seed.json.
- * Idempotente para el resto de datos (perfil, plan, tabla MET: no se duplican).
- * La contraseña SÍ se resincroniza con SEED_MAITE_PASSWORD/SEED_SIMON_PASSWORD
- * en cada llamada a propósito: visitar este endpoint de nuevo (con el token)
- * es la forma de "resetear" la contraseña de estas dos cuentas si hace falta.
+ * Carga usuarios, perfil, menú semanal y tabla MET desde dieta_maite_seed.json,
+ * y la tabla de alimentos desde foods.json (esta última compartida, no ligada
+ * a ninguna usuaria). Idempotente para todo salvo la contraseña: visitar este
+ * endpoint de nuevo (con el token) resincroniza las contraseñas de Maite y
+ * Simón con SEED_MAITE_PASSWORD/SEED_SIMON_PASSWORD, a propósito, como forma
+ * simple de "resetearlas" si hace falta.
  */
 export async function runSeed(prisma: PrismaClient, options: SeedOptions): Promise<SeedResult> {
   const [existingMaite, existingSimon] = await Promise.all([
@@ -109,7 +111,8 @@ export async function runSeed(prisma: PrismaClient, options: SeedOptions): Promi
       factorActividad: seed.perfil.factor_actividad,
       getKcal: seed.perfil.get_kcal,
       deficitDiarioKcal: seed.perfil.deficit_diario_kcal,
-      objetivoKcalMediaDia: seed.perfil.objetivo_kcal_media_dia,
+      objetivoProteinaG: DEFAULT_OBJETIVO_PROTEINA_G,
+      objetivoGrasasG: DEFAULT_OBJETIVO_GRASAS_G,
       presupuestoSemanalKcal: seed.perfil.presupuesto_semanal_kcal,
     },
   });
@@ -125,28 +128,27 @@ export async function runSeed(prisma: PrismaClient, options: SeedOptions): Promi
     },
   });
 
+  const dayTypeEntrenamiento = await prisma.dayType.upsert({
+    where: { userId_nombre: { userId: maite.id, nombre: "Entrenamiento" } },
+    update: {},
+    create: { userId: maite.id, nombre: "Entrenamiento", carbohidratosG: ENTRENAMIENTO_CARBOHIDRATOS_G },
+  });
+  const dayTypeDescanso = await prisma.dayType.upsert({
+    where: { userId_nombre: { userId: maite.id, nombre: "Descanso" } },
+    update: {},
+    create: { userId: maite.id, nombre: "Descanso", carbohidratosG: DESCANSO_CARBOHIDRATOS_G },
+  });
+
   for (const [diaKey, dia] of Object.entries(seed.dias as Record<string, SeedDia>)) {
     const weekday = WEEKDAY_MAP[diaKey];
     if (!weekday) throw new Error(`Día no reconocido en el seed: ${diaKey}`);
 
+    const dayType = /CARDIO/i.test(dia.tipo_dia) ? dayTypeEntrenamiento : dayTypeDescanso;
+
     const dayPlan = await prisma.dayPlan.upsert({
       where: { userId_weekday: { userId: maite.id, weekday: weekday as never } },
-      update: {
-        tipoDia: dia.tipo_dia,
-        objetivoKcal: dia.objetivo.kcal,
-        objetivoProteinaG: dia.objetivo.proteina_g,
-        objetivoCarbohidratosG: dia.objetivo.carbohidratos_g,
-        objetivoGrasasG: dia.objetivo.grasas_g,
-      },
-      create: {
-        userId: maite.id,
-        weekday: weekday as never,
-        tipoDia: dia.tipo_dia,
-        objetivoKcal: dia.objetivo.kcal,
-        objetivoProteinaG: dia.objetivo.proteina_g,
-        objetivoCarbohidratosG: dia.objetivo.carbohidratos_g,
-        objetivoGrasasG: dia.objetivo.grasas_g,
-      },
+      update: { dayTypeId: dayType.id },
+      create: { userId: maite.id, weekday: weekday as never, dayTypeId: dayType.id },
     });
 
     for (const [comidaKey, comida] of Object.entries(dia.comidas)) {
@@ -187,5 +189,18 @@ export async function runSeed(prisma: PrismaClient, options: SeedOptions): Promi
     orden += 1;
   }
 
+  await seedFoods(prisma);
+
   return { maiteEmail: options.maiteEmail, simonEmail: options.simonEmail, alreadySeeded };
+}
+
+/** Tabla de alimentos de referencia, compartida por todas las usuarias. */
+async function seedFoods(prisma: PrismaClient) {
+  const count = await prisma.food.count();
+  if (count > 0) return;
+
+  await prisma.food.createMany({
+    data: foods.map((f) => ({ ...f, busqueda: normalizeSearchText(f.nombre) })),
+    skipDuplicates: true,
+  });
 }

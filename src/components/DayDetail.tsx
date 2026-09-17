@@ -7,13 +7,13 @@ import { MacroBar } from "@/components/MacroBar";
 const MEAL_ORDER = ["DESAYUNO", "ALMUERZO", "COMIDA", "COMIDA_LIBRE_SOCIAL", "CENA"] as const;
 
 export function DayDetail({ day }: { day: DayData }) {
-  const { balance, macrosIngeridos, dayPlan } = day;
+  const { balance, macrosIngeridos, objetivos } = day;
 
   return (
     <div className="space-y-5">
       <div>
         <p className="text-sm font-medium text-slate-700 capitalize">{fmtDateLong(day.fecha)}</p>
-        <p className="text-xs text-slate-400">{dayPlan.tipoDia}</p>
+        <p className="text-xs text-slate-400">{objetivos.tipoDia}</p>
       </div>
 
       <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
@@ -43,9 +43,9 @@ export function DayDetail({ day }: { day: DayData }) {
 
       <section className="space-y-3 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
         <h2 className="text-sm font-semibold text-slate-500">Macros</h2>
-        <MacroBar label="Proteína" value={macrosIngeridos.proteinaG} target={dayPlan.objetivoProteinaG} color="bg-rose-500" />
-        <MacroBar label="Carbohidratos" value={macrosIngeridos.carbohidratosG} target={dayPlan.objetivoCarbohidratosG} color="bg-amber-500" />
-        <MacroBar label="Grasas" value={macrosIngeridos.grasasG} target={dayPlan.objetivoGrasasG} color="bg-sky-500" />
+        <MacroBar label="Proteína" value={macrosIngeridos.proteinaG} target={objetivos.proteinaG} color="bg-rose-500" />
+        <MacroBar label="Carbohidratos" value={macrosIngeridos.carbohidratosG} target={objetivos.carbohidratosG} color="bg-amber-500" />
+        <MacroBar label="Grasas" value={macrosIngeridos.grasasG} target={objetivos.grasasG} color="bg-sky-500" />
       </section>
 
       <section className="space-y-2">

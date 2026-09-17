@@ -17,13 +17,13 @@ export default async function DashboardPage() {
   const day = await getDayData(session.sub, dateKey);
   const exerciseTypes = await prisma.exerciseType.findMany({ orderBy: { orden: "asc" } });
 
-  const { balance, macrosIngeridos, dayPlan } = day;
+  const { balance, macrosIngeridos, dayPlan, objetivos } = day;
 
   return (
     <div className="mx-auto max-w-md space-y-5">
       <div>
         <p className="text-sm text-slate-500 capitalize">{fmtDateLong(day.fecha)}</p>
-        <p className="text-xs text-slate-400">{dayPlan.tipoDia}</p>
+        <p className="text-xs text-slate-400">{objetivos.tipoDia}</p>
       </div>
 
       <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
@@ -62,19 +62,19 @@ export default async function DashboardPage() {
         <MacroBar
           label="Proteína"
           value={macrosIngeridos.proteinaG}
-          target={dayPlan.objetivoProteinaG}
+          target={objetivos.proteinaG}
           color="bg-rose-500"
         />
         <MacroBar
           label="Carbohidratos"
           value={macrosIngeridos.carbohidratosG}
-          target={dayPlan.objetivoCarbohidratosG}
+          target={objetivos.carbohidratosG}
           color="bg-amber-500"
         />
         <MacroBar
           label="Grasas"
           value={macrosIngeridos.grasasG}
-          target={dayPlan.objetivoGrasasG}
+          target={objetivos.grasasG}
           color="bg-sky-500"
         />
       </section>

@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { getUsuariaById } from "@/lib/data/usuaria";
 import { WEEKDAY_ORDER, WEEKDAY_LABEL } from "@/lib/nutrition";
-import { CurrentWeightEditor, ProfileEditor, DayPlanCard } from "./PlanEditor";
+import { CurrentWeightEditor, ProfileEditor, DayTypeManager, DayPlanCard } from "./PlanEditor";
 
 export default async function AdminUsuariaPlanPage({
   params,
@@ -11,11 +11,12 @@ export default async function AdminUsuariaPlanPage({
   const { id } = await params;
   const usuaria = await getUsuariaById(id);
 
-  const [dayPlans, profile, lastWeight] = await Promise.all([
+  const [dayPlans, dayTypes, profile, lastWeight] = await Promise.all([
     prisma.dayPlan.findMany({
       where: { userId: usuaria.id },
       include: { comidas: { orderBy: { mealType: "asc" } } },
     }),
+    prisma.dayType.findMany({ where: { userId: usuaria.id }, orderBy: { nombre: "asc" } }),
     prisma.profile.findUnique({ where: { userId: usuaria.id } }),
     prisma.weightLog.findFirst({ where: { userId: usuaria.id }, orderBy: { fecha: "desc" } }),
   ]);
@@ -36,28 +37,30 @@ export default async function AdminUsuariaPlanPage({
 
       {profile && <ProfileEditor userId={usuaria.id} profile={profile} />}
 
+      <DayTypeManager userId={usuaria.id} dayTypes={dayTypes} />
+
       <section className="space-y-3">
-        <h2 className="px-1 text-sm font-semibold text-slate-500">Menú semanal y objetivos</h2>
-        {WEEKDAY_ORDER.map((weekday) => {
-          const dayPlan = dayPlansByWeekday.get(weekday);
-          if (!dayPlan) return null;
-          return (
-            <DayPlanCard
-              key={weekday}
-              userId={usuaria.id}
-              dayPlan={{
-                weekday,
-                weekdayLabel: WEEKDAY_LABEL[weekday],
-                tipoDia: dayPlan.tipoDia,
-                objetivoKcal: dayPlan.objetivoKcal,
-                objetivoProteinaG: dayPlan.objetivoProteinaG,
-                objetivoCarbohidratosG: dayPlan.objetivoCarbohidratosG,
-                objetivoGrasasG: dayPlan.objetivoGrasasG,
-                comidas: dayPlan.comidas,
-              }}
-            />
-          );
-        })}
+        <h2 className="px-1 text-sm font-semibold text-slate-500">Menú semanal</h2>
+        {profile &&
+          WEEKDAY_ORDER.map((weekday) => {
+            const dayPlan = dayPlansByWeekday.get(weekday);
+            if (!dayPlan) return null;
+            return (
+              <DayPlanCard
+                key={weekday}
+                userId={usuaria.id}
+                dayTypes={dayTypes}
+                profileProteinaG={profile.objetivoProteinaG}
+                profileGrasasG={profile.objetivoGrasasG}
+                dayPlan={{
+                  weekday,
+                  weekdayLabel: WEEKDAY_LABEL[weekday],
+                  dayTypeId: dayPlan.dayTypeId,
+                  comidas: dayPlan.comidas,
+                }}
+              />
+            );
+          })}
       </section>
     </div>
   );

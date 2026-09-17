@@ -111,6 +111,16 @@ export function sumMacros(items: MacroTotals[]): MacroTotals {
   );
 }
 
+/**
+ * Objetivo de kcal del día, derivado de sus objetivos de macros: no se guarda
+ * aparte para que nunca pueda quedar desincronizado. Proteína y grasa son
+ * constantes de la usuaria (Profile); los carbohidratos varían según el tipo
+ * de día (DayType).
+ */
+export function computeObjetivoKcal(proteinaG: number, carbohidratosG: number, grasasG: number): number {
+  return proteinaG * 4 + carbohidratosG * 4 + grasasG * 9;
+}
+
 export type SemaphoreStatus = "VERDE" | "AMBAR" | "ROJO";
 
 /**

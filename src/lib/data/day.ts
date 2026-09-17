@@ -1,6 +1,6 @@
 import "server-only";
 import { prisma } from "@/lib/prisma";
-import { dateKeyToDate, dateToWeekday, sumMacros, computeDailyBalance } from "@/lib/nutrition";
+import { dateKeyToDate, dateToWeekday, sumMacros, computeDailyBalance, computeObjetivoKcal } from "@/lib/nutrition";
 
 export async function getDayData(userId: string, dateKey: string) {
   const fecha = dateKeyToDate(dateKey);
@@ -9,7 +9,10 @@ export async function getDayData(userId: string, dateKey: string) {
   const [dayPlan, profile, mealLogs, exerciseLogs] = await Promise.all([
     prisma.dayPlan.findUnique({
       where: { userId_weekday: { userId, weekday } },
-      include: { comidas: { orderBy: { mealType: "asc" } } },
+      include: {
+        dayType: true,
+        comidas: { orderBy: { mealType: "asc" } },
+      },
     }),
     prisma.profile.findUnique({ where: { userId } }),
     prisma.mealLog.findMany({
@@ -29,17 +32,26 @@ export async function getDayData(userId: string, dateKey: string) {
   const macrosIngeridos = sumMacros(mealLogs);
   const kcalEjercicio = exerciseLogs.reduce((acc, log) => acc + log.kcalQuemadas, 0);
 
+  const objetivos = {
+    tipoDia: dayPlan.dayType.nombre,
+    proteinaG: profile.objetivoProteinaG,
+    carbohidratosG: dayPlan.dayType.carbohidratosG,
+    grasasG: profile.objetivoGrasasG,
+    kcal: computeObjetivoKcal(profile.objetivoProteinaG, dayPlan.dayType.carbohidratosG, profile.objetivoGrasasG),
+  };
+
   const balance = computeDailyBalance({
     kcalIngeridas: macrosIngeridos.kcal,
     kcalEjercicio,
     getKcalBase: profile.getKcal,
-    objetivoKcal: dayPlan.objetivoKcal,
+    objetivoKcal: objetivos.kcal,
   });
 
   return {
     fecha,
     weekday,
     dayPlan,
+    objetivos,
     profile,
     mealLogs,
     exerciseLogs,
