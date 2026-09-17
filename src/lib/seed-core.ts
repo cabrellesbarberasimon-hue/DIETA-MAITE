@@ -58,7 +58,10 @@ export type SeedResult = {
 
 /**
  * Carga usuarios, perfil, menú semanal y tabla MET desde dieta_maite_seed.json.
- * Idempotente: si un usuario ya existe no se toca (no pisa contraseñas ya cambiadas).
+ * Idempotente para el resto de datos (perfil, plan, tabla MET: no se duplican).
+ * La contraseña SÍ se resincroniza con SEED_MAITE_PASSWORD/SEED_SIMON_PASSWORD
+ * en cada llamada a propósito: visitar este endpoint de nuevo (con el token)
+ * es la forma de "resetear" la contraseña de estas dos cuentas si hace falta.
  */
 export async function runSeed(prisma: PrismaClient, options: SeedOptions): Promise<SeedResult> {
   const [existingMaite, existingSimon] = await Promise.all([
@@ -72,7 +75,7 @@ export async function runSeed(prisma: PrismaClient, options: SeedOptions): Promi
 
   const maite = await prisma.user.upsert({
     where: { email: options.maiteEmail },
-    update: {},
+    update: { passwordHash: maiteHash },
     create: {
       email: options.maiteEmail,
       passwordHash: maiteHash,
@@ -83,7 +86,7 @@ export async function runSeed(prisma: PrismaClient, options: SeedOptions): Promi
 
   await prisma.user.upsert({
     where: { email: options.simonEmail },
-    update: {},
+    update: { passwordHash: simonHash },
     create: {
       email: options.simonEmail,
       passwordHash: simonHash,
