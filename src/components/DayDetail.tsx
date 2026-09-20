@@ -3,6 +3,7 @@ import { fmtDateLong, fmtKcal, fmtSigned } from "@/lib/format";
 import { MEAL_TYPE_LABEL } from "@/lib/nutrition";
 import { Semaforo } from "@/components/Semaforo";
 import { MacroBar } from "@/components/MacroBar";
+import { AdminMealLogRow } from "@/components/AdminMealLogRow";
 
 const MEAL_ORDER = ["DESAYUNO", "ALMUERZO", "COMIDA", "COMIDA_LIBRE_SOCIAL", "CENA"] as const;
 
@@ -49,7 +50,10 @@ export function DayDetail({ day }: { day: DayData }) {
       </section>
 
       <section className="space-y-2">
-        <h2 className="px-1 text-sm font-semibold text-slate-500">Comidas</h2>
+        <div className="flex items-center justify-between px-1">
+          <h2 className="text-sm font-semibold text-slate-500">Comidas</h2>
+          <p className="text-xs text-slate-400">Puedes ajustar lo que registró</p>
+        </div>
         {MEAL_ORDER.map((mealType) => {
           const logs = day.mealLogs.filter((l) => l.mealType === mealType);
           if (logs.length === 0) return null;
@@ -58,10 +62,7 @@ export function DayDetail({ day }: { day: DayData }) {
               <h3 className="mb-2 font-semibold text-slate-800">{MEAL_TYPE_LABEL[mealType]}</h3>
               <ul className="space-y-1.5">
                 {logs.map((log) => (
-                  <li key={log.id} className="flex items-center justify-between text-sm">
-                    <span className="text-slate-600">{log.nombre}</span>
-                    <span className="font-medium text-slate-800">{Math.round(log.kcal)} kcal</span>
-                  </li>
+                  <AdminMealLogRow key={log.id} log={log} />
                 ))}
               </ul>
             </div>

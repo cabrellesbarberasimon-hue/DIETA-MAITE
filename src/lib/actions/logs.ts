@@ -3,8 +3,8 @@
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
-import { requireUsuaria } from "@/lib/auth/guards";
-import { calcExerciseKcal, today, dateKeyToDate, dateToWeekday } from "@/lib/nutrition";
+import { requireUsuaria, requireUser } from "@/lib/auth/guards";
+import { calcExerciseKcal, today, dateKeyToDate, dateToWeekday, toDateKey } from "@/lib/nutrition";
 import { MealType } from "@/generated/prisma/client";
 
 const MAX_IMAGE_BYTES = 4 * 1024 * 1024;
@@ -171,11 +171,12 @@ const editMealSchema = z.object({
 });
 
 export async function editMealLogAction(input: unknown) {
-  const session = await requireUsuaria();
+  const session = await requireUser();
   const data = editMealSchema.parse(input);
 
   const existing = await prisma.mealLog.findUnique({ where: { id: data.id } });
-  if (!existing || existing.userId !== session.sub) {
+  if (!existing) throw new Error("Registro no encontrado.");
+  if (session.role === "USUARIA" && existing.userId !== session.sub) {
     throw new Error("Registro no encontrado.");
   }
 
@@ -192,22 +193,31 @@ export async function editMealLogAction(input: unknown) {
 
   revalidatePath("/dashboard");
   revalidatePath("/historial");
+  if (session.role === "ADMIN") {
+    revalidatePath(`/admin/usuarias/${existing.userId}/historial`);
+    revalidatePath(`/admin/usuarias/${existing.userId}/historial/${toDateKey(existing.fecha)}`);
+  }
 }
 
 const idSchema = z.object({ id: z.string().min(1) });
 
 export async function deleteMealLogAction(input: unknown) {
-  const session = await requireUsuaria();
+  const session = await requireUser();
   const data = idSchema.parse(input);
 
   const existing = await prisma.mealLog.findUnique({ where: { id: data.id } });
-  if (!existing || existing.userId !== session.sub) {
+  if (!existing) throw new Error("Registro no encontrado.");
+  if (session.role === "USUARIA" && existing.userId !== session.sub) {
     throw new Error("Registro no encontrado.");
   }
 
   await prisma.mealLog.delete({ where: { id: data.id } });
   revalidatePath("/dashboard");
   revalidatePath("/historial");
+  if (session.role === "ADMIN") {
+    revalidatePath(`/admin/usuarias/${existing.userId}/historial`);
+    revalidatePath(`/admin/usuarias/${existing.userId}/historial/${toDateKey(existing.fecha)}`);
+  }
 }
 
 // ---------- Ejercicio ----------
