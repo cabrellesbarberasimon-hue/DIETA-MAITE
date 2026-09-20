@@ -18,6 +18,7 @@ import {
   type DeficitModo,
 } from "@/lib/nutrition";
 import { Weekday, MealType } from "@/generated/prisma/client";
+import { upsertMealTemplate } from "@/lib/actions/mealTemplates";
 
 const mealTypeSchema = z.nativeEnum(MealType);
 
@@ -461,6 +462,7 @@ const createPlannedMealOptionSchema = z.object({
   proteinaG: z.coerce.number().min(0).max(1000),
   carbohidratosG: z.coerce.number().min(0).max(1000),
   grasasG: z.coerce.number().min(0).max(1000),
+  guardarEnBiblioteca: z.coerce.boolean().optional().default(false),
 });
 
 /** Añade una opción más a una comida (p.ej. una tercera alternativa de almuerzo), sin tocar las que ya había. */
@@ -482,6 +484,17 @@ export async function createPlannedMealOptionAction(input: unknown) {
       grasasG: data.grasasG,
     },
   });
+
+  if (data.guardarEnBiblioteca) {
+    await upsertMealTemplate({
+      mealType: data.mealType,
+      descripcion: data.descripcion,
+      kcal: data.kcal,
+      proteinaG: data.proteinaG,
+      carbohidratosG: data.carbohidratosG,
+      grasasG: data.grasasG,
+    });
+  }
 
   revalidatePath(`/admin/usuarias/${data.userId}/plan`);
   revalidatePath("/dashboard");

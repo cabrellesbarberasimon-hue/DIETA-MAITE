@@ -5,6 +5,7 @@ import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/auth/guards";
 import { Weekday, MealType } from "@/generated/prisma/client";
+import { upsertMealTemplate } from "@/lib/actions/mealTemplates";
 
 /**
  * Normaliza para comparar cabeceras/valores de Excel: minúsculas, sin
@@ -172,9 +173,24 @@ export async function importPlannedMealsExcelAction(formData: FormData): Promise
     await prisma.plannedMeal.createMany({ data: toCreate });
   }
 
+  const guardarEnBiblioteca = String(formData.get("guardarEnBiblioteca") ?? "") === "true";
+  if (guardarEnBiblioteca) {
+    for (const meal of toCreate) {
+      await upsertMealTemplate({
+        mealType: meal.mealType,
+        descripcion: meal.descripcion,
+        kcal: meal.kcal,
+        proteinaG: meal.proteinaG,
+        carbohidratosG: meal.carbohidratosG,
+        grasasG: meal.grasasG,
+      });
+    }
+  }
+
   revalidatePath(`/admin/usuarias/${userId}/plan`);
   revalidatePath("/dashboard");
   revalidatePath("/historial");
+  if (guardarEnBiblioteca) revalidatePath("/admin/platos");
 
   return { totalFilas, creadas: toCreate.length, errores };
 }

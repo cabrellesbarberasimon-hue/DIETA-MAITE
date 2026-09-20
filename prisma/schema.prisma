@@ -184,6 +184,30 @@ model MealLog {
   @@index([userId, fecha])
 }
 
+/// Plato reutilizable de la biblioteca compartida: una versión "de catálogo"
+/// de una opción de comida planificada, independiente de cualquier persona.
+/// Al crear una opción para el menú de alguien (a mano, o por Excel) se puede
+/// guardar aquí también, y luego reutilizarla al planificar el menú de otra
+/// persona sin volver a escribirla. No está enlazada con PlannedMeal: solo
+/// se copian los valores al usarla, así que editar o borrar un plato de aquí
+/// no toca los menús ya planificados con él.
+model MealTemplate {
+  id             String    @id @default(cuid())
+  mealType       MealType
+  descripcion    String    @db.Text
+  /// descripcion en minúsculas y sin tildes, para buscar sin depender del acento
+  busqueda       String
+  kcal           Int
+  proteinaG      Float
+  carbohidratosG Float
+  grasasG        Float
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  @@index([mealType])
+  @@index([busqueda])
+}
+
 /// Alimento de referencia (tabla de composición), valores por 100 g de porción
 /// comestible. Compartida por todas las usuarias, usada para autorrellenar
 /// kcal/macros al elegir un alimento y una cantidad en gramos.

@@ -15,6 +15,7 @@ import {
 import { importPlannedMealsExcelAction, type ImportResult } from "@/lib/actions/import";
 import { MEAL_TYPE_LABEL } from "@/lib/nutrition";
 import { FoodPicker, type FoodPickerValues } from "@/components/FoodPicker";
+import { MealTemplatePicker, type MealTemplateValues } from "@/components/MealTemplatePicker";
 import { PerfilCalculoFields } from "@/components/PerfilCalculoFields";
 
 const MEAL_TYPES_ORDER = ["DESAYUNO", "ALMUERZO", "COMIDA", "COMIDA_LIBRE_SOCIAL", "CENA"] as const;
@@ -473,6 +474,10 @@ export function ExcelImportForm({ userId }: { userId: string }) {
           required
           className="w-full rounded-lg border border-slate-300 px-2 py-2 text-sm"
         />
+        <label className="flex items-center gap-1.5 text-xs text-slate-500">
+          <input type="checkbox" name="guardarEnBiblioteca" value="true" defaultChecked />
+          Guardar también en la biblioteca de platos (reutilizable al planificar el menú de otras personas)
+        </label>
         <button
           type="submit"
           disabled={pending}
@@ -562,6 +567,7 @@ function NewPlannedMealForm({
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [fields, setFields] = useState({ descripcion: "", kcal: 0, proteinaG: 0, carbohidratosG: 0, grasasG: 0 });
+  const [guardarEnBiblioteca, setGuardarEnBiblioteca] = useState(true);
 
   function applyFood(values: FoodPickerValues) {
     setFields({
@@ -573,6 +579,10 @@ function NewPlannedMealForm({
     });
   }
 
+  function applyTemplate(values: MealTemplateValues) {
+    setFields(values);
+  }
+
   return (
     <form
       className="mt-2 space-y-2 rounded-xl border border-green-200 bg-green-50/50 p-3"
@@ -580,12 +590,13 @@ function NewPlannedMealForm({
         e.preventDefault();
         setError(null);
         setPending(true);
-        createPlannedMealOptionAction({ userId, dayPlanId, mealType, ...fields })
+        createPlannedMealOptionAction({ userId, dayPlanId, mealType, ...fields, guardarEnBiblioteca })
           .then(() => onDone())
           .catch((err) => setError(err instanceof Error ? err.message : "Error"))
           .finally(() => setPending(false));
       }}
     >
+      <MealTemplatePicker mealType={mealType} onApply={applyTemplate} />
       <FoodPicker onApply={applyFood} />
       <textarea
         value={fields.descripcion}
@@ -624,6 +635,14 @@ function NewPlannedMealForm({
           onChange={(v) => setFields((f) => ({ ...f, grasasG: v }))}
         />
       </div>
+      <label className="flex items-center gap-1.5 text-xs text-slate-500">
+        <input
+          type="checkbox"
+          checked={guardarEnBiblioteca}
+          onChange={(e) => setGuardarEnBiblioteca(e.target.checked)}
+        />
+        Guardar también en la biblioteca de platos (reutilizable al planificar el menú de otras personas)
+      </label>
       {error && <p className="text-xs text-red-600">{error}</p>}
       <div className="flex gap-2">
         <button

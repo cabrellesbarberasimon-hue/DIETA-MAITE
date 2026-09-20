@@ -19,6 +19,7 @@ export function AdminNav() {
       : [
           { href: "/admin", label: "Personas", icon: "👥" },
           { href: "/admin/alimentos", label: "Alimentos", icon: "🍎" },
+          { href: "/admin/platos", label: "Platos", icon: "🍽️" },
         ];
 
   return (

@@ -17,6 +17,7 @@ Aplicación web (mobile-first, PWA instalable) para el seguimiento diario de die
 - `DayType` — tipos de día definidos por usuaria (p. ej. "Entrenamiento", "Descanso"), cada uno con su propio objetivo de carbohidratos, y uno marcado como predeterminado.
 - `DayLog` — qué `DayType` es cada fecha concreta, elegido a mano por la usuaria (editable también para días pasados). Si un día no tiene elección propia, se usa el predeterminado. El objetivo de kcal del día no se guarda: se calcula (proteína×4 + carbohidratos×4 + grasa×9).
 - `DayPlan` / `PlannedMeal` — el menú planificado por día de la semana, independiente del tipo de día. Cada comida puede tener **varias opciones** (alternativas con kcal/macros parecidos); la usuaria elige cuál ha comido con un desplegable. El admin gestiona las opciones una a una o las importa por Excel (columnas: día, comida, descripción, kcal, proteina_g, carbohidratos_g, grasas_g — añade opciones nuevas, nunca borra las existentes). La usuaria también puede guardar una comida libre como opción del plan con una casilla al registrarla.
+- `MealTemplate` — **biblioteca de platos**, compartida entre todas las personas (independiente de `PlannedMeal`: solo se copian los valores al usarla). Al crear una opción de comida a mano, o al importar un Excel, hay una casilla "guardar en la biblioteca" (marcada por defecto); una vez ahí, al planificar el menú de **otra** persona aparece en un buscador para reutilizarla sin volver a escribirla. Panel propio en **Platos** para buscar/editar/borrar.
 - `MealLog` / `ExerciseLog` / `WeightLog` — comidas, ejercicio y peso realmente registrados, **editables/borrables cualquier día**, no solo hoy. El admin también puede editar y borrar las comidas que ya registró una usuaria (desde su ficha → **Historial** → un día concreto), para ajustarlas a sus macros al revisar el día o la semana; no toca el tipo de día (lo elige ella) ni el ejercicio/peso.
 - `Food` — tabla de composición compartida, con buscador con autocompletar; permite además introducir un alimento nuevo por sus valores por 100 g y guardarlo en la biblioteca. El admin tiene un panel propio (**Alimentos**) para gestionarla.
 - `ExerciseType` — tabla MET compartida (Descanso, Paseo suave, Caminar rápido...).
@@ -143,6 +144,7 @@ src/
       usuarias/[id]/                # resumen de esa persona (solo lectura)
       usuarias/[id]/historial/        # histórico de esa persona (solo lectura)
       usuarias/[id]/plan/             # editar su menú semanal, perfil y peso actual
+      platos/                        # biblioteca de platos reutilizable entre personas
     api/admin/seed/       # endpoint de sembrado único, protegido por SEED_TOKEN
   components/
     FoodPicker.tsx          # buscador de alimentos con desplegable, reutilizado en varios formularios
