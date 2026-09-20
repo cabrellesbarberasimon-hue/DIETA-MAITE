@@ -6,6 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { requireUsuaria, requireUser } from "@/lib/auth/guards";
 import { calcExerciseKcal, today, dateKeyToDate, dateToWeekday, toDateKey } from "@/lib/nutrition";
 import { MealType } from "@/generated/prisma/client";
+import { upsertMealTemplate } from "@/lib/actions/mealTemplates";
 
 const MAX_IMAGE_BYTES = 4 * 1024 * 1024;
 
@@ -154,11 +155,23 @@ export async function addFreeMealLogAction(input: unknown) {
         },
       });
     }
+
+    await upsertMealTemplate({
+      mealType: data.mealType,
+      descripcion: data.nombre,
+      kcal: data.kcal,
+      proteinaG: data.proteinaG,
+      carbohidratosG: data.carbohidratosG,
+      grasasG: data.grasasG,
+    });
   }
 
   revalidatePath("/dashboard");
   revalidatePath("/historial");
-  if (data.guardarComoOpcion) revalidatePath(`/admin/usuarias/${session.sub}/plan`);
+  if (data.guardarComoOpcion) {
+    revalidatePath(`/admin/usuarias/${session.sub}/plan`);
+    revalidatePath("/admin/platos");
+  }
 }
 
 const editMealSchema = z.object({

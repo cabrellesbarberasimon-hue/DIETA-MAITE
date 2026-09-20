@@ -262,7 +262,7 @@ function FreeMealForm({
           checked={guardarComoOpcion}
           onChange={(e) => setGuardarComoOpcion(e.target.checked)}
         />
-        Guardar como opción de este plan (aparecerá para elegir la próxima vez)
+        Guardar como opción de este plan y en la biblioteca de platos (aparecerá para elegir la próxima vez)
       </label>
       <button
         type="submit"
