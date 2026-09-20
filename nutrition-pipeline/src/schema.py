@@ -72,6 +72,15 @@ MASTER_COLUMNS = [
     "niacin_mg_100g",
     "pantothenic_acid_mg_100g",
     "biotin_ug_100g",
+    # Extra (de fuentes con más detalle, p.ej. Open Food Facts)
+    "added_sugars_g_100g",
+    "lactose_g_100g",
+    "polyols_g_100g",
+    "choline_mg_100g",
+    "caffeine_mg_100g",
+    "manganese_mg_100g",
+    "fluoride_mg_100g",
+    "arachidic_acid_g_100g",
     # Ácidos grasos individuales (trazabilidad de omega3/omega6)
     "lauric_acid_g_100g",
     "myristic_acid_g_100g",

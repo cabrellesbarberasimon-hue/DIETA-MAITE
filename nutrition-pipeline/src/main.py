@@ -1,11 +1,17 @@
 """Orquesta el proceso completo: cargar -> normalizar -> deduplicar ->
 validar -> exportar, y muestra el informe final (punto 19)."""
-from config import OUTPUT_DIR, PROCESSED_DIR, load_config
+import pandas as pd
+
+from config import OUTPUT_DIR, PROCESSED_DIR, RAW_DIR, load_config
 from deduplicate import assign_duplicate_groups
 from export import export_csv, export_master_excel, export_validation_report
 from load_bedca import load_bedca_foods
+from load_off import load_off_export
 from normalize import normalize_bedca
+from normalize_off import normalize_off
 from schema import MASTER_COLUMNS
+
+OFF_RAW_DIR = RAW_DIR / "openfoodfacts"
 
 
 def run() -> None:
@@ -17,9 +23,23 @@ def run() -> None:
 
     print("\n== Normalizando ==")
     bedca_normalized = normalize_bedca(bedca_raw, config)
-
     all_sources = {"BEDCA": len(bedca_normalized)}
-    combined = bedca_normalized  # aquí se concatenarían normalize_ciqual/normalize_usda cuando existan
+    parts = [bedca_normalized]
+
+    if OFF_RAW_DIR.exists():
+        off_files = sorted(list(OFF_RAW_DIR.glob("*.tsv")) + list(OFF_RAW_DIR.glob("*.csv")))
+        off_normalized_parts = []
+        for off_file in off_files:
+            off_raw = load_off_export(off_file)
+            print(f"Open Food Facts ({off_file.name}): {len(off_raw)} productos")
+            off_normalized_parts.append(normalize_off(off_raw, config))
+        if off_normalized_parts:
+            off_normalized = pd.concat(off_normalized_parts, ignore_index=True)
+            off_normalized = off_normalized.drop_duplicates(subset=["source_id"], keep="first")
+            all_sources["FABRICANTE (Open Food Facts)"] = len(off_normalized)
+            parts.append(off_normalized)
+
+    combined = pd.concat(parts, ignore_index=True)
 
     print("\n== Deduplicando ==")
     combined = assign_duplicate_groups(combined, config)

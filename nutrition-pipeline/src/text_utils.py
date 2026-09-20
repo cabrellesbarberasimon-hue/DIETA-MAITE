@@ -44,10 +44,25 @@ def detect_state(name: str, state_keywords: dict[str, list[str]]) -> str | None:
     return None
 
 
+def _plural_variants(token: str) -> list[str]:
+    """Variantes de plural/singular razonables en español (no es un
+    lematizador completo, solo el caso común -s/-es), para que buscar
+    "claras" encuentre "clara" y viceversa."""
+    variants = [token]
+    if token.endswith("es") and len(token) > 4:
+        variants.append(token[:-2])
+    elif token.endswith("s") and len(token) > 3:
+        variants.append(token[:-1])
+    else:
+        variants.append(token + "s")
+    return variants
+
+
 def build_search_tokens(*names: str) -> str:
     tokens: list[str] = []
     for name in names:
         for t in tokenize(name):
-            if t not in tokens:
-                tokens.append(t)
+            for variant in _plural_variants(t):
+                if variant not in tokens:
+                    tokens.append(variant)
     return " ".join(tokens)

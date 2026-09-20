@@ -22,6 +22,10 @@ def _validate_row(row: dict, config: dict) -> tuple[str, list[str]]:
     errors: list[str] = []
     reviews: list[str] = []
 
+    name = row.get("food_name")
+    if not _present(name) or not str(name).strip():
+        errors.append("sin nombre en ningún idioma disponible")
+
     macro_fields = [
         "protein_g_100g",
         "carbohydrates_g_100g",

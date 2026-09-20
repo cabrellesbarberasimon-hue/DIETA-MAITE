@@ -13,8 +13,7 @@ import pandas as pd
 
 from schema import MASTER_COLUMNS
 from text_utils import build_search_tokens, detect_state, normalize_search_text
-
-MASS_FACTORS_TO_GRAMS = {"g": 1.0, "mg": 1e-3, "ug": 1e-6, "µg": 1e-6}
+from units import convert_energy, convert_mass, is_missing
 
 # (código BEDCA, campo maestro, unidad objetivo)
 SIMPLE_MASS_MAP = [
@@ -70,41 +69,9 @@ OMEGA3_FIELDS = ["alpha_linolenic_acid_g_100g", "epa_g_100g", "dha_g_100g"]
 OMEGA6_FIELDS = ["linoleic_acid_g_100g", "arachidonic_acid_g_100g"]
 
 
-def _is_missing(value) -> bool:
-    return value is None or (isinstance(value, float) and pd.isna(value)) or value == ""
-
-
-def convert_mass(value, source_unit, target_unit):
-    if _is_missing(value):
-        return None
-    if _is_missing(source_unit):
-        return None
-    source_unit = str(source_unit).strip()
-    target_unit = str(target_unit).strip()
-    if source_unit == target_unit:
-        return float(value)
-    if source_unit not in MASS_FACTORS_TO_GRAMS or target_unit not in MASS_FACTORS_TO_GRAMS:
-        return None
-    grams = float(value) * MASS_FACTORS_TO_GRAMS[source_unit]
-    return grams / MASS_FACTORS_TO_GRAMS[target_unit]
-
-
-def convert_energy(value, unit, kj_per_kcal: float):
-    """Devuelve (kcal, kj) a partir del valor y unidad de origen."""
-    if _is_missing(value) or _is_missing(unit):
-        return None, None
-    unit = str(unit).strip().lower()
-    value = float(value)
-    if unit == "kcal":
-        return value, value * kj_per_kcal
-    if unit == "kj":
-        return value / kj_per_kcal, value
-    return None, None
-
-
 def _sum_if_complete(row: dict, fields: list[str]) -> float | None:
     values = [row.get(f) for f in fields]
-    if any(_is_missing(v) for v in values):
+    if any(is_missing(v) for v in values):
         return None
     return round(sum(values), 4)
 
@@ -125,9 +92,9 @@ def normalize_bedca(df_raw: pd.DataFrame, config: dict) -> pd.DataFrame:
         record["food_name_original"] = name_es
         record["food_name_es"] = name_es
         record["food_name_en"] = name_en
-        record["food_name"] = name_es if not _is_missing(name_es) else name_en
+        record["food_name"] = name_es if not is_missing(name_es) else name_en
         record["food_name_normalized"] = normalize_search_text(record["food_name"] or "")
-        record["sci_name"] = row.get("sci_name") if not _is_missing(row.get("sci_name")) else None
+        record["sci_name"] = row.get("sci_name") if not is_missing(row.get("sci_name")) else None
 
         record["source"] = "BEDCA"
         record["source_id"] = str(row.get("f_id"))
@@ -138,22 +105,22 @@ def normalize_bedca(df_raw: pd.DataFrame, config: dict) -> pd.DataFrame:
 
         category = row.get("namelevel1")
         subcategory = row.get("namelevel2")
-        record["category"] = category if not _is_missing(category) else None
-        record["subcategory"] = subcategory if not _is_missing(subcategory) else None
+        record["category"] = category if not is_missing(category) else None
+        record["subcategory"] = subcategory if not is_missing(subcategory) else None
 
         edible_portion = row.get("edible_portion")
-        record["edible_portion"] = float(edible_portion) if not _is_missing(edible_portion) else None
+        record["edible_portion"] = float(edible_portion) if not is_missing(edible_portion) else None
 
         record["state"] = detect_state(record["food_name"] or "", state_keywords)
 
         f_origen = row.get("f_origen")
         notes = []
-        if not _is_missing(f_origen) and f_origen != "BEDCA":
+        if not is_missing(f_origen) and f_origen != "BEDCA":
             notes.append(f"f_origen original: {f_origen}")
         record["notes"] = " | ".join(notes) if notes else None
 
         langual = row.get("langual")
-        record["langual_codes"] = langual if not _is_missing(langual) else None
+        record["langual_codes"] = langual if not is_missing(langual) else None
 
         # ---- nutrientes: mapeo directo con conversión de unidades ----
         for code, field, target_unit in SIMPLE_MASS_MAP:
@@ -169,7 +136,7 @@ def normalize_bedca(df_raw: pd.DataFrame, config: dict) -> pd.DataFrame:
             carbs = record["carbohydrates_g_100g"]
             fat = record["fat_g_100g"]
             alcohol = record["alcohol_g_100g"]
-            if not any(_is_missing(v) for v in [protein, carbs, fat]):
+            if not any(is_missing(v) for v in [protein, carbs, fat]):
                 alcohol_kcal = (alcohol or 0) * energy_factors["alcohol"]
                 kcal = (
                     protein * energy_factors["protein"]
@@ -188,7 +155,7 @@ def normalize_bedca(df_raw: pd.DataFrame, config: dict) -> pd.DataFrame:
 
         # ---- sal a partir de sodio (BEDCA no da sal) ----
         sodium_mg = record["sodium_mg_100g"]
-        if not _is_missing(sodium_mg):
+        if not is_missing(sodium_mg):
             record["salt_g_100g"] = round((sodium_mg * salt_factor) / 1000, 4)
             record["salt_calculated"] = True
         else:
