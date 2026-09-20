@@ -1,0 +1,58 @@
+{
+  "source_priority": ["FABRICANTE", "BEDCA", "CIQUAL", "USDA", "MANUAL"],
+  "default_language": "es",
+  "salt_from_sodium_factor": 2.5,
+  "kj_per_kcal": 4.184,
+  "energy_factors_kcal_per_g": {
+    "protein": 4,
+    "carbohydrates": 4,
+    "fat": 9,
+    "alcohol": 7
+  },
+  "validation": {
+    "max_macro_g_100g": 100,
+    "max_water_g_100g": 100,
+    "max_alcohol_g_100g": 100,
+    "min_energy_kcal_100g": 0,
+    "max_energy_kcal_100g": 950,
+    "macro_energy_tolerance_pct": 25,
+    "macro_energy_tolerance_min_kcal": 40
+  },
+  "data_quality": {
+    "key_fields": [
+      "kcal_100g",
+      "protein_g_100g",
+      "carbohydrates_g_100g",
+      "fat_g_100g",
+      "fiber_g_100g",
+      "sodium_mg_100g",
+      "sugars_g_100g",
+      "saturated_fat_g_100g"
+    ],
+    "weight_key_fields_pct": 45,
+    "weight_has_source_id_pct": 15,
+    "weight_source_trust_pct": 15,
+    "weight_macro_coherence_pct": 15,
+    "weight_state_clarity_pct": 10
+  },
+  "source_trust_score": {
+    "FABRICANTE": 100,
+    "BEDCA": 90,
+    "CIQUAL": 85,
+    "USDA": 80,
+    "MANUAL": 60
+  },
+  "state_keywords": {
+    "crudo": ["crudo", "cruda", "crudos", "crudas", "fresco", "fresca"],
+    "cocido": ["cocido", "cocida", "cocidos", "cocidas", "cocinado", "cocinada"],
+    "hervido": ["hervido", "hervida", "hervidos", "hervidas", "pasado por agua", "escalfado", "escalfada"],
+    "asado": ["asado", "asada", "asados", "asadas", "al horno", "horneado", "horneada"],
+    "frito": ["frito", "frita", "fritos", "fritas"],
+    "a_la_plancha": ["a la plancha", "plancha"],
+    "al_vapor": ["al vapor", "vapor"],
+    "en_conserva": ["en conserva", "conserva", "en almibar", "en aceite", "enlatado", "enlatada"],
+    "escurrido": ["escurrido", "escurrida"],
+    "deshidratado": ["deshidratado", "deshidratada", "en polvo", "liofilizado", "desecado", "desecada"]
+  },
+  "duplicate_match_fields": ["food_name_normalized", "state"]
+}

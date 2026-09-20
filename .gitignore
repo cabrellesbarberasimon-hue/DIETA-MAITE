@@ -42,3 +42,7 @@ yarn-error.log*
 next-env.d.ts
 
 /src/generated/prisma
+
+# nutrition-pipeline (Python)
+nutrition-pipeline/**/__pycache__/
+nutrition-pipeline/**/*.pyc
