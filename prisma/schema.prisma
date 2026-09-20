@@ -49,6 +49,7 @@ model User {
   profile       Profile?
   dayTypes      DayType[]
   dayPlans      DayPlan[]
+  dayLogs       DayLog[]
   mealLogs      MealLog[]
   exerciseLogs  ExerciseLog[]
   weightLogs    WeightLog[]
@@ -78,34 +79,52 @@ model Profile {
 /// Tipo de día definido por la usuaria/admin (p.ej. "Entrenamiento", "Descanso"),
 /// cada uno con su propio objetivo de carbohidratos. La proteína y la grasa
 /// objetivo no van aquí: son constantes en Profile para todos los días.
+/// Cada día concreto elige su tipo a mano (ver DayLog); si no se ha elegido
+/// ninguno todavía, se usa el marcado como `predeterminado`.
 model DayType {
   id             String   @id @default(cuid())
   userId         String
   user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   nombre         String
   carbohidratosG Int
+  predeterminado Boolean  @default(false)
   updatedAt      DateTime @updatedAt
 
-  dayPlans DayPlan[]
+  dayLogs DayLog[]
 
   @@unique([userId, nombre])
 }
 
-/// Plan de un día de la semana para una usuaria concreta: qué tipo de día es
-/// (de donde sale el objetivo de carbohidratos; kcal se calcula a partir de
-/// proteína+carbohidratos+grasa).
+/// Plan de un día de la semana para una usuaria concreta: el menú planificado
+/// (platos de cada comida). Ya no fija el tipo de día: eso se elige cada día
+/// concreto (ver DayLog), no por plantilla semanal.
 model DayPlan {
   id        String   @id @default(cuid())
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   weekday   Weekday
-  dayTypeId String
-  dayType   DayType  @relation(fields: [dayTypeId], references: [id])
   updatedAt DateTime @updatedAt
 
   comidas PlannedMeal[]
 
   @@unique([userId, weekday])
+}
+
+/// Qué tipo de día es una fecha concreta, elegido a mano por la usuaria (o
+/// el admin) ese mismo día — de aquí sale el objetivo de carbohidratos (y por
+/// tanto el de kcal) de ese día en particular. Editable también para días
+/// pasados.
+model DayLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fecha     DateTime @db.Date
+  dayTypeId String
+  dayType   DayType  @relation(fields: [dayTypeId], references: [id])
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, fecha])
+  @@index([userId, fecha])
 }
 
 /// Plato planificado del menú semanal para un día y una comida concretos
@@ -193,14 +212,24 @@ model ExerciseLog {
   @@index([userId, fecha])
 }
 
-/// Registro periódico de peso de la usuaria
+/// Registro periódico de peso y composición corporal de la usuaria. Todo lo
+/// que no sea el peso es opcional (no todas las básculas/apps dan todos los
+/// datos). La imagen es opcional (p.ej. una foto del informe de la báscula).
 model WeightLog {
-  id        String   @id @default(cuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  fecha     DateTime @db.Date
-  pesoKg    Float
-  createdAt DateTime @default(now())
+  id                     String   @id @default(cuid())
+  userId                 String
+  user                   User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fecha                  DateTime @db.Date
+  pesoKg                 Float
+  grasaCorporalPct       Float?
+  masaMuscularKg         Float?
+  pliegues               Float?
+  aguaCorporalPct        Float?
+  grasaVisceral          Float?
+  tasaMetabolicaBasalKcal Int?
+  imagen                 Bytes?
+  imagenMime             String?
+  createdAt              DateTime @default(now())
 
   @@unique([userId, fecha])
   @@index([userId, fecha])

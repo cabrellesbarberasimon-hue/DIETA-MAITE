@@ -128,27 +128,30 @@ export async function runSeed(prisma: PrismaClient, options: SeedOptions): Promi
     },
   });
 
-  const dayTypeEntrenamiento = await prisma.dayType.upsert({
+  await prisma.dayType.upsert({
     where: { userId_nombre: { userId: maite.id, nombre: "Entrenamiento" } },
     update: {},
     create: { userId: maite.id, nombre: "Entrenamiento", carbohidratosG: ENTRENAMIENTO_CARBOHIDRATOS_G },
   });
-  const dayTypeDescanso = await prisma.dayType.upsert({
+  await prisma.dayType.upsert({
     where: { userId_nombre: { userId: maite.id, nombre: "Descanso" } },
     update: {},
-    create: { userId: maite.id, nombre: "Descanso", carbohidratosG: DESCANSO_CARBOHIDRATOS_G },
+    create: {
+      userId: maite.id,
+      nombre: "Descanso",
+      carbohidratosG: DESCANSO_CARBOHIDRATOS_G,
+      predeterminado: true,
+    },
   });
 
   for (const [diaKey, dia] of Object.entries(seed.dias as Record<string, SeedDia>)) {
     const weekday = WEEKDAY_MAP[diaKey];
     if (!weekday) throw new Error(`Día no reconocido en el seed: ${diaKey}`);
 
-    const dayType = /CARDIO/i.test(dia.tipo_dia) ? dayTypeEntrenamiento : dayTypeDescanso;
-
     const dayPlan = await prisma.dayPlan.upsert({
       where: { userId_weekday: { userId: maite.id, weekday: weekday as never } },
-      update: { dayTypeId: dayType.id },
-      create: { userId: maite.id, weekday: weekday as never, dayTypeId: dayType.id },
+      update: {},
+      create: { userId: maite.id, weekday: weekday as never },
     });
 
     for (const [comidaKey, comida] of Object.entries(dia.comidas)) {

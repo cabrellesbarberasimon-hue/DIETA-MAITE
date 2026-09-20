@@ -14,9 +14,11 @@ type ExerciseLog = {
 export function ExercisePanel({
   exerciseTypes,
   logs,
+  dateKey,
 }: {
   exerciseTypes: ExerciseType[];
   logs: ExerciseLog[];
+  dateKey?: string;
 }) {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -78,7 +80,7 @@ export function ExercisePanel({
           const minutos = Number(formData.get("minutos") ?? 0);
           if (!exerciseTypeId || minutos <= 0) return;
           run(async () => {
-            await addExerciseLogAction({ exerciseTypeId, minutos });
+            await addExerciseLogAction({ exerciseTypeId, minutos, fecha: dateKey });
             formEl.reset();
           });
         }}

@@ -1,7 +1,9 @@
+import Link from "next/link";
 import { requireUsuaria } from "@/lib/auth/guards";
 import { prisma } from "@/lib/prisma";
 import { WeightChart } from "@/components/WeightChart";
 import { WeightForm } from "@/components/WeightForm";
+import { todayKey, toDateKey } from "@/lib/nutrition";
 import { fmtDateShort, fmtNum } from "@/lib/format";
 
 export default async function PesoPage() {
@@ -22,6 +24,8 @@ export default async function PesoPage() {
   const last = weightLogs.at(-1) ?? null;
   const pesoActual = last?.pesoKg ?? profile.pesoInicialKg;
   const kgPendientes = pesoActual - profile.pesoObjetivoKg;
+  const today = todayKey();
+  const hoy = weightLogs.find((w) => toDateKey(w.fecha) === today) ?? null;
 
   return (
     <div className="mx-auto max-w-md space-y-5">
@@ -45,7 +49,24 @@ export default async function PesoPage() {
           </div>
         </div>
 
-        <WeightForm lastWeightKg={last?.pesoKg ?? null} />
+        <WeightForm
+          lastWeightKg={last?.pesoKg ?? null}
+          existing={
+            hoy
+              ? {
+                  id: hoy.id,
+                  pesoKg: hoy.pesoKg,
+                  grasaCorporalPct: hoy.grasaCorporalPct,
+                  masaMuscularKg: hoy.masaMuscularKg,
+                  pliegues: hoy.pliegues,
+                  aguaCorporalPct: hoy.aguaCorporalPct,
+                  grasaVisceral: hoy.grasaVisceral,
+                  tasaMetabolicaBasalKcal: hoy.tasaMetabolicaBasalKcal,
+                  hasImagen: hoy.imagen !== null,
+                }
+              : null
+          }
+        />
       </section>
 
       <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
@@ -61,9 +82,22 @@ export default async function PesoPage() {
               .slice()
               .reverse()
               .map((w) => (
-                <li key={w.id} className="flex justify-between py-2 text-sm">
+                <li key={w.id} className="flex items-center justify-between py-2 text-sm">
                   <span className="text-slate-500">{fmtDateShort(w.fecha)}</span>
-                  <span className="font-medium text-slate-800">{fmtNum(w.pesoKg, 1)} kg</span>
+                  <div className="flex items-center gap-2">
+                    {w.imagen && (
+                      <a href={`/api/peso-imagen/${w.id}`} target="_blank" rel="noreferrer" className="text-xs">
+                        📷
+                      </a>
+                    )}
+                    <span className="font-medium text-slate-800">{fmtNum(w.pesoKg, 1)} kg</span>
+                    <Link
+                      href={`/historial/${toDateKey(w.fecha)}`}
+                      className="text-xs font-medium text-green-700 underline"
+                    >
+                      editar
+                    </Link>
+                  </div>
                 </li>
               ))}
           </ul>

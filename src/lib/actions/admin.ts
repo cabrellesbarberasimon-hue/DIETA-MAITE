@@ -73,13 +73,18 @@ export async function createUsuariaAction(input: unknown) {
     await tx.dayType.create({
       data: { userId: user.id, nombre: "Entrenamiento", carbohidratosG: data.carbohidratosEntrenamientoG },
     });
-    const descanso = await tx.dayType.create({
-      data: { userId: user.id, nombre: "Descanso", carbohidratosG: data.carbohidratosDescansoG },
+    await tx.dayType.create({
+      data: {
+        userId: user.id,
+        nombre: "Descanso",
+        carbohidratosG: data.carbohidratosDescansoG,
+        predeterminado: true,
+      },
     });
 
     for (const weekday of WEEKDAYS) {
       const dayPlan = await tx.dayPlan.create({
-        data: { userId: user.id, weekday, dayTypeId: descanso.id },
+        data: { userId: user.id, weekday },
       });
 
       for (const mealType of MEAL_TYPES) {
@@ -215,13 +220,22 @@ export async function deleteDayTypeAction(input: unknown) {
   await requireAdmin();
   const data = deleteDayTypeSchema.parse(input);
 
-  const dayType = await prisma.dayType.findUnique({
-    where: { id: data.id },
-    include: { _count: { select: { dayPlans: true } } },
-  });
+  const [dayType, totalDayTypes] = await Promise.all([
+    prisma.dayType.findUnique({
+      where: { id: data.id },
+      include: { _count: { select: { dayLogs: true } } },
+    }),
+    prisma.dayType.count({ where: { userId: data.userId } }),
+  ]);
   if (!dayType || dayType.userId !== data.userId) throw new Error("Tipo de día no encontrado.");
-  if (dayType._count.dayPlans > 0) {
-    throw new Error("No se puede borrar: hay días de la semana que usan este tipo.");
+  if (dayType._count.dayLogs > 0) {
+    throw new Error("No se puede borrar: hay días que ya usan este tipo.");
+  }
+  if (dayType.predeterminado) {
+    throw new Error("No se puede borrar el tipo predeterminado: marca otro como predeterminado primero.");
+  }
+  if (totalDayTypes <= 1) {
+    throw new Error("Tiene que quedar al menos un tipo de día.");
   }
 
   await prisma.dayType.delete({ where: { id: data.id } });
@@ -229,31 +243,29 @@ export async function deleteDayTypeAction(input: unknown) {
   revalidatePath(`/admin/usuarias/${data.userId}/plan`);
 }
 
-// ---------- Menú semanal ----------
-
-const updateDayPlanSchema = z.object({
+const setDefaultDayTypeSchema = z.object({
   userId: z.string().min(1),
-  weekday: z.nativeEnum(Weekday),
-  dayTypeId: z.string().min(1),
+  id: z.string().min(1),
 });
 
-export async function updateDayPlanAction(input: unknown) {
+export async function setDefaultDayTypeAction(input: unknown) {
   await requireAdmin();
-  const data = updateDayPlanSchema.parse(input);
+  const data = setDefaultDayTypeSchema.parse(input);
 
-  const dayType = await prisma.dayType.findUnique({ where: { id: data.dayTypeId } });
+  const dayType = await prisma.dayType.findUnique({ where: { id: data.id } });
   if (!dayType || dayType.userId !== data.userId) throw new Error("Tipo de día no encontrado.");
 
-  await prisma.dayPlan.update({
-    where: { userId_weekday: { userId: data.userId, weekday: data.weekday } },
-    data: { dayTypeId: data.dayTypeId },
-  });
+  await prisma.$transaction([
+    prisma.dayType.updateMany({ where: { userId: data.userId }, data: { predeterminado: false } }),
+    prisma.dayType.update({ where: { id: data.id }, data: { predeterminado: true } }),
+  ]);
 
   revalidatePath(`/admin/usuarias/${data.userId}/plan`);
-  revalidatePath(`/admin/usuarias/${data.userId}`);
   revalidatePath("/dashboard");
   revalidatePath("/historial");
 }
+
+// ---------- Menú semanal ----------
 
 const updatePlannedMealSchema = z.object({
   userId: z.string().min(1),

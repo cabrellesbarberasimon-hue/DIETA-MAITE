@@ -16,7 +16,10 @@ export function AdminNav() {
           { href: `/admin/usuarias/${userId}/historial`, label: "Historial", icon: "📅" },
           { href: `/admin/usuarias/${userId}/plan`, label: "Plan", icon: "📝" },
         ]
-      : [{ href: "/admin", label: "Personas", icon: "👥" }];
+      : [
+          { href: "/admin", label: "Personas", icon: "👥" },
+          { href: "/admin/alimentos", label: "Alimentos", icon: "🍎" },
+        ];
 
   return (
     <nav className="fixed inset-x-0 bottom-0 z-10 border-t border-slate-200 bg-white pb-[env(safe-area-inset-bottom)]">

@@ -49,13 +49,9 @@ export default async function AdminUsuariaPlanPage({
               <DayPlanCard
                 key={weekday}
                 userId={usuaria.id}
-                dayTypes={dayTypes}
-                profileProteinaG={profile.objetivoProteinaG}
-                profileGrasasG={profile.objetivoGrasasG}
                 dayPlan={{
                   weekday,
                   weekdayLabel: WEEKDAY_LABEL[weekday],
-                  dayTypeId: dayPlan.dayTypeId,
                   comidas: dayPlan.comidas,
                 }}
               />

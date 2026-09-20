@@ -2,15 +2,15 @@
 
 import { useState } from "react";
 import {
-  updateDayPlanAction,
   updatePlannedMealAction,
   updateUsuariaWeightAction,
   updateProfileAction,
   createDayTypeAction,
   updateDayTypeAction,
   deleteDayTypeAction,
+  setDefaultDayTypeAction,
 } from "@/lib/actions/admin";
-import { MEAL_TYPE_LABEL, computeObjetivoKcal } from "@/lib/nutrition";
+import { MEAL_TYPE_LABEL } from "@/lib/nutrition";
 import { FoodPicker, type FoodPickerValues } from "@/components/FoodPicker";
 
 type PlannedMeal = {
@@ -27,12 +27,12 @@ type DayType = {
   id: string;
   nombre: string;
   carbohidratosG: number;
+  predeterminado: boolean;
 };
 
 type DayPlan = {
   weekday: string;
   weekdayLabel: string;
-  dayTypeId: string;
   comidas: PlannedMeal[];
 };
 
@@ -189,7 +189,9 @@ export function DayTypeManager({ userId, dayTypes }: { userId: string; dayTypes:
       <summary className="cursor-pointer list-none">
         <p className="font-semibold text-slate-800">Tipos de día</p>
         <p className="text-xs text-slate-400">
-          Cada tipo define los carbohidratos de ese día (la proteína y la grasa son siempre las del perfil).
+          Cada tipo define los carbohidratos de ese día (proteína y grasa son siempre las del perfil). La
+          usuaria elige el tipo cada día desde su panel; el marcado como predeterminado se usa si todavía no
+          ha elegido ninguno ese día.
         </p>
       </summary>
 
@@ -226,8 +228,29 @@ function DayTypeRow({ userId, dayType }: { userId: string; dayType: DayType }) {
           <div>
             <span className="font-medium text-slate-700">{dayType.nombre}</span>
             <span className="ml-2 text-xs text-slate-400">{dayType.carbohidratosG} g carb.</span>
+            {dayType.predeterminado && (
+              <span className="ml-2 rounded-full bg-green-100 px-2 py-0.5 text-[10px] font-medium text-green-700">
+                Predeterminado
+              </span>
+            )}
           </div>
           <div className="flex gap-2">
+            {!dayType.predeterminado && (
+              <button
+                type="button"
+                disabled={pending}
+                onClick={() => {
+                  setError(null);
+                  setPending(true);
+                  setDefaultDayTypeAction({ userId, id: dayType.id })
+                    .catch((err) => setError(err instanceof Error ? err.message : "Error"))
+                    .finally(() => setPending(false));
+                }}
+                className="text-xs font-medium text-slate-500"
+              >
+                Predeterminar
+              </button>
+            )}
             <button type="button" onClick={() => setEditing(true)} className="text-xs font-medium text-green-700">
               Editar
             </button>
@@ -359,82 +382,20 @@ function NewDayTypeForm({ userId, onDone }: { userId: string; onDone: () => void
   );
 }
 
-export function DayPlanCard({
-  userId,
-  dayPlan,
-  dayTypes,
-  profileProteinaG,
-  profileGrasasG,
-}: {
-  userId: string;
-  dayPlan: DayPlan;
-  dayTypes: DayType[];
-  profileProteinaG: number;
-  profileGrasasG: number;
-}) {
-  const currentDayType = dayTypes.find((dt) => dt.id === dayPlan.dayTypeId);
-  const objetivoKcal = currentDayType
-    ? computeObjetivoKcal(profileProteinaG, currentDayType.carbohidratosG, profileGrasasG)
-    : 0;
-
+export function DayPlanCard({ userId, dayPlan }: { userId: string; dayPlan: DayPlan }) {
   return (
     <details className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
       <summary className="cursor-pointer list-none">
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="font-semibold text-slate-800">{dayPlan.weekdayLabel}</p>
-            <p className="text-xs text-slate-400">{currentDayType?.nombre ?? "—"}</p>
-          </div>
-          <p className="text-sm font-medium text-slate-500">{objetivoKcal} kcal</p>
-        </div>
+        <p className="font-semibold text-slate-800">{dayPlan.weekdayLabel}</p>
+        <p className="text-xs text-slate-400">{dayPlan.comidas.length} comidas planificadas</p>
       </summary>
 
-      <div className="mt-4 space-y-4 border-t border-slate-100 pt-4">
-        <DayTypeSelect userId={userId} dayPlan={dayPlan} dayTypes={dayTypes} />
-
-        <div className="space-y-2">
-          {dayPlan.comidas.map((meal) => (
-            <PlannedMealRow key={meal.id} userId={userId} meal={meal} />
-          ))}
-        </div>
+      <div className="mt-4 space-y-2 border-t border-slate-100 pt-4">
+        {dayPlan.comidas.map((meal) => (
+          <PlannedMealRow key={meal.id} userId={userId} meal={meal} />
+        ))}
       </div>
     </details>
-  );
-}
-
-function DayTypeSelect({ userId, dayPlan, dayTypes }: { userId: string; dayPlan: DayPlan; dayTypes: DayType[] }) {
-  const [pending, setPending] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [done, setDone] = useState(false);
-
-  return (
-    <div className="rounded-xl bg-slate-50 p-3">
-      <p className="mb-2 text-xs font-semibold text-slate-500">Tipo de día</p>
-      <div className="flex gap-2">
-        <select
-          defaultValue={dayPlan.dayTypeId}
-          disabled={pending}
-          onChange={(e) => {
-            setError(null);
-            setDone(false);
-            setPending(true);
-            updateDayPlanAction({ userId, weekday: dayPlan.weekday, dayTypeId: e.target.value })
-              .then(() => setDone(true))
-              .catch((err) => setError(err instanceof Error ? err.message : "Error"))
-              .finally(() => setPending(false));
-          }}
-          className="flex-1 rounded-lg border border-slate-300 px-3 py-2 text-sm"
-        >
-          {dayTypes.map((dt) => (
-            <option key={dt.id} value={dt.id}>
-              {dt.nombre} ({dt.carbohidratosG} g carb.)
-            </option>
-          ))}
-        </select>
-      </div>
-      {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
-      {done && !error && <p className="mt-1 text-xs text-green-700">Guardado ✓</p>}
-    </div>
   );
 }
 

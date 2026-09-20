@@ -85,8 +85,9 @@ export function NuevaUsuariaForm() {
           <Field name="carbohidratosDescansoG" label="Día de descanso (g)" type="number" defaultValue="100" />
         </div>
         <p className="mt-2 text-xs text-slate-400">
-          Los 7 días de la semana se crean como &quot;Descanso&quot; y el menú en blanco — se ajusta después desde
-          su ficha, pestaña &quot;Plan&quot; (qué días son de entrenamiento, y los platos de cada comida).
+          El menú semanal se crea en blanco (se rellena después desde su ficha, pestaña &quot;Plan&quot;). El
+          tipo de día (&quot;Descanso&quot; por defecto) lo elige ella cada día desde su panel, según si
+          entrena o no.
         </p>
       </div>
 

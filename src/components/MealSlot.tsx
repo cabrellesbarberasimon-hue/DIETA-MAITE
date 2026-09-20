@@ -33,11 +33,13 @@ export function MealSlot({
   label,
   plannedMeal,
   logs,
+  dateKey,
 }: {
   mealType: string;
   label: string;
   plannedMeal: PlannedMeal | null;
   logs: MealLog[];
+  dateKey?: string;
 }) {
   const [showFreeForm, setShowFreeForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -130,7 +132,7 @@ export function MealSlot({
             type="button"
             disabled={pending}
             onClick={() =>
-              run(() => addPlannedMealLogAction({ plannedMealId: plannedMeal.id, mealType }))
+              run(() => addPlannedMealLogAction({ plannedMealId: plannedMeal.id, mealType, fecha: dateKey }))
             }
             className="rounded-xl bg-green-600 px-3 py-2 text-sm font-medium text-white active:scale-[0.98] disabled:opacity-60"
           >
@@ -151,7 +153,7 @@ export function MealSlot({
           pending={pending}
           onSubmit={(values) =>
             run(async () => {
-              await addFreeMealLogAction({ mealType, ...values });
+              await addFreeMealLogAction({ mealType, ...values, fecha: dateKey });
               setShowFreeForm(false);
             })
           }
