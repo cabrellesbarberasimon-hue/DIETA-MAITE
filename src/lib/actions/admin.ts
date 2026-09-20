@@ -204,6 +204,26 @@ export async function createUsuariaAction(input: unknown) {
   redirect(`/admin/usuarias/${usuaria.id}`);
 }
 
+// ---------- Cuenta ----------
+
+const updateUsuariaNameSchema = z.object({
+  userId: z.string().min(1),
+  name: z.string().trim().min(1, "Ponle un nombre"),
+});
+
+/** Corrige el nombre de una cuenta ya creada (p.ej. un error al escribirlo). */
+export async function updateUsuariaNameAction(input: unknown) {
+  await requireAdmin();
+  const data = updateUsuariaNameSchema.parse(input);
+
+  await prisma.user.update({ where: { id: data.userId }, data: { name: data.name } });
+
+  revalidatePath("/admin");
+  revalidatePath(`/admin/usuarias/${data.userId}`);
+  revalidatePath(`/admin/usuarias/${data.userId}/plan`);
+  revalidatePath(`/admin/usuarias/${data.userId}/historial`);
+}
+
 // ---------- Perfil ----------
 
 const updateProfileSchema = z.object({

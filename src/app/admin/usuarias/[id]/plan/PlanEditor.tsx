@@ -6,12 +6,14 @@ import {
   createPlannedMealOptionAction,
   deletePlannedMealOptionAction,
   updateUsuariaWeightAction,
+  updateUsuariaNameAction,
   updateProfileAction,
   createDayTypeAction,
   updateDayTypeAction,
   deleteDayTypeAction,
   setDefaultDayTypeAction,
 } from "@/lib/actions/admin";
+import { backfillMealTemplatesFromPlanAction } from "@/lib/actions/mealTemplates";
 import { importPlannedMealsExcelAction, type ImportResult } from "@/lib/actions/import";
 import { MEAL_TYPE_LABEL } from "@/lib/nutrition";
 import { FoodPicker, type FoodPickerValues } from "@/components/FoodPicker";
@@ -108,6 +110,84 @@ export function CurrentWeightEditor({ userId, pesoActualKg }: { userId: string; 
       {error && <p className="text-xs text-red-600">{error}</p>}
       {done && !error && <p className="text-xs text-green-700">Peso actualizado ✓</p>}
     </form>
+  );
+}
+
+export function NameEditor({ userId, name }: { userId: string; name: string }) {
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [done, setDone] = useState(false);
+
+  return (
+    <form
+      className="flex gap-2"
+      onSubmit={(e) => {
+        e.preventDefault();
+        const form = new FormData(e.currentTarget);
+        setError(null);
+        setDone(false);
+        setPending(true);
+        updateUsuariaNameAction({ userId, name: form.get("name") })
+          .then(() => setDone(true))
+          .catch((err) => setError(err instanceof Error ? err.message : "Error"))
+          .finally(() => setPending(false));
+      }}
+    >
+      <input
+        name="name"
+        defaultValue={name}
+        required
+        className="flex-1 rounded-xl border border-slate-300 px-4 py-2.5 text-base"
+      />
+      <button
+        type="submit"
+        disabled={pending}
+        className="rounded-xl bg-slate-800 px-4 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+      >
+        Guardar
+      </button>
+      {error && <p className="text-xs text-red-600">{error}</p>}
+      {done && !error && <p className="text-xs text-green-700">Nombre actualizado ✓</p>}
+    </form>
+  );
+}
+
+export function BackfillLibraryButton({ userId }: { userId: string }) {
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [result, setResult] = useState<{ anadidos: number } | null>(null);
+
+  return (
+    <div className="space-y-2">
+      <button
+        type="button"
+        disabled={pending}
+        onClick={() => {
+          setError(null);
+          setResult(null);
+          setPending(true);
+          backfillMealTemplatesFromPlanAction({ userId })
+            .then((r) => setResult(r))
+            .catch((err) => setError(err instanceof Error ? err.message : "Error"))
+            .finally(() => setPending(false));
+        }}
+        className="w-full rounded-xl border border-dashed border-slate-300 py-2.5 text-sm font-medium text-slate-500 disabled:opacity-60"
+      >
+        {pending ? "Añadiendo…" : "Guardar los platos de este menú en la biblioteca"}
+      </button>
+      <p className="text-xs text-slate-400">
+        Copia a la biblioteca compartida los platos que ya tiene planificados esta persona (los que se
+        crearon antes de que existiera la biblioteca). No toca su menú, y no duplica los que ya estén.
+      </p>
+      {error && <p className="text-xs text-red-600">{error}</p>}
+      {result && !error && (
+        <p className="text-xs text-green-700">
+          {result.anadidos > 0
+            ? `${result.anadidos} platos añadidos a la biblioteca ✓`
+            : "Ya estaban todos en la biblioteca ✓"}
+        </p>
+      )}
+    </div>
   );
 }
 

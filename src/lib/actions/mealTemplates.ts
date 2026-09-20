@@ -109,6 +109,49 @@ export async function updateMealTemplateAction(input: unknown): Promise<void> {
   revalidatePath("/admin/platos");
 }
 
+const backfillSchema = z.object({ userId: z.string().min(1) });
+
+/**
+ * Copia a la biblioteca compartida todos los platos que ya tiene planificados
+ * una persona (los que se crearon antes de que existiera esta biblioteca, o
+ * sin marcar la casilla de guardarlos). No inventa nada nuevo ni toca su
+ * menú: solo copia lo que ya hay. Los que ya estaban en la biblioteca
+ * (mismo tipo de comida y descripción) no se duplican.
+ */
+export async function backfillMealTemplatesFromPlanAction(input: unknown): Promise<{ anadidos: number }> {
+  await requireAdmin();
+  const { userId } = backfillSchema.parse(input);
+
+  const comidas = await prisma.plannedMeal.findMany({
+    where: { dayPlan: { userId }, kcal: { gt: 0 } },
+  });
+
+  let anadidos = 0;
+  for (const comida of comidas) {
+    const busqueda = normalizeSearchText(comida.descripcion);
+    const existing = await prisma.mealTemplate.findFirst({
+      where: { mealType: comida.mealType, busqueda },
+    });
+    if (existing) continue;
+
+    await prisma.mealTemplate.create({
+      data: {
+        mealType: comida.mealType,
+        descripcion: comida.descripcion,
+        busqueda,
+        kcal: comida.kcal,
+        proteinaG: comida.proteinaG,
+        carbohidratosG: comida.carbohidratosG,
+        grasasG: comida.grasasG,
+      },
+    });
+    anadidos += 1;
+  }
+
+  revalidatePath("/admin/platos");
+  return { anadidos };
+}
+
 const deleteSchema = z.object({ id: z.string().min(1) });
 
 export async function deleteMealTemplateAction(input: unknown): Promise<void> {

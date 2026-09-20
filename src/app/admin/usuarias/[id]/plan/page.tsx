@@ -1,7 +1,15 @@
 import { prisma } from "@/lib/prisma";
 import { getUsuariaById } from "@/lib/data/usuaria";
 import { WEEKDAY_ORDER, WEEKDAY_LABEL } from "@/lib/nutrition";
-import { CurrentWeightEditor, ProfileEditor, DayTypeManager, DayPlanCard, ExcelImportForm } from "./PlanEditor";
+import {
+  CurrentWeightEditor,
+  NameEditor,
+  BackfillLibraryButton,
+  ProfileEditor,
+  DayTypeManager,
+  DayPlanCard,
+  ExcelImportForm,
+} from "./PlanEditor";
 
 export default async function AdminUsuariaPlanPage({
   params,
@@ -29,6 +37,11 @@ export default async function AdminUsuariaPlanPage({
       <h1 className="text-lg font-bold text-slate-900">Plan de {usuaria.name}</h1>
 
       <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
+        <h2 className="mb-3 text-sm font-semibold text-slate-500">Nombre</h2>
+        <NameEditor userId={usuaria.id} name={usuaria.name} />
+      </section>
+
+      <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
         <h2 className="mb-3 text-sm font-semibold text-slate-500">
           Peso actual (usado en las fórmulas de ejercicio)
         </h2>
@@ -40,6 +53,11 @@ export default async function AdminUsuariaPlanPage({
       <DayTypeManager userId={usuaria.id} dayTypes={dayTypes} />
 
       <ExcelImportForm userId={usuaria.id} />
+
+      <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
+        <h2 className="mb-3 text-sm font-semibold text-slate-500">Biblioteca de platos</h2>
+        <BackfillLibraryButton userId={usuaria.id} />
+      </section>
 
       <section className="space-y-3">
         <h2 className="px-1 text-sm font-semibold text-slate-500">Menú semanal</h2>
