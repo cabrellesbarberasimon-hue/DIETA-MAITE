@@ -143,7 +143,9 @@ model DayLog {
   @@index([userId, fecha])
 }
 
-/// Plato planificado del menú semanal para un día y una comida concretos
+/// Una opción de plato planificado para un día y una comida concretos.
+/// Puede haber varias opciones por comida (p.ej. 3 alternativas de
+/// almuerzo con kcal/macros parecidos) — la usuaria elige cuál ha comido.
 model PlannedMeal {
   id                String   @id @default(cuid())
   dayPlanId         String
@@ -158,7 +160,7 @@ model PlannedMeal {
 
   mealLogs MealLog[]
 
-  @@unique([dayPlanId, mealType])
+  @@index([dayPlanId, mealType])
 }
 
 /// Registro real de una comida consumida por la usuaria

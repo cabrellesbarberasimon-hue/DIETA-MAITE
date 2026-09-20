@@ -95,14 +95,14 @@ export function DayEditor({
       <section className="space-y-3">
         <h2 className="px-1 text-sm font-semibold text-slate-500">Comidas</h2>
         {MEAL_ORDER.map((mealType) => {
-          const plannedMeal = dayPlan.comidas.find((c) => c.mealType === mealType) ?? null;
+          const plannedMeals = dayPlan.comidas.filter((c) => c.mealType === mealType);
           const logs = day.mealLogs.filter((l) => l.mealType === mealType);
           return (
             <MealSlot
               key={mealType}
               mealType={mealType}
               label={MEAL_TYPE_LABEL[mealType]}
-              plannedMeal={plannedMeal}
+              plannedMeals={plannedMeals}
               logs={logs}
               dateKey={dateKey}
             />

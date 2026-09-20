@@ -31,22 +31,25 @@ type MealLog = {
 export function MealSlot({
   mealType,
   label,
-  plannedMeal,
+  plannedMeals,
   logs,
   dateKey,
 }: {
   mealType: string;
   label: string;
-  plannedMeal: PlannedMeal | null;
+  plannedMeals: PlannedMeal[];
   logs: MealLog[];
   dateKey?: string;
 }) {
+  const options = plannedMeals.filter((m) => m.kcal > 0);
   const [showFreeForm, setShowFreeForm] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [selectedOptionId, setSelectedOptionId] = useState(options[0]?.id ?? "");
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const totalKcal = logs.reduce((acc, l) => acc + l.kcal, 0);
+  const selectedOption = options.find((o) => o.id === selectedOptionId) ?? options[0] ?? null;
 
   async function run(fn: () => Promise<void>) {
     setError(null);
@@ -67,10 +70,26 @@ export function MealSlot({
         {totalKcal > 0 && <span className="text-sm font-medium text-slate-500">{Math.round(totalKcal)} kcal</span>}
       </div>
 
-      {plannedMeal && plannedMeal.kcal > 0 && (
-        <p className="mb-3 text-sm text-slate-500">
-          Plan: {plannedMeal.descripcion} · {plannedMeal.kcal} kcal
-        </p>
+      {options.length > 0 && (
+        <div className="mb-3">
+          {options.length > 1 ? (
+            <select
+              value={selectedOptionId}
+              onChange={(e) => setSelectedOptionId(e.target.value)}
+              className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm text-slate-600"
+            >
+              {options.map((o) => (
+                <option key={o.id} value={o.id}>
+                  {o.descripcion} · {o.kcal} kcal
+                </option>
+              ))}
+            </select>
+          ) : (
+            <p className="text-sm text-slate-500">
+              Plan: {options[0].descripcion} · {options[0].kcal} kcal
+            </p>
+          )}
+        </div>
       )}
 
       {logs.length > 0 && (
@@ -127,12 +146,12 @@ export function MealSlot({
       {error && <p className="mb-2 text-xs text-red-600">{error}</p>}
 
       <div className="flex flex-wrap gap-2">
-        {plannedMeal && plannedMeal.kcal > 0 && (
+        {selectedOption && (
           <button
             type="button"
             disabled={pending}
             onClick={() =>
-              run(() => addPlannedMealLogAction({ plannedMealId: plannedMeal.id, mealType, fecha: dateKey }))
+              run(() => addPlannedMealLogAction({ plannedMealId: selectedOption.id, mealType, fecha: dateKey }))
             }
             className="rounded-xl bg-green-600 px-3 py-2 text-sm font-medium text-white active:scale-[0.98] disabled:opacity-60"
           >
@@ -169,6 +188,7 @@ type MealValues = {
   proteinaG: number;
   carbohidratosG: number;
   grasasG: number;
+  guardarComoOpcion?: boolean;
 };
 
 function FreeMealForm({
@@ -179,6 +199,7 @@ function FreeMealForm({
   pending: boolean;
 }) {
   const [fields, setFields] = useState({ nombre: "", kcal: "", proteinaG: "", carbohidratosG: "", grasasG: "" });
+  const [guardarComoOpcion, setGuardarComoOpcion] = useState(false);
 
   function applyFood(values: FoodPickerValues) {
     setFields({
@@ -201,6 +222,7 @@ function FreeMealForm({
           proteinaG: Number(fields.proteinaG) || 0,
           carbohidratosG: Number(fields.carbohidratosG) || 0,
           grasasG: Number(fields.grasasG) || 0,
+          guardarComoOpcion,
         });
       }}
     >
@@ -234,6 +256,14 @@ function FreeMealForm({
           onChange={(v) => setFields((f) => ({ ...f, grasasG: v }))}
         />
       </div>
+      <label className="flex items-center gap-1.5 text-xs text-slate-500">
+        <input
+          type="checkbox"
+          checked={guardarComoOpcion}
+          onChange={(e) => setGuardarComoOpcion(e.target.checked)}
+        />
+        Guardar como opción de este plan (aparecerá para elegir la próxima vez)
+      </label>
       <button
         type="submit"
         disabled={pending}

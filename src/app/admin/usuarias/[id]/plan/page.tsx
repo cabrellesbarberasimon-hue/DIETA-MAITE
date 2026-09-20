@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { getUsuariaById } from "@/lib/data/usuaria";
 import { WEEKDAY_ORDER, WEEKDAY_LABEL } from "@/lib/nutrition";
-import { CurrentWeightEditor, ProfileEditor, DayTypeManager, DayPlanCard } from "./PlanEditor";
+import { CurrentWeightEditor, ProfileEditor, DayTypeManager, DayPlanCard, ExcelImportForm } from "./PlanEditor";
 
 export default async function AdminUsuariaPlanPage({
   params,
@@ -39,6 +39,8 @@ export default async function AdminUsuariaPlanPage({
 
       <DayTypeManager userId={usuaria.id} dayTypes={dayTypes} />
 
+      <ExcelImportForm userId={usuaria.id} />
+
       <section className="space-y-3">
         <h2 className="px-1 text-sm font-semibold text-slate-500">Menú semanal</h2>
         {profile &&
@@ -50,6 +52,7 @@ export default async function AdminUsuariaPlanPage({
                 key={weekday}
                 userId={usuaria.id}
                 dayPlan={{
+                  id: dayPlan.id,
                   weekday,
                   weekdayLabel: WEEKDAY_LABEL[weekday],
                   comidas: dayPlan.comidas,

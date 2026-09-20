@@ -17,7 +17,9 @@ import {
   OBJETIVOS_PRINCIPALES,
   type DeficitModo,
 } from "@/lib/nutrition";
-import { Weekday } from "@/generated/prisma/client";
+import { Weekday, MealType } from "@/generated/prisma/client";
+
+const mealTypeSchema = z.nativeEnum(MealType);
 
 const MEAL_TYPES = ["DESAYUNO", "ALMUERZO", "COMIDA", "COMIDA_LIBRE_SOCIAL", "CENA"] as const;
 const WEEKDAYS = Object.values(Weekday);
@@ -448,4 +450,69 @@ export async function updatePlannedMealAction(input: unknown) {
   revalidatePath(`/admin/usuarias/${data.userId}/plan`);
   revalidatePath("/dashboard");
   revalidatePath("/historial");
+}
+
+const createPlannedMealOptionSchema = z.object({
+  userId: z.string().min(1),
+  dayPlanId: z.string().min(1),
+  mealType: mealTypeSchema,
+  descripcion: z.string().trim().min(1, "Descríbelo"),
+  kcal: z.coerce.number().int().min(0).max(10000),
+  proteinaG: z.coerce.number().min(0).max(1000),
+  carbohidratosG: z.coerce.number().min(0).max(1000),
+  grasasG: z.coerce.number().min(0).max(1000),
+});
+
+/** Añade una opción más a una comida (p.ej. una tercera alternativa de almuerzo), sin tocar las que ya había. */
+export async function createPlannedMealOptionAction(input: unknown) {
+  await requireAdmin();
+  const data = createPlannedMealOptionSchema.parse(input);
+
+  const dayPlan = await prisma.dayPlan.findUnique({ where: { id: data.dayPlanId } });
+  if (!dayPlan || dayPlan.userId !== data.userId) throw new Error("Día no encontrado.");
+
+  await prisma.plannedMeal.create({
+    data: {
+      dayPlanId: data.dayPlanId,
+      mealType: data.mealType,
+      descripcion: data.descripcion,
+      kcal: data.kcal,
+      proteinaG: data.proteinaG,
+      carbohidratosG: data.carbohidratosG,
+      grasasG: data.grasasG,
+    },
+  });
+
+  revalidatePath(`/admin/usuarias/${data.userId}/plan`);
+  revalidatePath("/dashboard");
+  revalidatePath("/historial");
+}
+
+const deletePlannedMealOptionSchema = z.object({
+  userId: z.string().min(1),
+  id: z.string().min(1),
+});
+
+export async function deletePlannedMealOptionAction(input: unknown) {
+  await requireAdmin();
+  const data = deletePlannedMealOptionSchema.parse(input);
+
+  const plannedMeal = await prisma.plannedMeal.findUnique({
+    where: { id: data.id },
+    include: { dayPlan: true, _count: { select: { mealLogs: true } } },
+  });
+  if (!plannedMeal || plannedMeal.dayPlan.userId !== data.userId) {
+    throw new Error("Plato no encontrado.");
+  }
+
+  // No se borra si alguna usuaria ya registró haberla comido: se pierde la
+  // trazabilidad de ese registro. Se puede editar el texto/macros en su
+  // lugar si hace falta corregirla.
+  if (plannedMeal._count.mealLogs > 0) {
+    throw new Error("No se puede borrar: alguna comida registrada usa esta opción.");
+  }
+
+  await prisma.plannedMeal.delete({ where: { id: data.id } });
+
+  revalidatePath(`/admin/usuarias/${data.userId}/plan`);
 }

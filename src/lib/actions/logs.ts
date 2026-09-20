@@ -4,7 +4,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { requireUsuaria } from "@/lib/auth/guards";
-import { calcExerciseKcal, today, dateKeyToDate } from "@/lib/nutrition";
+import { calcExerciseKcal, today, dateKeyToDate, dateToWeekday } from "@/lib/nutrition";
 import { MealType } from "@/generated/prisma/client";
 
 const MAX_IMAGE_BYTES = 4 * 1024 * 1024;
@@ -114,6 +114,7 @@ const freeMealSchema = z.object({
   carbohidratosG: z.coerce.number().min(0).max(1000),
   grasasG: z.coerce.number().min(0).max(1000),
   fecha: dateKeySchema,
+  guardarComoOpcion: z.coerce.boolean().optional().default(false),
 });
 
 export async function addFreeMealLogAction(input: unknown) {
@@ -135,8 +136,29 @@ export async function addFreeMealLogAction(input: unknown) {
     },
   });
 
+  if (data.guardarComoOpcion) {
+    const weekday = dateToWeekday(fecha);
+    const dayPlan = await prisma.dayPlan.findUnique({
+      where: { userId_weekday: { userId: session.sub, weekday } },
+    });
+    if (dayPlan) {
+      await prisma.plannedMeal.create({
+        data: {
+          dayPlanId: dayPlan.id,
+          mealType: data.mealType,
+          descripcion: data.nombre,
+          kcal: data.kcal,
+          proteinaG: data.proteinaG,
+          carbohidratosG: data.carbohidratosG,
+          grasasG: data.grasasG,
+        },
+      });
+    }
+  }
+
   revalidatePath("/dashboard");
   revalidatePath("/historial");
+  if (data.guardarComoOpcion) revalidatePath(`/admin/usuarias/${session.sub}/plan`);
 }
 
 const editMealSchema = z.object({

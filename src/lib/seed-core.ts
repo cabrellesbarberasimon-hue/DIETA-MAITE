@@ -158,27 +158,30 @@ export async function runSeed(prisma: PrismaClient, options: SeedOptions): Promi
       const mealType = MEAL_TYPE_MAP[comidaKey];
       if (!mealType) throw new Error(`Comida no reconocida en el seed: ${comidaKey}`);
 
-      await prisma.plannedMeal.upsert({
-        where: {
-          dayPlanId_mealType: { dayPlanId: dayPlan.id, mealType: mealType as never },
-        },
-        update: {
-          descripcion: comida.descripcion,
-          kcal: comida.kcal,
-          proteinaG: comida.proteina_g,
-          carbohidratosG: comida.carbohidratos_g,
-          grasasG: comida.grasas_g,
-        },
-        create: {
-          dayPlanId: dayPlan.id,
-          mealType: mealType as never,
-          descripcion: comida.descripcion,
-          kcal: comida.kcal,
-          proteinaG: comida.proteina_g,
-          carbohidratosG: comida.carbohidratos_g,
-          grasasG: comida.grasas_g,
-        },
+      // PlannedMeal admite varias opciones por día+comida, así que ya no
+      // hay una clave única para hacer upsert: se busca la primera opción
+      // existente para esa comida y se actualiza, o se crea si no hay
+      // ninguna todavía (sigue siendo idempotente para el seed inicial).
+      const existingOption = await prisma.plannedMeal.findFirst({
+        where: { dayPlanId: dayPlan.id, mealType: mealType as never },
+        orderBy: { updatedAt: "asc" },
       });
+
+      const comidaData = {
+        descripcion: comida.descripcion,
+        kcal: comida.kcal,
+        proteinaG: comida.proteina_g,
+        carbohidratosG: comida.carbohidratos_g,
+        grasasG: comida.grasas_g,
+      };
+
+      if (existingOption) {
+        await prisma.plannedMeal.update({ where: { id: existingOption.id }, data: comidaData });
+      } else {
+        await prisma.plannedMeal.create({
+          data: { dayPlanId: dayPlan.id, mealType: mealType as never, ...comidaData },
+        });
+      }
     }
   }
 
