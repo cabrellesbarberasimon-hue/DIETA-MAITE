@@ -65,7 +65,8 @@ model Profile {
   edad                   Int
   alturaCm               Int
   pesoInicialKg          Float
-  pesoObjetivoKg         Float
+  /// Opcional: no hace falta para dar de alta a alguien.
+  pesoObjetivoKg         Float?
   bmrKcal                Int
   factorActividad        Float
   getKcal                Int
@@ -73,6 +74,21 @@ model Profile {
   objetivoProteinaG      Int
   objetivoGrasasG        Int
   presupuestoSemanalKcal Int
+  /// Si es true, bmrKcal se guardó a mano (cliente antiguo) y nunca se
+  /// recalcula solo: hace falta que el admin pulse "Recalcular". Las
+  /// personas nuevas se crean con esto en false (BMR siempre automático).
+  bmrEsManual            Boolean  @default(true)
+  getEsManual            Boolean  @default(true)
+  /// Etiqueta del selector de actividad (sedentario/ligero/moderado/alto/
+  /// muy_alto/personalizado); null en perfiles antiguos (se tratan como
+  /// "personalizado" con su factorActividad ya guardado).
+  factorActividadEtiqueta String?
+  /// reducir_grasa | recomposicion | ganar_musculo | mantenimiento | rendimiento
+  objetivoPrincipal      String?
+  objetivoGrasaCorporalPct Float?
+  /// "porcentaje" | "manual" — cómo se introdujo deficitDiarioKcal
+  deficitModo            String   @default("manual")
+  deficitPorcentaje      Float?
   updatedAt              DateTime @updatedAt
 }
 

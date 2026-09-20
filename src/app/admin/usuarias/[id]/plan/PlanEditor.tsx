@@ -12,6 +12,7 @@ import {
 } from "@/lib/actions/admin";
 import { MEAL_TYPE_LABEL } from "@/lib/nutrition";
 import { FoodPicker, type FoodPickerValues } from "@/components/FoodPicker";
+import { PerfilCalculoFields } from "@/components/PerfilCalculoFields";
 
 type PlannedMeal = {
   id: string;
@@ -41,11 +42,18 @@ type Profile = {
   edad: number;
   alturaCm: number;
   pesoInicialKg: number;
-  pesoObjetivoKg: number;
+  pesoObjetivoKg: number | null;
   bmrKcal: number;
+  bmrEsManual: boolean;
   factorActividad: number;
+  factorActividadEtiqueta: string | null;
   getKcal: number;
+  getEsManual: boolean;
   deficitDiarioKcal: number;
+  deficitModo: string;
+  deficitPorcentaje: number | null;
+  objetivoPrincipal: string | null;
+  objetivoGrasaCorporalPct: number | null;
   objetivoProteinaG: number;
   objetivoGrasasG: number;
   presupuestoSemanalKcal: number;
@@ -100,63 +108,66 @@ export function ProfileEditor({ userId, profile }: { userId: string; profile: Pr
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [done, setDone] = useState(false);
+  const [recalcular, setRecalcular] = useState(false);
 
   return (
     <details className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
       <summary className="cursor-pointer list-none">
         <p className="font-semibold text-slate-800">Perfil y objetivos generales</p>
-        <p className="text-xs text-slate-400">
-          Edad, altura, BMR, GET, déficit, proteína y grasa objetivo (constantes)...
-        </p>
+        <p className="text-xs text-slate-400">Datos, objetivo, actividad, déficit y macros fijas.</p>
       </summary>
       <form
-        className="mt-4 space-y-2 border-t border-slate-100 pt-4"
+        className="mt-4 space-y-3 border-t border-slate-100 pt-4"
         onSubmit={(e) => {
           e.preventDefault();
           const form = new FormData(e.currentTarget);
           setError(null);
           setDone(false);
           setPending(true);
+          const pesoObjetivo = form.get("pesoObjetivoKg");
+          const grasaObjetivo = form.get("objetivoGrasaCorporalPct");
           updateProfileAction({
             userId,
             sexo: form.get("sexo"),
             edad: form.get("edad"),
             alturaCm: form.get("alturaCm"),
             pesoInicialKg: form.get("pesoInicialKg"),
-            pesoObjetivoKg: form.get("pesoObjetivoKg"),
-            bmrKcal: form.get("bmrKcal"),
-            factorActividad: form.get("factorActividad"),
-            getKcal: form.get("getKcal"),
-            deficitDiarioKcal: form.get("deficitDiarioKcal"),
+            pesoObjetivoKg: pesoObjetivo ? pesoObjetivo : undefined,
+            objetivoGrasaCorporalPct: grasaObjetivo ? grasaObjetivo : undefined,
+            objetivoPrincipal: form.get("objetivoPrincipal"),
+            factorActividadEtiqueta: form.get("factorActividadEtiqueta"),
+            factorActividadPersonalizado: form.get("factorActividadPersonalizado") || undefined,
+            deficitModo: form.get("deficitModo"),
+            deficitValor: form.get("deficitValor"),
             objetivoProteinaG: form.get("objetivoProteinaG"),
             objetivoGrasasG: form.get("objetivoGrasasG"),
-            presupuestoSemanalKcal: form.get("presupuestoSemanalKcal"),
+            recalcular,
           })
             .then(() => setDone(true))
             .catch((err) => setError(err instanceof Error ? err.message : "Error"))
             .finally(() => setPending(false));
         }}
       >
+        <PerfilCalculoFields
+          initial={{
+            sexo: profile.sexo,
+            edad: profile.edad,
+            alturaCm: profile.alturaCm,
+            pesoInicialKg: profile.pesoInicialKg,
+            pesoObjetivoKg: profile.pesoObjetivoKg,
+            objetivoGrasaCorporalPct: profile.objetivoGrasaCorporalPct,
+            objetivoPrincipal: profile.objetivoPrincipal,
+            factorActividadEtiqueta: profile.factorActividadEtiqueta,
+            factorActividad: profile.factorActividad,
+            deficitModo: profile.deficitModo,
+            deficitPorcentaje: profile.deficitPorcentaje,
+            deficitDiarioKcal: profile.deficitDiarioKcal,
+            bmrEsManual: profile.bmrEsManual,
+            getEsManual: profile.getEsManual,
+          }}
+        />
+
         <div className="grid grid-cols-2 gap-2">
-          <TextField name="sexo" label="Sexo" defaultValue={profile.sexo} />
-          <LabeledNumber name="edad" label="Edad" defaultValue={profile.edad} />
-          <LabeledNumber name="alturaCm" label="Altura (cm)" defaultValue={profile.alturaCm} />
-          <LabeledNumber
-            name="factorActividad"
-            label="Factor actividad"
-            defaultValue={profile.factorActividad}
-            step="0.1"
-          />
-          <LabeledNumber name="pesoInicialKg" label="Peso inicial (kg)" defaultValue={profile.pesoInicialKg} step="0.1" />
-          <LabeledNumber name="pesoObjetivoKg" label="Peso objetivo (kg)" defaultValue={profile.pesoObjetivoKg} step="0.1" />
-          <LabeledNumber name="bmrKcal" label="BMR (kcal)" defaultValue={profile.bmrKcal} />
-          <LabeledNumber name="getKcal" label="GET (kcal)" defaultValue={profile.getKcal} />
-          <LabeledNumber name="deficitDiarioKcal" label="Déficit diario (kcal)" defaultValue={profile.deficitDiarioKcal} />
-          <LabeledNumber
-            name="presupuestoSemanalKcal"
-            label="Presupuesto semanal (kcal)"
-            defaultValue={profile.presupuestoSemanalKcal}
-          />
           <LabeledNumber
             name="objetivoProteinaG"
             label="Proteína objetivo (g) — fija todos los días"
@@ -168,6 +179,19 @@ export function ProfileEditor({ userId, profile }: { userId: string; profile: Pr
             defaultValue={profile.objetivoGrasasG}
           />
         </div>
+
+        {(profile.bmrEsManual || profile.getEsManual) && (
+          <label className="flex items-center gap-2 rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-700">
+            <input
+              type="checkbox"
+              checked={recalcular}
+              onChange={(e) => setRecalcular(e.target.checked)}
+            />
+            Recalcular BMR/GET automáticamente con los datos de arriba (ahora mismo tiene un valor guardado a
+            mano)
+          </label>
+        )}
+
         {error && <p className="text-xs text-red-600">{error}</p>}
         <button
           type="submit"
@@ -573,21 +597,6 @@ function LabeledNumberControlled({
         step={step}
         value={value}
         onChange={(e) => onChange(Number(e.target.value))}
-        required
-        className="w-full rounded-lg border border-slate-300 px-2 py-1.5 text-sm"
-      />
-    </label>
-  );
-}
-
-function TextField({ name, label, defaultValue }: { name: string; label: string; defaultValue: string }) {
-  return (
-    <label className="block">
-      <span className="mb-0.5 block text-[10px] text-slate-400">{label}</span>
-      <input
-        name={name}
-        type="text"
-        defaultValue={defaultValue}
         required
         className="w-full rounded-lg border border-slate-300 px-2 py-1.5 text-sm"
       />

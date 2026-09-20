@@ -6,11 +6,83 @@ import { z } from "zod";
 import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/auth/guards";
 import { hashPassword } from "@/lib/auth/password";
-import { today } from "@/lib/nutrition";
+import {
+  today,
+  computeBMR,
+  computeGET,
+  computeDeficitKcal,
+  computeWeeklyBudget,
+  activityFactorFor,
+  ACTIVITY_LEVELS,
+  OBJETIVOS_PRINCIPALES,
+  type DeficitModo,
+} from "@/lib/nutrition";
 import { Weekday } from "@/generated/prisma/client";
 
 const MEAL_TYPES = ["DESAYUNO", "ALMUERZO", "COMIDA", "COMIDA_LIBRE_SOCIAL", "CENA"] as const;
 const WEEKDAYS = Object.values(Weekday);
+
+const ACTIVITY_VALUES = ACTIVITY_LEVELS.map((a) => a.value) as [string, ...string[]];
+const OBJETIVO_VALUES = OBJETIVOS_PRINCIPALES.map((o) => o.value) as [string, ...string[]];
+
+/** deficitValor son kcal en modo manual (hasta ±2000) o un % en modo porcentaje (hasta ±80). */
+function validarDeficitValor(
+  data: { deficitModo: string; deficitValor: number },
+  ctx: z.RefinementCtx,
+) {
+  const limite = data.deficitModo === "porcentaje" ? 80 : 2000;
+  if (Math.abs(data.deficitValor) > limite) {
+    ctx.addIssue({
+      code: "custom",
+      path: ["deficitValor"],
+      message:
+        data.deficitModo === "porcentaje"
+          ? "El porcentaje tiene que estar entre -80 y 80."
+          : "El déficit manual tiene que estar entre -2000 y 2000 kcal.",
+    });
+  }
+}
+
+/** BMR/GET/déficit/presupuesto salen siempre de aquí: nunca se piden a mano en el alta ni en la edición normal. */
+function computeAutoProfileFields(input: {
+  sexo: string;
+  pesoKg: number;
+  alturaCm: number;
+  edad: number;
+  factorActividadEtiqueta: string;
+  factorActividadPersonalizado?: number;
+  objetivoPrincipal: string;
+  deficitModo: DeficitModo;
+  deficitValor: number;
+}) {
+  const factorActividad =
+    input.factorActividadEtiqueta === "personalizado"
+      ? input.factorActividadPersonalizado
+      : activityFactorFor(input.factorActividadEtiqueta);
+
+  if (!factorActividad || factorActividad <= 0) {
+    throw new Error("El factor de actividad tiene que ser mayor que 0.");
+  }
+
+  const bmrKcal = computeBMR(input.sexo, input.pesoKg, input.alturaCm, input.edad);
+  const getKcal = computeGET(bmrKcal, factorActividad);
+  const deficitDiarioKcal = computeDeficitKcal(getKcal, input.deficitModo, input.deficitValor);
+
+  if (input.objetivoPrincipal === "reducir_grasa" && deficitDiarioKcal <= 0) {
+    throw new Error("Con el objetivo \"Reducir grasa corporal\" el déficit tiene que ser mayor que 0.");
+  }
+
+  const presupuestoSemanalKcal = computeWeeklyBudget(getKcal - deficitDiarioKcal);
+
+  return {
+    bmrKcal,
+    factorActividad,
+    getKcal,
+    deficitDiarioKcal,
+    presupuestoSemanalKcal,
+    deficitPorcentaje: input.deficitModo === "porcentaje" ? input.deficitValor : null,
+  };
+}
 
 // ---------- Crear usuaria ----------
 
@@ -22,17 +94,18 @@ const createUsuariaSchema = z.object({
   edad: z.coerce.number().int().min(1).max(120),
   alturaCm: z.coerce.number().int().min(50).max(250),
   pesoInicialKg: z.coerce.number().min(20).max(300),
-  pesoObjetivoKg: z.coerce.number().min(20).max(300),
-  bmrKcal: z.coerce.number().int().min(0).max(10000),
-  factorActividad: z.coerce.number().min(0.5).max(3),
-  getKcal: z.coerce.number().int().min(0).max(10000),
-  deficitDiarioKcal: z.coerce.number().int().min(-2000).max(2000),
+  pesoObjetivoKg: z.coerce.number().min(20).max(300).optional(),
+  objetivoGrasaCorporalPct: z.coerce.number().min(0).max(100).optional(),
+  objetivoPrincipal: z.enum(OBJETIVO_VALUES),
+  factorActividadEtiqueta: z.enum(ACTIVITY_VALUES),
+  factorActividadPersonalizado: z.coerce.number().min(0.5).max(3).optional(),
+  deficitModo: z.enum(["porcentaje", "manual"]),
+  deficitValor: z.coerce.number().min(-2000).max(2000),
   objetivoProteinaG: z.coerce.number().int().min(0).max(1000),
   objetivoGrasasG: z.coerce.number().int().min(0).max(1000),
-  presupuestoSemanalKcal: z.coerce.number().int().min(0).max(70000),
   carbohidratosEntrenamientoG: z.coerce.number().int().min(0).max(1000),
   carbohidratosDescansoG: z.coerce.number().int().min(0).max(1000),
-});
+}).superRefine(validarDeficitValor);
 
 export async function createUsuariaAction(input: unknown) {
   await requireAdmin();
@@ -40,6 +113,18 @@ export async function createUsuariaAction(input: unknown) {
 
   const existing = await prisma.user.findUnique({ where: { email: data.email } });
   if (existing) throw new Error("Ya existe una cuenta con ese email.");
+
+  const auto = computeAutoProfileFields({
+    sexo: data.sexo,
+    pesoKg: data.pesoInicialKg,
+    alturaCm: data.alturaCm,
+    edad: data.edad,
+    factorActividadEtiqueta: data.factorActividadEtiqueta,
+    factorActividadPersonalizado: data.factorActividadPersonalizado,
+    objetivoPrincipal: data.objetivoPrincipal,
+    deficitModo: data.deficitModo,
+    deficitValor: data.deficitValor,
+  });
 
   const passwordHash = await hashPassword(data.password);
 
@@ -55,14 +140,21 @@ export async function createUsuariaAction(input: unknown) {
         edad: data.edad,
         alturaCm: data.alturaCm,
         pesoInicialKg: data.pesoInicialKg,
-        pesoObjetivoKg: data.pesoObjetivoKg,
-        bmrKcal: data.bmrKcal,
-        factorActividad: data.factorActividad,
-        getKcal: data.getKcal,
-        deficitDiarioKcal: data.deficitDiarioKcal,
+        pesoObjetivoKg: data.pesoObjetivoKg ?? null,
+        objetivoGrasaCorporalPct: data.objetivoGrasaCorporalPct ?? null,
+        objetivoPrincipal: data.objetivoPrincipal,
+        factorActividadEtiqueta: data.factorActividadEtiqueta,
+        deficitModo: data.deficitModo,
+        deficitPorcentaje: auto.deficitPorcentaje,
+        bmrKcal: auto.bmrKcal,
+        bmrEsManual: false,
+        factorActividad: auto.factorActividad,
+        getKcal: auto.getKcal,
+        getEsManual: false,
+        deficitDiarioKcal: auto.deficitDiarioKcal,
         objetivoProteinaG: data.objetivoProteinaG,
         objetivoGrasasG: data.objetivoGrasasG,
-        presupuestoSemanalKcal: data.presupuestoSemanalKcal,
+        presupuestoSemanalKcal: auto.presupuestoSemanalKcal,
       },
     });
 
@@ -117,22 +209,75 @@ const updateProfileSchema = z.object({
   edad: z.coerce.number().int().min(1).max(120),
   alturaCm: z.coerce.number().int().min(50).max(250),
   pesoInicialKg: z.coerce.number().min(20).max(300),
-  pesoObjetivoKg: z.coerce.number().min(20).max(300),
-  bmrKcal: z.coerce.number().int().min(0).max(10000),
-  factorActividad: z.coerce.number().min(0.5).max(3),
-  getKcal: z.coerce.number().int().min(0).max(10000),
-  deficitDiarioKcal: z.coerce.number().int().min(-2000).max(2000),
+  pesoObjetivoKg: z.coerce.number().min(20).max(300).optional(),
+  objetivoGrasaCorporalPct: z.coerce.number().min(0).max(100).optional(),
+  objetivoPrincipal: z.enum(OBJETIVO_VALUES),
+  factorActividadEtiqueta: z.enum(ACTIVITY_VALUES),
+  factorActividadPersonalizado: z.coerce.number().min(0.5).max(3).optional(),
+  deficitModo: z.enum(["porcentaje", "manual"]),
+  deficitValor: z.coerce.number().min(-2000).max(2000),
   objetivoProteinaG: z.coerce.number().int().min(0).max(1000),
   objetivoGrasasG: z.coerce.number().int().min(0).max(1000),
-  presupuestoSemanalKcal: z.coerce.number().int().min(0).max(70000),
-});
+  /** Fuerza recalcular BMR/GET/déficit/presupuesto aunque el perfil tuviera valores manuales antiguos. */
+  recalcular: z.coerce.boolean().optional().default(false),
+}).superRefine(validarDeficitValor);
 
 export async function updateProfileAction(input: unknown) {
   await requireAdmin();
   const data = updateProfileSchema.parse(input);
-  const { userId, ...fields } = data;
+  const { userId, recalcular, ...fields } = data;
 
-  await prisma.profile.update({ where: { userId }, data: fields });
+  const existing = await prisma.profile.findUnique({ where: { userId } });
+  if (!existing) throw new Error("Perfil no encontrado.");
+
+  // Un perfil antiguo con BMR/GET puestos a mano no se toca solo: hace
+  // falta pulsar "Recalcular". Uno que ya estaba en modo automático se
+  // sigue recalculando en cada guardado, para que refleje los cambios.
+  const debeRecalcular = recalcular || !existing.bmrEsManual;
+
+  const autoFields = debeRecalcular
+    ? (() => {
+        const auto = computeAutoProfileFields({
+          sexo: fields.sexo,
+          pesoKg: fields.pesoInicialKg,
+          alturaCm: fields.alturaCm,
+          edad: fields.edad,
+          factorActividadEtiqueta: fields.factorActividadEtiqueta,
+          factorActividadPersonalizado: fields.factorActividadPersonalizado,
+          objetivoPrincipal: fields.objetivoPrincipal,
+          deficitModo: fields.deficitModo,
+          deficitValor: fields.deficitValor,
+        });
+        return {
+          bmrKcal: auto.bmrKcal,
+          bmrEsManual: false,
+          factorActividad: auto.factorActividad,
+          getKcal: auto.getKcal,
+          getEsManual: false,
+          deficitDiarioKcal: auto.deficitDiarioKcal,
+          presupuestoSemanalKcal: auto.presupuestoSemanalKcal,
+          deficitPorcentaje: auto.deficitPorcentaje,
+        };
+      })()
+    : {};
+
+  await prisma.profile.update({
+    where: { userId },
+    data: {
+      sexo: fields.sexo,
+      edad: fields.edad,
+      alturaCm: fields.alturaCm,
+      pesoInicialKg: fields.pesoInicialKg,
+      pesoObjetivoKg: fields.pesoObjetivoKg ?? null,
+      objetivoGrasaCorporalPct: fields.objetivoGrasaCorporalPct ?? null,
+      objetivoPrincipal: fields.objetivoPrincipal,
+      factorActividadEtiqueta: fields.factorActividadEtiqueta,
+      deficitModo: fields.deficitModo,
+      objetivoProteinaG: fields.objetivoProteinaG,
+      objetivoGrasasG: fields.objetivoGrasasG,
+      ...autoFields,
+    },
+  });
 
   revalidatePath(`/admin/usuarias/${userId}`);
   revalidatePath(`/admin/usuarias/${userId}/plan`);

@@ -13,29 +13,33 @@ Aplicación web (mobile-first, PWA instalable) para el seguimiento diario de die
 ## Modelo de datos
 
 - `User` — cualquier número de usuarias (`USUARIA`) más el/los admin (`ADMIN`).
-- `Profile` — datos antropométricos y objetivos calóricos, uno por usuaria (BMR, GET, objetivo kcal/día, **y la proteína/grasa objetivo, constantes para todos los días**).
-- `DayType` — tipos de día definidos por usuaria (p. ej. "Entrenamiento", "Descanso"), cada uno con su propio objetivo de carbohidratos.
-- `DayPlan` — qué `DayType` le toca a cada día de la semana, por usuaria. El objetivo de kcal del día no se guarda: se calcula (proteína×4 + carbohidratos×4 + grasa×9). **Cada usuaria tiene su propio menú semanal, independiente del de las demás.**
-- `PlannedMeal` — cada plato planificado del menú semanal (día + comida) de una usuaria.
-- `MealLog` — comidas realmente registradas por cada usuaria (del plan o libres), editables/borrables el mismo día.
-- `Food` — tabla de composición de ~630 alimentos (kcal/macros por 100 g), compartida por todas las usuarias; alimenta el buscador que autorrellena kcal/macros al registrar o planificar una comida.
+- `Profile` — datos antropométricos y objetivos, uno por usuaria: **proteína/grasa objetivo constantes**, BMR/GET calculados automáticamente (Mifflin-St Jeor × factor de actividad, ver más abajo), objetivo principal, peso objetivo y % grasa objetivo (ambos opcionales), déficit por % o kcal manual.
+- `DayType` — tipos de día definidos por usuaria (p. ej. "Entrenamiento", "Descanso"), cada uno con su propio objetivo de carbohidratos, y uno marcado como predeterminado.
+- `DayLog` — qué `DayType` es cada fecha concreta, elegido a mano por la usuaria (editable también para días pasados). Si un día no tiene elección propia, se usa el predeterminado. El objetivo de kcal del día no se guarda: se calcula (proteína×4 + carbohidratos×4 + grasa×9).
+- `DayPlan` / `PlannedMeal` — el menú planificado por día de la semana (platos de cada comida), independiente del tipo de día.
+- `MealLog` / `ExerciseLog` / `WeightLog` — comidas, ejercicio y peso realmente registrados, **editables/borrables cualquier día**, no solo hoy.
+- `Food` — tabla de composición compartida, con buscador con autocompletar; permite además introducir un alimento nuevo por sus valores por 100 g y guardarlo en la biblioteca. El admin tiene un panel propio (**Alimentos**) para gestionarla.
 - `ExerciseType` — tabla MET compartida (Descanso, Paseo suave, Caminar rápido...).
-- `ExerciseLog` — sesiones de ejercicio registradas, por usuaria.
-- `WeightLog` — histórico de peso, por usuaria.
 
-### Macros: proteína y grasa fijas, carbohidratos según el día
+### Macros y objetivos: qué se calcula solo
 
-Por decisión explícita (no del Excel original): la proteína y la grasa objetivo son **siempre las mismas**, todos los días (se editan una vez en el perfil de la usuaria). Lo único que cambia día a día son los carbohidratos, y ese cambio se hace eligiendo un **tipo de día** (p. ej. "Entrenamiento" = más carbohidratos, "Descanso" = menos) en vez de tocar números sueltos. El objetivo de kcal del día sale solo de esos tres valores — nunca se edita a mano ni puede quedar desincronizado.
+Por decisión explícita (no del Excel original): la proteína y la grasa objetivo son **siempre las mismas**, todos los días. Los carbohidratos cambian eligiendo un **tipo de día** cada fecha concreta (no una plantilla semanal fija). El BMR y el GET **no se introducen a mano**: al dar de alta a una persona (o editar su perfil) se eligen sexo/edad/altura/peso, un **objetivo principal** (reducir grasa, recomposición, ganar músculo, mantenimiento, rendimiento) y un **nivel de actividad** (Sedentario/Ligero/Moderado/Alto/Muy alto, o un factor personalizado), y de ahí salen solos:
+
+- `BMR estimado` — fórmula de Mifflin-St Jeor.
+- `GET estimado` — BMR × factor de actividad.
+- `Presupuesto semanal` — (GET − déficit) × 7.
+
+El déficit (o superávit) se elige por **porcentaje** (10/15/20/personalizado) o en **kcal manuales**; con el objetivo "Reducir grasa corporal" no se permite un déficit ≤ 0. Los perfiles que ya tenían BMR/GET puestos a mano (de antes de este cambio) conservan su valor tal cual — no se recalculan solos, hace falta pulsar "Recalcular" explícitamente desde el perfil.
 
 ### Buscador de alimentos
 
-Al registrar una comida (o planificar el menú desde el admin) hay un buscador con desplegable de sugerencias sobre la tabla de composición de alimentos (~630, de la Tabla Novartis). Al elegir uno y poner los gramos, calcula kcal/macros solo y rellena el resto del formulario — sigue siendo editable a mano después, y la entrada manual libre sigue disponible tal cual para lo que no esté en la tabla.
+Al registrar una comida (o planificar el menú desde el admin) hay un buscador con desplegable de sugerencias sobre la tabla de composición de alimentos. Al elegir uno y poner los gramos, calcula kcal/macros solo y rellena el resto del formulario. Si el alimento no está, se pueden introducir sus valores por 100 g a mano, calcular el consumo por los gramos comidos, y opcionalmente guardarlo en la biblioteca para la próxima vez.
 
 ### Varias personas
 
-Solo el admin puede dar de alta cuentas nuevas, desde **Personas → + Nueva** en su panel: nombre, email, contraseña, y los datos de perfil (edad, altura, peso, BMR, GET, objetivos...). La cuenta nueva arranca con un menú semanal en blanco (7 días × 5 comidas, "Sin planificar") que el admin rellena después desde la ficha de esa persona → pestaña **Plan**, con el mismo editor que ya existía. No hay auto-registro: solo el admin crea cuentas.
+Solo el admin puede dar de alta cuentas nuevas, desde **Personas → + Nueva** en su panel: nombre, email, contraseña, y los datos de perfil — BMR/GET/presupuesto salen solos, como se explica arriba. La cuenta nueva arranca con un menú semanal en blanco (7 días × 5 comidas, "Sin planificar") que el admin rellena después desde la ficha de esa persona → pestaña **Plan**. No hay auto-registro: solo el admin crea cuentas.
 
-El panel de admin ahora es un selector: **Personas** (lista + crear) → ficha de cada persona con **Resumen** / **Historial** / **Plan**, igual que antes pero repetido por persona en vez de asumir una única usuaria fija.
+El panel de admin es un selector: **Personas** (lista con buscador, cada tarjeta mostrando objetivo/% grasa/peso/último control cuando existan) → ficha de cada persona con **Resumen** / **Historial** / **Plan**, más una sección global **Alimentos** para la biblioteca compartida.
 
 ## Desarrollo local
 

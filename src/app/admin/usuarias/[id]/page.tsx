@@ -81,8 +81,8 @@ export default async function AdminUsuariaResumenPage({
           <h2 className="mb-3 text-sm font-semibold text-slate-500">Evolución de peso</h2>
           <WeightChart points={weightLogs} pesoObjetivoKg={profile.pesoObjetivoKg} />
           <p className="mt-2 text-center text-xs text-slate-400">
-            Actual: {fmtNum(weightLogs.at(-1)?.pesoKg ?? profile.pesoInicialKg, 1)} kg · Objetivo:{" "}
-            {fmtNum(profile.pesoObjetivoKg, 1)} kg
+            Actual: {fmtNum(weightLogs.at(-1)?.pesoKg ?? profile.pesoInicialKg, 1)} kg
+            {profile.pesoObjetivoKg != null && <> · Objetivo: {fmtNum(profile.pesoObjetivoKg, 1)} kg</>}
           </p>
         </section>
       )}

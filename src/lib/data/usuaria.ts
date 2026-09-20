@@ -1,11 +1,17 @@
 import "server-only";
 import { prisma } from "@/lib/prisma";
 
-export function listUsuarias() {
+export function listUsuarias(query?: string) {
   return prisma.user.findMany({
-    where: { role: "USUARIA" },
+    where: {
+      role: "USUARIA",
+      ...(query ? { name: { contains: query, mode: "insensitive" } } : {}),
+    },
     orderBy: { createdAt: "asc" },
-    include: { profile: true },
+    include: {
+      profile: true,
+      weightLogs: { orderBy: { fecha: "asc" } },
+    },
   });
 }
 

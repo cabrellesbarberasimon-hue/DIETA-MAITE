@@ -23,7 +23,7 @@ export default async function PesoPage() {
 
   const last = weightLogs.at(-1) ?? null;
   const pesoActual = last?.pesoKg ?? profile.pesoInicialKg;
-  const kgPendientes = pesoActual - profile.pesoObjetivoKg;
+  const kgPendientes = profile.pesoObjetivoKg != null ? pesoActual - profile.pesoObjetivoKg : null;
   const today = todayKey();
   const hoy = weightLogs.find((w) => toDateKey(w.fecha) === today) ?? null;
 
@@ -39,12 +39,14 @@ export default async function PesoPage() {
           </div>
           <div>
             <p className="text-xs text-slate-500">Objetivo</p>
-            <p className="text-xl font-bold text-slate-900">{fmtNum(profile.pesoObjetivoKg, 1)}</p>
+            <p className="text-xl font-bold text-slate-900">
+              {profile.pesoObjetivoKg != null ? fmtNum(profile.pesoObjetivoKg, 1) : "—"}
+            </p>
           </div>
           <div>
             <p className="text-xs text-slate-500">Pendiente</p>
             <p className="text-xl font-bold text-green-700">
-              {kgPendientes > 0 ? fmtNum(kgPendientes, 1) : "0"} kg
+              {kgPendientes != null ? (kgPendientes > 0 ? fmtNum(kgPendientes, 1) : "0") : "—"} kg
             </p>
           </div>
         </div>

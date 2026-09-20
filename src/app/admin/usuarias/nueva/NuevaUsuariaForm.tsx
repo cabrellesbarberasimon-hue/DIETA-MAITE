@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { createUsuariaAction } from "@/lib/actions/admin";
+import { PerfilCalculoFields } from "@/components/PerfilCalculoFields";
 
 export function NuevaUsuariaForm() {
   const [pending, setPending] = useState(false);
@@ -15,6 +16,8 @@ export function NuevaUsuariaForm() {
         const form = new FormData(e.currentTarget);
         setError(null);
         setPending(true);
+        const pesoObjetivo = form.get("pesoObjetivoKg");
+        const grasaObjetivo = form.get("objetivoGrasaCorporalPct");
         createUsuariaAction({
           name: form.get("name"),
           email: form.get("email"),
@@ -23,14 +26,15 @@ export function NuevaUsuariaForm() {
           edad: form.get("edad"),
           alturaCm: form.get("alturaCm"),
           pesoInicialKg: form.get("pesoInicialKg"),
-          pesoObjetivoKg: form.get("pesoObjetivoKg"),
-          bmrKcal: form.get("bmrKcal"),
-          factorActividad: form.get("factorActividad"),
-          getKcal: form.get("getKcal"),
-          deficitDiarioKcal: form.get("deficitDiarioKcal"),
+          pesoObjetivoKg: pesoObjetivo ? pesoObjetivo : undefined,
+          objetivoGrasaCorporalPct: grasaObjetivo ? grasaObjetivo : undefined,
+          objetivoPrincipal: form.get("objetivoPrincipal"),
+          factorActividadEtiqueta: form.get("factorActividadEtiqueta"),
+          factorActividadPersonalizado: form.get("factorActividadPersonalizado") || undefined,
+          deficitModo: form.get("deficitModo"),
+          deficitValor: form.get("deficitValor"),
           objetivoProteinaG: form.get("objetivoProteinaG"),
           objetivoGrasasG: form.get("objetivoGrasasG"),
-          presupuestoSemanalKcal: form.get("presupuestoSemanalKcal"),
           carbohidratosEntrenamientoG: form.get("carbohidratosEntrenamientoG"),
           carbohidratosDescansoG: form.get("carbohidratosDescansoG"),
         }).catch((err) => {
@@ -50,24 +54,15 @@ export function NuevaUsuariaForm() {
       </div>
 
       <div>
-        <h2 className="mb-2 text-sm font-semibold text-slate-500">Datos y objetivos</h2>
-        <div className="grid grid-cols-2 gap-2">
-          <Field name="sexo" label="Sexo" defaultValue="mujer" />
-          <Field name="edad" label="Edad" type="number" />
-          <Field name="alturaCm" label="Altura (cm)" type="number" />
-          <Field name="factorActividad" label="Factor actividad" type="number" step="0.1" defaultValue="1.4" />
-          <Field name="pesoInicialKg" label="Peso inicial (kg)" type="number" step="0.1" />
-          <Field name="pesoObjetivoKg" label="Peso objetivo (kg)" type="number" step="0.1" />
-          <Field name="bmrKcal" label="BMR (kcal)" type="number" />
-          <Field name="getKcal" label="GET (kcal)" type="number" />
-          <Field name="deficitDiarioKcal" label="Déficit diario (kcal)" type="number" defaultValue="300" />
-          <Field
-            name="presupuestoSemanalKcal"
-            label="Presupuesto semanal (kcal)"
-            type="number"
-            className="col-span-2"
-          />
-        </div>
+        <h2 className="mb-2 text-sm font-semibold text-slate-500">Datos, objetivo y actividad</h2>
+        <PerfilCalculoFields
+          initial={{
+            sexo: "mujer",
+            edad: 30,
+            alturaCm: 165,
+            pesoInicialKg: 65,
+          }}
+        />
       </div>
 
       <div>

@@ -7,7 +7,7 @@ export function WeightChart({
   pesoObjetivoKg,
 }: {
   points: Point[];
-  pesoObjetivoKg: number;
+  pesoObjetivoKg: number | null;
 }) {
   if (points.length === 0) {
     return (
@@ -22,7 +22,7 @@ export function WeightChart({
   const padX = 28;
   const padY = 24;
 
-  const values = points.map((p) => p.pesoKg).concat(pesoObjetivoKg);
+  const values = points.map((p) => p.pesoKg).concat(pesoObjetivoKg ?? []);
   const min = Math.min(...values) - 0.5;
   const max = Math.max(...values) + 0.5;
 
@@ -33,22 +33,26 @@ export function WeightChart({
   const yFor = (v: number) => height - padY - ((v - min) / (max - min)) * (height - padY * 2);
 
   const linePath = points.map((p, i) => `${i === 0 ? "M" : "L"} ${xFor(i)} ${yFor(p.pesoKg)}`).join(" ");
-  const targetY = yFor(pesoObjetivoKg);
+  const targetY = pesoObjetivoKg != null ? yFor(pesoObjetivoKg) : null;
 
   return (
     <svg viewBox={`0 0 ${width} ${height}`} className="w-full" role="img" aria-label="Evolución del peso">
-      <line
-        x1={padX}
-        y1={targetY}
-        x2={width - padX}
-        y2={targetY}
-        stroke="#16a34a"
-        strokeDasharray="4 4"
-        strokeWidth={1.5}
-      />
-      <text x={width - padX} y={targetY - 6} textAnchor="end" className="fill-green-700 text-[10px]">
-        objetivo {pesoObjetivoKg} kg
-      </text>
+      {targetY != null && (
+        <>
+          <line
+            x1={padX}
+            y1={targetY}
+            x2={width - padX}
+            y2={targetY}
+            stroke="#16a34a"
+            strokeDasharray="4 4"
+            strokeWidth={1.5}
+          />
+          <text x={width - padX} y={targetY - 6} textAnchor="end" className="fill-green-700 text-[10px]">
+            objetivo {pesoObjetivoKg} kg
+          </text>
+        </>
+      )}
 
       <path d={linePath} fill="none" stroke="#0f766e" strokeWidth={2.5} strokeLinejoin="round" strokeLinecap="round" />
 

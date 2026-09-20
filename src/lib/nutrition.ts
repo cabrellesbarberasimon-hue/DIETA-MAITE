@@ -174,3 +174,53 @@ export function average(values: number[]): number {
   if (values.length === 0) return 0;
   return values.reduce((a, b) => a + b, 0) / values.length;
 }
+
+// ---------- Perfil: BMR / GET / presupuesto automáticos ----------
+
+export const ACTIVITY_LEVELS = [
+  { value: "sedentario", label: "Sedentario", factor: 1.2 },
+  { value: "ligero", label: "Ligero", factor: 1.35 },
+  { value: "moderado", label: "Moderado", factor: 1.5 },
+  { value: "alto", label: "Alto", factor: 1.7 },
+  { value: "muy_alto", label: "Muy alto", factor: 1.9 },
+  { value: "personalizado", label: "Personalizado", factor: null },
+] as const;
+
+export type ActivityLevelValue = (typeof ACTIVITY_LEVELS)[number]["value"];
+
+export function activityFactorFor(etiqueta: string): number | null {
+  return ACTIVITY_LEVELS.find((a) => a.value === etiqueta)?.factor ?? null;
+}
+
+export const OBJETIVOS_PRINCIPALES = [
+  { value: "reducir_grasa", label: "Reducir grasa corporal" },
+  { value: "recomposicion", label: "Recomposición corporal" },
+  { value: "ganar_musculo", label: "Ganar masa muscular" },
+  { value: "mantenimiento", label: "Mantenimiento" },
+  { value: "rendimiento", label: "Rendimiento" },
+] as const;
+
+export type ObjetivoPrincipal = (typeof OBJETIVOS_PRINCIPALES)[number]["value"];
+
+/** BMR (Mifflin-St Jeor). `sexo` se interpreta por si empieza por "h" (hombre); cualquier otro valor usa la fórmula femenina. */
+export function computeBMR(sexo: string, pesoKg: number, alturaCm: number, edad: number): number {
+  const base = 10 * pesoKg + 6.25 * alturaCm - 5 * edad;
+  const esHombre = sexo.trim().toLowerCase().startsWith("h");
+  return Math.round(esHombre ? base + 5 : base - 161);
+}
+
+export function computeGET(bmrKcal: number, factorActividad: number): number {
+  return Math.round(bmrKcal * factorActividad);
+}
+
+export type DeficitModo = "porcentaje" | "manual";
+
+/** Déficit diario en kcal a partir del modo elegido. En modo porcentaje, `valor` es el % (p.ej. 15); en modo manual, `valor` ya son kcal (puede ser negativo = superávit). */
+export function computeDeficitKcal(getKcal: number, modo: DeficitModo, valor: number): number {
+  if (modo === "porcentaje") return Math.round(getKcal * (valor / 100));
+  return Math.round(valor);
+}
+
+export function computeWeeklyBudget(kcalObjetivoDiario: number): number {
+  return Math.round(kcalObjetivoDiario * 7);
+}
