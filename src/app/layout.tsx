@@ -13,13 +13,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Dieta Maite",
+  title: "NutriProgress",
   description: "Seguimiento diario de dieta y ejercicio",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Dieta Maite",
+    title: "NutriProgress",
   },
   icons: {
     icon: "/icons/icon-192.png",

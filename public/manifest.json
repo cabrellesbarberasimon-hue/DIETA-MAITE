@@ -1,6 +1,6 @@
 {
-  "name": "Dieta Maite",
-  "short_name": "Dieta Maite",
+  "name": "NutriProgress",
+  "short_name": "NutriProgress",
   "description": "Seguimiento diario de dieta y ejercicio",
   "start_url": "/",
   "display": "standalone",

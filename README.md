@@ -1,4 +1,4 @@
-# Dieta Maite
+# NutriProgress
 
 Aplicación web (mobile-first, PWA instalable) para el seguimiento diario de dieta y ejercicio. Admite **varias personas**, cada una con su propio plan, objetivos y peso, con supervisión y edición desde un panel de admin (Simón, nutricionista).
 

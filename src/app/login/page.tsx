@@ -13,9 +13,9 @@ export default function LoginPage() {
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
           <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl bg-green-600 text-2xl font-bold text-white">
-            M
+            N
           </div>
-          <h1 className="text-2xl font-bold text-slate-900">Dieta Maite</h1>
+          <h1 className="text-2xl font-bold text-slate-900">NutriProgress</h1>
           <p className="mt-1 text-sm text-slate-500">Seguimiento diario de dieta y ejercicio</p>
         </div>
 
