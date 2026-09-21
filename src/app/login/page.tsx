@@ -13,8 +13,8 @@ export default function LoginPage() {
     <main className="flex min-h-svh flex-col items-center justify-center bg-slate-50 px-4">
       <div className="w-full max-w-sm">
         <div className="mb-8 text-center">
-          <div className="mx-auto mb-3 flex h-16 w-16 items-center justify-center rounded-2xl bg-white ring-1 ring-slate-200">
-            <Image src="/icons/icon-192.png" alt="" width={44} height={44} priority />
+          <div className="mx-auto mb-3 flex h-24 w-24 items-center justify-center rounded-2xl bg-white ring-1 ring-slate-200">
+            <Image src="/icons/icon-192.png" alt="" width={80} height={80} priority />
           </div>
           <h1 className="text-2xl font-bold text-slate-900">NutriProgress</h1>
           <p className="mt-1 text-sm text-slate-500">Seguimiento diario de dieta y ejercicio</p>
