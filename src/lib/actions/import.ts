@@ -6,6 +6,7 @@ import { prisma } from "@/lib/prisma";
 import { requireAdmin } from "@/lib/auth/guards";
 import { Weekday, MealType } from "@/generated/prisma/client";
 import { upsertMealTemplate } from "@/lib/actions/mealTemplates";
+import { normalizeSearchText } from "@/lib/text";
 
 /**
  * Normaliza para comparar cabeceras/valores de Excel: minúsculas, sin
@@ -88,6 +89,14 @@ export async function importPlannedMealsExcelAction(formData: FormData): Promise
   if (dayPlans.length === 0) throw new Error("Esta persona no tiene menú semanal todavía.");
   const dayPlanByWeekday = new Map(dayPlans.map((d) => [d.weekday, d.id]));
 
+  const yaExistentes = await prisma.plannedMeal.findMany({
+    where: { dayPlanId: { in: dayPlans.map((d) => d.id) } },
+    select: { dayPlanId: true, mealType: true, descripcion: true },
+  });
+  const clavesExistentes = new Set(
+    yaExistentes.map((m) => `${m.dayPlanId}::${m.mealType}::${normalizeSearchText(m.descripcion)}`),
+  );
+
   const workbook = new ExcelJS.Workbook();
   await workbook.xlsx.load(await file.arrayBuffer());
   const worksheet = workbook.worksheets[0];
@@ -157,6 +166,12 @@ export async function importPlannedMealsExcelAction(formData: FormData): Promise
     }
     const dayPlanId = dayPlanByWeekday.get(weekday);
     if (!dayPlanId) return errores.push({ fila: rowNumber, motivo: "esta persona no tiene ese día configurado" });
+
+    const clave = `${dayPlanId}::${mealType}::${normalizeSearchText(descripcion)}`;
+    if (clavesExistentes.has(clave)) {
+      return errores.push({ fila: rowNumber, motivo: "esa opción ya existe para ese día y esa comida" });
+    }
+    clavesExistentes.add(clave);
 
     toCreate.push({
       dayPlanId,

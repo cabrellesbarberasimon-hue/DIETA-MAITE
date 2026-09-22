@@ -19,6 +19,7 @@ import {
 } from "@/lib/nutrition";
 import { Weekday, MealType } from "@/generated/prisma/client";
 import { upsertMealTemplate } from "@/lib/actions/mealTemplates";
+import { normalizeSearchText } from "@/lib/text";
 
 const mealTypeSchema = z.nativeEnum(MealType);
 
@@ -492,6 +493,15 @@ export async function createPlannedMealOptionAction(input: unknown) {
 
   const dayPlan = await prisma.dayPlan.findUnique({ where: { id: data.dayPlanId } });
   if (!dayPlan || dayPlan.userId !== data.userId) throw new Error("Día no encontrado.");
+
+  const hermanas = await prisma.plannedMeal.findMany({
+    where: { dayPlanId: data.dayPlanId, mealType: data.mealType },
+    select: { descripcion: true },
+  });
+  const busqueda = normalizeSearchText(data.descripcion);
+  if (hermanas.some((h) => normalizeSearchText(h.descripcion) === busqueda)) {
+    throw new Error("Esa opción ya existe en este día para esta comida.");
+  }
 
   await prisma.plannedMeal.create({
     data: {
