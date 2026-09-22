@@ -181,8 +181,15 @@ const editMealSchema = z.object({
   proteinaG: z.coerce.number().min(0).max(1000),
   carbohidratosG: z.coerce.number().min(0).max(1000),
   grasasG: z.coerce.number().min(0).max(1000),
+  actualizarPlato: z.coerce.boolean().optional().default(false),
 });
 
+/**
+ * Al corregir una comida ya registrada, si venía de una opción del plan
+ * (source PLANIFICADO) se puede marcar "actualizar también la opción del
+ * plan" para que el error no se repita la próxima vez que se elija esa
+ * misma opción — si no se marca, la corrección solo afecta a ese día.
+ */
 export async function editMealLogAction(input: unknown) {
   const session = await requireUser();
   const data = editMealSchema.parse(input);
@@ -203,6 +210,20 @@ export async function editMealLogAction(input: unknown) {
       grasasG: data.grasasG,
     },
   });
+
+  if (data.actualizarPlato && existing.plannedMealId) {
+    await prisma.plannedMeal.update({
+      where: { id: existing.plannedMealId },
+      data: {
+        descripcion: data.nombre,
+        kcal: Math.round(data.kcal),
+        proteinaG: data.proteinaG,
+        carbohidratosG: data.carbohidratosG,
+        grasasG: data.grasasG,
+      },
+    });
+    revalidatePath(`/admin/usuarias/${existing.userId}/plan`);
+  }
 
   revalidatePath("/dashboard");
   revalidatePath("/historial");

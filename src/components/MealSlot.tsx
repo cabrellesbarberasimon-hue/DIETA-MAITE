@@ -26,6 +26,7 @@ type MealLog = {
   carbohidratosG: number;
   grasasG: number;
   source: string;
+  plannedMealId: string | null;
 };
 
 export function MealSlot({
@@ -189,6 +190,7 @@ type MealValues = {
   carbohidratosG: number;
   grasasG: number;
   guardarComoOpcion?: boolean;
+  actualizarPlato?: boolean;
 };
 
 function FreeMealForm({
@@ -293,6 +295,7 @@ function EditLogForm({
     carbohidratosG: String(log.carbohidratosG),
     grasasG: String(log.grasasG),
   });
+  const [actualizarPlato, setActualizarPlato] = useState(false);
 
   function applyFood(values: FoodPickerValues) {
     setFields({
@@ -316,6 +319,7 @@ function EditLogForm({
             proteinaG: Number(fields.proteinaG) || 0,
             carbohidratosG: Number(fields.carbohidratosG) || 0,
             grasasG: Number(fields.grasasG) || 0,
+            actualizarPlato,
           });
         }}
       >
@@ -348,6 +352,16 @@ function EditLogForm({
             onChange={(v) => setFields((f) => ({ ...f, grasasG: v }))}
           />
         </div>
+        {log.plannedMealId && (
+          <label className="flex items-center gap-1.5 text-xs text-slate-500">
+            <input
+              type="checkbox"
+              checked={actualizarPlato}
+              onChange={(e) => setActualizarPlato(e.target.checked)}
+            />
+            Actualizar también esta opción del plan (para la próxima vez que se elija)
+          </label>
+        )}
         <div className="flex gap-2">
           <button
             type="submit"
