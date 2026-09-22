@@ -1,7 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { updateMealTemplateAction, deleteMealTemplateAction } from "@/lib/actions/mealTemplates";
+import {
+  updateMealTemplateAction,
+  deleteMealTemplateAction,
+  importMealTemplatesExcelAction,
+  type ImportMealTemplatesResult,
+} from "@/lib/actions/mealTemplates";
 import { MEAL_TYPE_LABEL } from "@/lib/nutrition";
 
 const MEAL_TYPES_ORDER = ["DESAYUNO", "ALMUERZO", "COMIDA", "COMIDA_LIBRE_SOCIAL", "CENA"] as const;
@@ -27,6 +32,8 @@ export function PlatosManager({
 }) {
   return (
     <div className="space-y-3">
+      <ExcelImportForm />
+
       {platos.length === 0 && (
         <p className="rounded-2xl bg-slate-50 p-4 text-center text-sm text-slate-400">
           {query
@@ -47,6 +54,74 @@ export function PlatosManager({
         </p>
       )}
     </div>
+  );
+}
+
+function ExcelImportForm() {
+  const [pending, setPending] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [result, setResult] = useState<ImportMealTemplatesResult | null>(null);
+
+  return (
+    <details className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
+      <summary className="cursor-pointer list-none">
+        <p className="font-semibold text-slate-800">Importar platos desde Excel</p>
+        <p className="text-xs text-slate-400">Añade platos nuevos a la biblioteca — nunca borra los que ya había.</p>
+      </summary>
+      <form
+        className="mt-4 space-y-2 border-t border-slate-100 pt-4"
+        onSubmit={(e) => {
+          e.preventDefault();
+          const formData = new FormData(e.currentTarget);
+          setError(null);
+          setResult(null);
+          setPending(true);
+          importMealTemplatesExcelAction(formData)
+            .then((r) => setResult(r))
+            .catch((err) => setError(err instanceof Error ? err.message : "Error"))
+            .finally(() => setPending(false));
+        }}
+      >
+        <p className="text-xs text-slate-500">
+          Columnas: <strong>comida</strong> (Desayuno/Almuerzo/Comida/Comida libre/Cena),{" "}
+          <strong>descripción</strong>, <strong>kcal</strong>, <strong>proteina_g</strong>,{" "}
+          <strong>carbohidratos_g</strong>, <strong>grasas_g</strong>. No hace falta columna de día: esto es la
+          biblioteca compartida, no el menú de una persona.
+        </p>
+        <input
+          type="file"
+          name="file"
+          accept=".xlsx"
+          required
+          className="w-full rounded-lg border border-slate-300 px-2 py-2 text-sm"
+        />
+        <button
+          type="submit"
+          disabled={pending}
+          className="w-full rounded-lg bg-slate-800 py-2 text-sm font-medium text-white disabled:opacity-60"
+        >
+          {pending ? "Importando…" : "Importar"}
+        </button>
+        {error && <p className="text-xs text-red-600">{error}</p>}
+        {result && (
+          <div className="rounded-lg bg-slate-50 p-3 text-xs text-slate-600">
+            <p>
+              {result.creadas} platos añadidos de {result.totalFilas} filas.
+            </p>
+            {result.errores.length > 0 && (
+              <ul className="mt-1 list-disc space-y-0.5 pl-4 text-red-600">
+                {result.errores.slice(0, 10).map((e, i) => (
+                  <li key={i}>
+                    Fila {e.fila}: {e.motivo}
+                  </li>
+                ))}
+                {result.errores.length > 10 && <li>... y {result.errores.length - 10} más</li>}
+              </ul>
+            )}
+          </div>
+        )}
+      </form>
+    </details>
   );
 }
 

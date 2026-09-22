@@ -1,5 +1,6 @@
 "use server";
 
+import ExcelJS from "exceljs";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
@@ -150,6 +151,165 @@ export async function backfillMealTemplatesFromPlanAction(input: unknown): Promi
 
   revalidatePath("/admin/platos");
   return { anadidos };
+}
+
+const MAX_FILE_BYTES = 5 * 1024 * 1024;
+
+/** Igual que en import.ts: minúsculas, sin tildes, separadores colapsados. */
+function normalizeHeader(value: string): string {
+  return value
+    .normalize("NFD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim();
+}
+
+const MEAL_TYPE_ALIASES: Record<string, MealType> = {
+  desayuno: "DESAYUNO",
+  almuerzo: "ALMUERZO",
+  comida: "COMIDA",
+  "comida libre": "COMIDA_LIBRE_SOCIAL",
+  "comida libre social": "COMIDA_LIBRE_SOCIAL",
+  "comida social": "COMIDA_LIBRE_SOCIAL",
+  cena: "CENA",
+};
+
+const HEADER_ALIASES: Record<string, string[]> = {
+  comida: ["comida", "tipo de comida"],
+  descripcion: ["descripcion", "plato", "opcion", "nombre"],
+  kcal: ["kcal", "calorias"],
+  proteinaG: ["proteina g", "proteina", "proteinas g", "proteinas"],
+  carbohidratosG: ["carbohidratos g", "carbohidratos", "carbos g", "carbos"],
+  grasasG: ["grasas g", "grasas", "grasa g", "grasa"],
+};
+
+function findHeaderColumn(headerMap: Map<string, number>, field: string): number | null {
+  for (const alias of HEADER_ALIASES[field]) {
+    const col = headerMap.get(alias);
+    if (col) return col;
+  }
+  return null;
+}
+
+export type ImportMealTemplatesResult = {
+  totalFilas: number;
+  creadas: number;
+  errores: { fila: number; motivo: string }[];
+};
+
+/**
+ * Importa platos directamente a la biblioteca compartida, sin depender de
+ * ninguna persona ni día concreto (a diferencia de importPlannedMealsExcelAction
+ * en import.ts, que sí añade opciones al menú de alguien). Columnas: comida,
+ * descripción, kcal, proteína_g, carbohidratos_g, grasas_g. No duplica los
+ * platos que ya estén en la biblioteca (mismo tipo de comida y descripción).
+ */
+export async function importMealTemplatesExcelAction(formData: FormData): Promise<ImportMealTemplatesResult> {
+  await requireAdmin();
+
+  const file = formData.get("file");
+  if (!(file instanceof File) || file.size === 0) throw new Error("Sube un archivo Excel (.xlsx).");
+  if (file.size > MAX_FILE_BYTES) throw new Error("El archivo no puede pesar más de 5 MB.");
+
+  const workbook = new ExcelJS.Workbook();
+  await workbook.xlsx.load(await file.arrayBuffer());
+  const worksheet = workbook.worksheets[0];
+  if (!worksheet) throw new Error("El Excel no tiene ninguna hoja.");
+
+  const headerMap = new Map<string, number>();
+  worksheet.getRow(1).eachCell((cell, colNumber) => {
+    const key = normalizeHeader(String(cell.value ?? ""));
+    if (key) headerMap.set(key, colNumber);
+  });
+
+  const columns = {
+    comida: findHeaderColumn(headerMap, "comida"),
+    descripcion: findHeaderColumn(headerMap, "descripcion"),
+    kcal: findHeaderColumn(headerMap, "kcal"),
+    proteinaG: findHeaderColumn(headerMap, "proteinaG"),
+    carbohidratosG: findHeaderColumn(headerMap, "carbohidratosG"),
+    grasasG: findHeaderColumn(headerMap, "grasasG"),
+  };
+  const missingColumns = Object.entries(columns)
+    .filter(([, col]) => col === null)
+    .map(([field]) => field);
+  if (missingColumns.length > 0) {
+    throw new Error(`Faltan columnas en el Excel: ${missingColumns.join(", ")}.`);
+  }
+
+  const cellText = (row: ExcelJS.Row, col: number) => String(row.getCell(col).value ?? "").trim();
+  const cellNumber = (row: ExcelJS.Row, col: number) => {
+    const raw = row.getCell(col).value;
+    if (typeof raw === "number") return raw;
+    const parsed = Number(String(raw ?? "").replace(",", "."));
+    return Number.isFinite(parsed) ? parsed : NaN;
+  };
+
+  const errores: ImportMealTemplatesResult["errores"] = [];
+  const toCreate: {
+    mealType: MealType;
+    descripcion: string;
+    busqueda: string;
+    kcal: number;
+    proteinaG: number;
+    carbohidratosG: number;
+    grasasG: number;
+  }[] = [];
+
+  let totalFilas = 0;
+  worksheet.eachRow({ includeEmpty: false }, (row, rowNumber) => {
+    if (rowNumber === 1) return; // cabecera
+    if (row.getCell(columns.descripcion!).value == null) return; // fila vacía
+    totalFilas += 1;
+
+    const mealType = MEAL_TYPE_ALIASES[normalizeHeader(cellText(row, columns.comida!))];
+    const descripcion = cellText(row, columns.descripcion!);
+    const kcal = cellNumber(row, columns.kcal!);
+    const proteinaG = cellNumber(row, columns.proteinaG!);
+    const carbohidratosG = cellNumber(row, columns.carbohidratosG!);
+    const grasasG = cellNumber(row, columns.grasasG!);
+
+    if (!mealType) return errores.push({ fila: rowNumber, motivo: `comida no reconocida ("${cellText(row, columns.comida!)}")` });
+    if (!descripcion) return errores.push({ fila: rowNumber, motivo: "falta la descripción" });
+    if (!Number.isFinite(kcal) || kcal < 0) return errores.push({ fila: rowNumber, motivo: "kcal no válida" });
+    if ([proteinaG, carbohidratosG, grasasG].some((v) => !Number.isFinite(v) || v < 0)) {
+      return errores.push({ fila: rowNumber, motivo: "macros no válidas" });
+    }
+
+    toCreate.push({
+      mealType,
+      descripcion,
+      busqueda: normalizeSearchText(descripcion),
+      kcal: Math.round(kcal),
+      proteinaG,
+      carbohidratosG,
+      grasasG,
+    });
+  });
+
+  // Evita duplicados dentro del propio archivo y contra lo que ya hay en la
+  // biblioteca (mismo tipo de comida + descripción normalizada).
+  const existing = await prisma.mealTemplate.findMany({
+    where: { mealType: { in: [...new Set(toCreate.map((r) => r.mealType))] } },
+    select: { mealType: true, busqueda: true },
+  });
+  const existingKeys = new Set(existing.map((e) => `${e.mealType}::${e.busqueda}`));
+  const seenInFile = new Set<string>();
+  const rowsToInsert = toCreate.filter((r) => {
+    const key = `${r.mealType}::${r.busqueda}`;
+    if (existingKeys.has(key) || seenInFile.has(key)) return false;
+    seenInFile.add(key);
+    return true;
+  });
+
+  if (rowsToInsert.length > 0) {
+    await prisma.mealTemplate.createMany({ data: rowsToInsert });
+  }
+
+  revalidatePath("/admin/platos");
+
+  return { totalFilas, creadas: rowsToInsert.length, errores };
 }
 
 const deleteSchema = z.object({ id: z.string().min(1) });
