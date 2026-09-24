@@ -26,7 +26,23 @@ export default async function AdminUsuariaResumenPage({
 
   return (
     <div className="mx-auto max-w-md space-y-5">
-      <h1 className="text-lg font-bold text-slate-900">{usuaria.name}</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="text-lg font-bold text-slate-900">{usuaria.name}</h1>
+        <div className="flex gap-1.5 text-xs">
+          <a
+            href={`/api/admin/usuarias/${usuaria.id}/informe?dias=7`}
+            className="rounded-lg border border-slate-300 px-2.5 py-1.5 font-medium text-slate-600"
+          >
+            Informe 7d
+          </a>
+          <a
+            href={`/api/admin/usuarias/${usuaria.id}/informe?dias=30`}
+            className="rounded-lg border border-slate-300 px-2.5 py-1.5 font-medium text-slate-600"
+          >
+            Informe 30d
+          </a>
+        </div>
+      </div>
 
       <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
         <div className="mb-3 flex items-center justify-between">

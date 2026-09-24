@@ -44,6 +44,8 @@ El panel de admin es un selector: **Personas** (lista con buscador, cada tarjeta
 
 Desde **Personas** también hay un botón para descargar una **copia de seguridad completa** (todas las tablas en un único JSON, sin las imágenes de peso por tamaño) — pensado para guardarla tú mismo de vez en cuando; no es un backup automático.
 
+En la ficha de cada persona → **Resumen** hay dos botones para descargar un **informe en PDF** (últimos 7 o 30 días): macros medias frente a objetivo, cumplimiento, variación de peso y ejercicio — pensado para imprimir o mandar en una revisión.
+
 ## Desarrollo local
 
 ### 1. Requisitos
