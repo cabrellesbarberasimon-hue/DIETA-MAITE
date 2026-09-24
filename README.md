@@ -68,6 +68,8 @@ cp .env.example .env
 | `SEED_MAITE_EMAIL` / `SEED_MAITE_PASSWORD` | Credenciales iniciales de Maite (usuaria) |
 | `SEED_SIMON_EMAIL` / `SEED_SIMON_PASSWORD` | Credenciales iniciales de Simón (admin) |
 | `SEED_TOKEN` | Solo en producción: autoriza `/api/admin/seed` (ver más abajo) |
+| `NEXT_PUBLIC_VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` | Par de claves para notificaciones push (recordatorios). Genera uno propio con `npx web-push generate-vapid-keys` |
+| `CRON_SECRET` | Protege `/api/cron/recordatorios`; Vercel lo envía solo automáticamente si defines esta variable en el proyecto |
 
 ### 3. Instalar dependencias
 
@@ -119,6 +121,20 @@ Abre http://localhost:3000 — se redirige automáticamente a `/login`.
    ```bash
    DATABASE_URL="<url-de-producción>" SEED_MAITE_PASSWORD="..." SEED_SIMON_PASSWORD="..." npx prisma db seed
    ```
+
+### Recordatorios por notificación push
+
+Si una usuaria no ha registrado ninguna comida en el día, la app puede avisarle con una notificación push del navegador (funciona con la PWA instalada o simplemente con la pestaña cerrada, mientras haya concedido el permiso una vez).
+
+1. **Genera un par de claves VAPID** (una sola vez, no dependen de ninguna cuenta externa):
+   ```bash
+   npx web-push generate-vapid-keys
+   ```
+2. Añade en Vercel `NEXT_PUBLIC_VAPID_PUBLIC_KEY`, `VAPID_PRIVATE_KEY` y un `CRON_SECRET` aleatorio (`openssl rand -base64 32`).
+3. Redeploy. Vercel Cron llama automáticamente a `/api/cron/recordatorios` cada día a las 19:00 UTC (configurable en `vercel.json`), y usa `CRON_SECRET` para autenticarse solo — no hace falta ningún paso manual adicional.
+4. Cada usuaria activa sus recordatorios desde el botón "Activar recordatorio diario" en su panel; el navegador le pedirá permiso de notificaciones una vez.
+
+Si `NEXT_PUBLIC_VAPID_PUBLIC_KEY`/`VAPID_PRIVATE_KEY` no están configuradas, el botón simplemente no aparece y el cron no hace nada (no rompe el resto de la app).
 
 ### Dispositivo compartido entre varias personas
 

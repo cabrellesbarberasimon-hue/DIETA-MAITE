@@ -46,13 +46,14 @@ model User {
   role         Role
   createdAt    DateTime @default(now())
 
-  profile       Profile?
-  dayTypes      DayType[]
-  dayPlans      DayPlan[]
-  dayLogs       DayLog[]
-  mealLogs      MealLog[]
-  exerciseLogs  ExerciseLog[]
-  weightLogs    WeightLog[]
+  profile          Profile?
+  dayTypes         DayType[]
+  dayPlans         DayPlan[]
+  dayLogs          DayLog[]
+  mealLogs         MealLog[]
+  exerciseLogs     ExerciseLog[]
+  weightLogs       WeightLog[]
+  pushSubscriptions PushSubscription[]
 }
 
 /// Datos antropométricos y objetivos calóricos (uno por usuaria, editable por el admin).
@@ -279,4 +280,19 @@ model WeightLog {
 
   @@unique([userId, fecha])
   @@index([userId, fecha])
+}
+
+/// Suscripción a notificaciones push del navegador (Web Push). Una usuaria
+/// puede tener varias (p.ej. móvil + ordenador); se identifican por el
+/// endpoint, que es único por dispositivo/navegador.
+model PushSubscription {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  endpoint  String   @unique
+  p256dh    String
+  auth      String
+  createdAt DateTime @default(now())
+
+  @@index([userId])
 }

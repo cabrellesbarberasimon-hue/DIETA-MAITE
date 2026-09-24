@@ -3,6 +3,7 @@ import { getDayData } from "@/lib/data/day";
 import { prisma } from "@/lib/prisma";
 import { todayKey, dateKeyToDate } from "@/lib/nutrition";
 import { DayEditor } from "@/components/DayEditor";
+import { PushReminderToggle } from "@/components/PushReminderToggle";
 
 export default async function DashboardPage() {
   const session = await requireUsuaria();
@@ -18,7 +19,8 @@ export default async function DashboardPage() {
   ]);
 
   return (
-    <div className="mx-auto max-w-md">
+    <div className="mx-auto max-w-md space-y-3">
+      <PushReminderToggle vapidPublicKey={process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? null} />
       <DayEditor
         day={day}
         dateKey={dateKey}
