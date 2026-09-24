@@ -4,6 +4,7 @@ import { getDayData } from "@/lib/data/day";
 import { prisma } from "@/lib/prisma";
 import { dateKeyToDate } from "@/lib/nutrition";
 import { DayEditor } from "@/components/DayEditor";
+import { foodPhotoAnalysisIsConfigured } from "@/lib/ai/food-photo";
 
 export default async function HistorialDiaPage({
   params,
@@ -47,6 +48,7 @@ export default async function HistorialDiaPage({
             : null
         }
         lastWeightKg={lastWeightLog?.pesoKg ?? null}
+        aiPhotoEnabled={foodPhotoAnalysisIsConfigured()}
       />
     </div>
   );

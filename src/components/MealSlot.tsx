@@ -9,6 +9,7 @@ import {
 } from "@/lib/actions/logs";
 import { FoodPicker, type FoodPickerValues } from "@/components/FoodPicker";
 import { MealTemplatePicker, type MealTemplateValues } from "@/components/MealTemplatePicker";
+import { FoodPhotoAnalyzer } from "@/components/FoodPhotoAnalyzer";
 
 type PlannedMeal = {
   id: string;
@@ -36,12 +37,14 @@ export function MealSlot({
   plannedMeals,
   logs,
   dateKey,
+  aiPhotoEnabled,
 }: {
   mealType: string;
   label: string;
   plannedMeals: PlannedMeal[];
   logs: MealLog[];
   dateKey?: string;
+  aiPhotoEnabled?: boolean;
 }) {
   const options = plannedMeals.filter((m) => m.kcal > 0);
   const [showFreeForm, setShowFreeForm] = useState(false);
@@ -173,6 +176,7 @@ export function MealSlot({
         <FreeMealForm
           mealType={mealType}
           pending={pending}
+          aiPhotoEnabled={aiPhotoEnabled}
           onSubmit={(values) =>
             run(async () => {
               await addFreeMealLogAction({ mealType, ...values, fecha: dateKey });
@@ -199,10 +203,12 @@ function FreeMealForm({
   mealType,
   onSubmit,
   pending,
+  aiPhotoEnabled,
 }: {
   mealType: string;
   onSubmit: (values: MealValues) => void;
   pending: boolean;
+  aiPhotoEnabled?: boolean;
 }) {
   const [fields, setFields] = useState({ nombre: "", kcal: "", proteinaG: "", carbohidratosG: "", grasasG: "" });
   const [guardarComoOpcion, setGuardarComoOpcion] = useState(false);
@@ -243,6 +249,7 @@ function FreeMealForm({
       }}
     >
       <MealTemplatePicker mealType={mealType} onApply={applyTemplate} />
+      {aiPhotoEnabled && <FoodPhotoAnalyzer onApply={applyFood} />}
       <FoodPicker onApply={applyFood} />
       <input
         value={fields.nombre}

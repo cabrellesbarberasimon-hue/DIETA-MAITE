@@ -70,6 +70,7 @@ cp .env.example .env
 | `SEED_TOKEN` | Solo en producción: autoriza `/api/admin/seed` (ver más abajo) |
 | `NEXT_PUBLIC_VAPID_PUBLIC_KEY` / `VAPID_PRIVATE_KEY` | Par de claves para notificaciones push (recordatorios). Genera uno propio con `npx web-push generate-vapid-keys` |
 | `CRON_SECRET` | Protege `/api/cron/recordatorios`; Vercel lo envía solo automáticamente si defines esta variable en el proyecto |
+| `ANTHROPIC_API_KEY` | Habilita "Registrar por foto" (IA). Opcional: sin ella, ese botón simplemente no aparece |
 
 ### 3. Instalar dependencias
 
@@ -135,6 +136,16 @@ Si una usuaria no ha registrado ninguna comida en el día, la app puede avisarle
 4. Cada usuaria activa sus recordatorios desde el botón "Activar recordatorio diario" en su panel; el navegador le pedirá permiso de notificaciones una vez.
 
 Si `NEXT_PUBLIC_VAPID_PUBLIC_KEY`/`VAPID_PRIVATE_KEY` no están configuradas, el botón simplemente no aparece y el cron no hace nada (no rompe el resto de la app).
+
+### Registrar comida por foto (IA)
+
+En "Otro alimento" (al registrar una comida), aparece un botón "📷 Registrar por foto (con IA)": la usuaria hace o sube una foto del plato, pulsa "Analizar con IA" y la app rellena el nombre, las kcal y los macros estimados usando la API de Claude (visión). **Siempre hay que revisar y confirmar los valores antes de guardar** — es una ayuda para no tener que calcularlo a mano, no un dato médico ni exacto; el modelo puede equivocarse, sobre todo con platos mixtos o poco habituales.
+
+1. Consigue una clave en [console.anthropic.com/settings/keys](https://console.anthropic.com/settings/keys).
+2. Añade `ANTHROPIC_API_KEY` en las variables de entorno de Vercel y redeploy.
+3. Sin más configuración: cada llamada solo se hace cuando la usuaria pulsa "Analizar con IA" (no hay coste si nadie usa el botón). Las fotos se comprimen en el propio navegador antes de enviarse y no se guardan en ningún sitio — solo se usan para esa llamada puntual a la IA.
+
+Si `ANTHROPIC_API_KEY` no está configurada, el botón simplemente no aparece.
 
 ### Dispositivo compartido entre varias personas
 

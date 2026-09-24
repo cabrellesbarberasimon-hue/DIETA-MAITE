@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { todayKey, dateKeyToDate } from "@/lib/nutrition";
 import { DayEditor } from "@/components/DayEditor";
 import { PushReminderToggle } from "@/components/PushReminderToggle";
+import { foodPhotoAnalysisIsConfigured } from "@/lib/ai/food-photo";
 
 export default async function DashboardPage() {
   const session = await requireUsuaria();
@@ -41,6 +42,7 @@ export default async function DashboardPage() {
             : null
         }
         lastWeightKg={lastWeightLog?.pesoKg ?? null}
+        aiPhotoEnabled={foodPhotoAnalysisIsConfigured()}
       />
     </div>
   );

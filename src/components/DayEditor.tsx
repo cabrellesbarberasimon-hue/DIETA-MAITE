@@ -24,12 +24,14 @@ export function DayEditor({
   exerciseTypes,
   weightExisting,
   lastWeightKg,
+  aiPhotoEnabled,
 }: {
   day: DayData;
   dateKey: string;
   exerciseTypes: ExerciseType[];
   weightExisting: ExistingWeight | null;
   lastWeightKg: number | null;
+  aiPhotoEnabled?: boolean;
 }) {
   const { balance, macrosIngeridos, dayPlan, objetivos } = day;
 
@@ -105,6 +107,7 @@ export function DayEditor({
               plannedMeals={plannedMeals}
               logs={logs}
               dateKey={dateKey}
+              aiPhotoEnabled={aiPhotoEnabled}
             />
           );
         })}
