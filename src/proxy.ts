@@ -22,6 +22,7 @@ export async function proxy(request: NextRequest) {
   const role = await getRole(request);
 
   const isAuthRoute = pathname === "/login";
+  const isPublicRoute = pathname === "/privacidad" || pathname === "/terminos";
   const isAdminRoute = pathname.startsWith("/admin");
   const isUsuariaRoute =
     pathname.startsWith("/dashboard") ||
@@ -31,6 +32,10 @@ export async function proxy(request: NextRequest) {
   if (pathname === "/") {
     if (!role) return NextResponse.redirect(new URL("/login", request.url));
     return NextResponse.redirect(new URL(role === "ADMIN" ? "/admin" : "/dashboard", request.url));
+  }
+
+  if (isPublicRoute) {
+    return NextResponse.next();
   }
 
   if (isAuthRoute) {

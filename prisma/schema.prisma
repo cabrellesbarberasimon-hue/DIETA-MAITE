@@ -89,6 +89,10 @@ model Profile {
   /// "porcentaje" | "manual" — cómo se introdujo deficitDiarioKcal
   deficitModo            String   @default("manual")
   deficitPorcentaje      Float?
+  /// Fecha en la que el admin confirmó haber informado a la persona y contar
+  /// con su consentimiento para tratar sus datos de salud (ver /privacidad).
+  /// Null en perfiles creados antes de este campo.
+  consentimientoFecha    DateTime?
   updatedAt              DateTime @updatedAt
 }
 

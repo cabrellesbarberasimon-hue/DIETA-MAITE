@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useActionState } from "react";
 import { loginAction, type LoginState } from "./actions";
 
@@ -63,6 +64,16 @@ export default function LoginPage() {
             {pending ? "Entrando…" : "Entrar"}
           </button>
         </form>
+
+        <p className="mt-6 text-center text-xs text-slate-400">
+          <Link href="/privacidad" className="underline">
+            Privacidad
+          </Link>{" "}
+          ·{" "}
+          <Link href="/terminos" className="underline">
+            Términos de uso
+          </Link>
+        </p>
       </div>
     </main>
   );

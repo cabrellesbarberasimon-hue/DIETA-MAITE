@@ -109,6 +109,9 @@ const createUsuariaSchema = z.object({
   objetivoGrasasG: z.coerce.number().int().min(0).max(1000),
   carbohidratosEntrenamientoG: z.coerce.number().int().min(0).max(1000),
   carbohidratosDescansoG: z.coerce.number().int().min(0).max(1000),
+  consentimiento: z.coerce.boolean().refine((v) => v === true, {
+    message: "Hace falta confirmar el consentimiento para tratar sus datos de salud.",
+  }),
 }).superRefine(validarDeficitValor);
 
 export async function createUsuariaAction(input: unknown) {
@@ -159,6 +162,7 @@ export async function createUsuariaAction(input: unknown) {
         objetivoProteinaG: data.objetivoProteinaG,
         objetivoGrasasG: data.objetivoGrasasG,
         presupuestoSemanalKcal: auto.presupuestoSemanalKcal,
+        consentimientoFecha: new Date(),
       },
     });
 

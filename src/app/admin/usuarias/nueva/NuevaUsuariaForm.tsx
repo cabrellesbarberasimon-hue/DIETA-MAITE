@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { createUsuariaAction } from "@/lib/actions/admin";
 import { PerfilCalculoFields } from "@/components/PerfilCalculoFields";
@@ -7,6 +8,7 @@ import { PerfilCalculoFields } from "@/components/PerfilCalculoFields";
 export function NuevaUsuariaForm() {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [consentimiento, setConsentimiento] = useState(false);
 
   return (
     <form
@@ -37,6 +39,7 @@ export function NuevaUsuariaForm() {
           objetivoGrasasG: form.get("objetivoGrasasG"),
           carbohidratosEntrenamientoG: form.get("carbohidratosEntrenamientoG"),
           carbohidratosDescansoG: form.get("carbohidratosDescansoG"),
+          consentimiento,
         }).catch((err) => {
           setError(err instanceof Error ? err.message : "Error al crear la persona");
           setPending(false);
@@ -86,11 +89,29 @@ export function NuevaUsuariaForm() {
         </p>
       </div>
 
+      <label className="flex items-start gap-2 rounded-lg bg-slate-50 px-3 py-2.5 text-xs text-slate-600">
+        <input
+          type="checkbox"
+          checked={consentimiento}
+          onChange={(e) => setConsentimiento(e.target.checked)}
+          required
+          className="mt-0.5"
+        />
+        <span>
+          Confirmo que he informado a esta persona sobre el tratamiento de sus datos de salud y cuento con su
+          consentimiento (ver{" "}
+          <Link href="/privacidad" target="_blank" className="underline">
+            política de privacidad
+          </Link>
+          ).
+        </span>
+      </label>
+
       {error && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm text-red-700">{error}</p>}
 
       <button
         type="submit"
-        disabled={pending}
+        disabled={pending || !consentimiento}
         className="w-full rounded-xl bg-green-600 py-3 text-base font-semibold text-white disabled:opacity-60"
       >
         {pending ? "Creando…" : "Crear persona"}
