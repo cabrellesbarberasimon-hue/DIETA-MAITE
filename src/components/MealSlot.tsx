@@ -8,6 +8,7 @@ import {
   deleteMealLogAction,
 } from "@/lib/actions/logs";
 import { FoodPicker, type FoodPickerValues } from "@/components/FoodPicker";
+import { MealTemplatePicker, type MealTemplateValues } from "@/components/MealTemplatePicker";
 
 type PlannedMeal = {
   id: string;
@@ -170,6 +171,7 @@ export function MealSlot({
 
       {showFreeForm && (
         <FreeMealForm
+          mealType={mealType}
           pending={pending}
           onSubmit={(values) =>
             run(async () => {
@@ -194,9 +196,11 @@ type MealValues = {
 };
 
 function FreeMealForm({
+  mealType,
   onSubmit,
   pending,
 }: {
+  mealType: string;
   onSubmit: (values: MealValues) => void;
   pending: boolean;
 }) {
@@ -206,6 +210,16 @@ function FreeMealForm({
   function applyFood(values: FoodPickerValues) {
     setFields({
       nombre: values.nombre,
+      kcal: String(values.kcal),
+      proteinaG: String(values.proteinaG),
+      carbohidratosG: String(values.carbohidratosG),
+      grasasG: String(values.grasasG),
+    });
+  }
+
+  function applyTemplate(values: MealTemplateValues) {
+    setFields({
+      nombre: values.descripcion,
       kcal: String(values.kcal),
       proteinaG: String(values.proteinaG),
       carbohidratosG: String(values.carbohidratosG),
@@ -228,6 +242,7 @@ function FreeMealForm({
         });
       }}
     >
+      <MealTemplatePicker mealType={mealType} onApply={applyTemplate} />
       <FoodPicker onApply={applyFood} />
       <input
         value={fields.nombre}

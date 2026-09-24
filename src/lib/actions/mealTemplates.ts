@@ -4,7 +4,7 @@ import ExcelJS from "exceljs";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
-import { requireAdmin } from "@/lib/auth/guards";
+import { requireAdmin, requireUser } from "@/lib/auth/guards";
 import { normalizeSearchText } from "@/lib/text";
 import { MealType } from "@/generated/prisma/client";
 
@@ -29,10 +29,11 @@ const searchSchema = z.object({
  * Busca en la biblioteca compartida de platos (opciones de comida
  * reutilizables entre personas). Si se pasa mealType, prioriza esa comida
  * pero no excluye el resto (un plato de comida también puede servir de
- * cena). Máx. 20 resultados.
+ * cena). Máx. 20 resultados. Accesible tanto al admin (para planificar el
+ * menú de cualquiera) como a la usuaria (para registrar su propia comida).
  */
 export async function searchMealTemplatesAction(input: unknown): Promise<MealTemplateResult[]> {
-  await requireAdmin();
+  await requireUser();
   const { query, mealType } = searchSchema.parse(input);
   const busqueda = normalizeSearchText(query);
 
