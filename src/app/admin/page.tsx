@@ -64,6 +64,13 @@ export default async function AdminUsuariasPage({
         </button>
       </form>
 
+      <a
+        href="/api/admin/backup"
+        className="block rounded-xl border border-dashed border-slate-300 px-3 py-2 text-center text-xs font-medium text-slate-500"
+      >
+        ⬇ Descargar copia de seguridad completa (JSON)
+      </a>
+
       {usuarias.length === 0 ? (
         <p className="rounded-2xl bg-slate-50 p-4 text-center text-sm text-slate-400">
           {q ? "No hay ninguna persona con ese nombre." : "Todavía no hay ninguna persona dada de alta."}

@@ -42,6 +42,8 @@ Solo el admin puede dar de alta cuentas nuevas, desde **Personas → + Nueva** e
 
 El panel de admin es un selector: **Personas** (lista con buscador, cada tarjeta mostrando objetivo/% grasa/peso/último control cuando existan) → ficha de cada persona con **Resumen** / **Historial** / **Plan**, más una sección global **Alimentos** para la biblioteca compartida.
 
+Desde **Personas** también hay un botón para descargar una **copia de seguridad completa** (todas las tablas en un único JSON, sin las imágenes de peso por tamaño) — pensado para guardarla tú mismo de vez en cuando; no es un backup automático.
+
 ## Desarrollo local
 
 ### 1. Requisitos
