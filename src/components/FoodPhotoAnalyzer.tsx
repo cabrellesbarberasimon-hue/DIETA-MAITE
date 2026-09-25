@@ -164,7 +164,6 @@ export function FoodPhotoAnalyzer({ onApply }: { onApply: (values: FoodPickerVal
           ref={inputRef}
           type="file"
           accept="image/*"
-          capture="environment"
           onChange={(e) => handleFile(e.target.files?.[0])}
           className="w-full text-xs text-slate-500"
         />
