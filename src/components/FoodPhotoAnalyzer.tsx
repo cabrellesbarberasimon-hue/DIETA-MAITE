@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { analyzeFoodPhotoAction } from "@/lib/actions/ai";
+import { analyzeFoodPhotoAction, analyzeNutritionLabelAction } from "@/lib/actions/ai";
 import type { FoodPickerValues } from "@/components/FoodPicker";
 
 const MAX_DIMENSION = 1024;
@@ -34,27 +34,47 @@ function compressImage(file: File): Promise<{ base64: string; previewUrl: string
   });
 }
 
-type Result = { nombre: string; kcal: number; proteinaG: number; carbohidratosG: number; grasasG: number; notas: string };
+type Mode = "plato" | "etiqueta";
+
+type PlatoResult = { nombre: string; kcal: number; proteinaG: number; carbohidratosG: number; grasasG: number; notas: string };
+type EtiquetaResult = {
+  nombre: string;
+  kcal100: number;
+  proteinaG100: number;
+  carbohidratosG100: number;
+  grasasG100: number;
+  notas: string;
+};
 
 /**
- * Analiza una foto del plato con IA (Claude, visión) y propone una
- * estimación de macros para toda la ración. Nunca guarda nada por sí sola:
- * solo rellena el formulario de "Otro alimento" para que la usuaria revise
- * y confirme (o corrija) antes de guardar, igual que con el buscador de
- * alimentos o la biblioteca de platos.
+ * Analiza una foto con IA (Claude, visión) y propone macros para rellenar
+ * el formulario de "Otro alimento". Dos modos: foto del plato (macros de
+ * toda la ración) o foto de la etiqueta nutricional de un envase (valores
+ * por 100 g/ml, con gramos a introducir para calcular el consumo). Nunca
+ * guarda nada por sí sola: la usuaria siempre revisa y confirma antes de
+ * guardar, igual que con el buscador de alimentos o la biblioteca de platos.
  */
 export function FoodPhotoAnalyzer({ onApply }: { onApply: (values: FoodPickerValues) => void }) {
+  const [mode, setMode] = useState<Mode>("plato");
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [base64, setBase64] = useState<string | null>(null);
   const [analyzing, setAnalyzing] = useState(false);
-  const [result, setResult] = useState<Result | null>(null);
+  const [platoResult, setPlatoResult] = useState<PlatoResult | null>(null);
+  const [etiquetaResult, setEtiquetaResult] = useState<EtiquetaResult | null>(null);
+  const [gramos, setGramos] = useState(100);
   const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  function changeMode(next: Mode) {
+    setMode(next);
+    reset();
+  }
 
   async function handleFile(file: File | undefined) {
     if (!file) return;
     setError(null);
-    setResult(null);
+    setPlatoResult(null);
+    setEtiquetaResult(null);
     try {
       const { base64, previewUrl } = await compressImage(file);
       setBase64(base64);
@@ -69,8 +89,14 @@ export function FoodPhotoAnalyzer({ onApply }: { onApply: (values: FoodPickerVal
     setAnalyzing(true);
     setError(null);
     try {
-      const analysis = await analyzeFoodPhotoAction({ base64Image: base64, mediaType: "image/jpeg" });
-      setResult(analysis);
+      if (mode === "plato") {
+        const analysis = await analyzeFoodPhotoAction({ base64Image: base64, mediaType: "image/jpeg" });
+        setPlatoResult(analysis);
+      } else {
+        setGramos(100);
+        const analysis = await analyzeNutritionLabelAction({ base64Image: base64, mediaType: "image/jpeg" });
+        setEtiquetaResult(analysis);
+      }
     } catch (e) {
       setError(e instanceof Error ? e.message : "No se ha podido analizar la foto.");
     } finally {
@@ -81,10 +107,23 @@ export function FoodPhotoAnalyzer({ onApply }: { onApply: (values: FoodPickerVal
   function reset() {
     setPreviewUrl(null);
     setBase64(null);
-    setResult(null);
+    setPlatoResult(null);
+    setEtiquetaResult(null);
     setError(null);
     if (inputRef.current) inputRef.current.value = "";
   }
+
+  const hasResult = platoResult !== null || etiquetaResult !== null;
+  const factor = gramos / 100;
+  const round1 = (v: number) => Math.round(v * factor * 10) / 10;
+  const etiquetaPreview = etiquetaResult
+    ? {
+        kcal: Math.round(etiquetaResult.kcal100 * factor),
+        proteinaG: round1(etiquetaResult.proteinaG100),
+        carbohidratosG: round1(etiquetaResult.carbohidratosG100),
+        grasasG: round1(etiquetaResult.grasasG100),
+      }
+    : null;
 
   return (
     <div className="rounded-lg border border-dashed border-slate-300 p-2 text-sm">
@@ -97,6 +136,29 @@ export function FoodPhotoAnalyzer({ onApply }: { onApply: (values: FoodPickerVal
         )}
       </div>
 
+      {!previewUrl && (
+        <div className="mt-1.5 mb-1.5 flex gap-1.5">
+          <button
+            type="button"
+            onClick={() => changeMode("plato")}
+            className={`flex-1 rounded-lg py-1 text-xs font-medium ${
+              mode === "plato" ? "bg-slate-800 text-white" : "bg-slate-100 text-slate-500"
+            }`}
+          >
+            🍽️ Foto del plato
+          </button>
+          <button
+            type="button"
+            onClick={() => changeMode("etiqueta")}
+            className={`flex-1 rounded-lg py-1 text-xs font-medium ${
+              mode === "etiqueta" ? "bg-slate-800 text-white" : "bg-slate-100 text-slate-500"
+            }`}
+          >
+            🏷️ Foto de etiqueta
+          </button>
+        </div>
+      )}
+
       {!previewUrl ? (
         <input
           ref={inputRef}
@@ -104,14 +166,18 @@ export function FoodPhotoAnalyzer({ onApply }: { onApply: (values: FoodPickerVal
           accept="image/*"
           capture="environment"
           onChange={(e) => handleFile(e.target.files?.[0])}
-          className="mt-1 w-full text-xs text-slate-500"
+          className="w-full text-xs text-slate-500"
         />
       ) : (
         <div className="mt-2 space-y-2">
           {/* eslint-disable-next-line @next/next/no-img-element -- previsualización local (data URL), no una imagen servida por Next */}
-          <img src={previewUrl} alt="Foto de la comida" className="h-32 w-full rounded-lg object-cover" />
+          <img
+            src={previewUrl}
+            alt={mode === "plato" ? "Foto del plato" : "Foto de la etiqueta nutricional"}
+            className="h-32 w-full rounded-lg object-cover"
+          />
 
-          {!result && (
+          {!hasResult && (
             <button
               type="button"
               disabled={analyzing}
@@ -122,29 +188,69 @@ export function FoodPhotoAnalyzer({ onApply }: { onApply: (values: FoodPickerVal
             </button>
           )}
 
-          {result && (
+          {platoResult && (
             <div className="rounded-lg border border-green-200 bg-green-50/60 p-2">
-              <p className="font-medium text-slate-700">{result.nombre}</p>
+              <p className="font-medium text-slate-700">{platoResult.nombre}</p>
               <p className="text-xs text-slate-500">
-                {Math.round(result.kcal)} kcal · P{Math.round(result.proteinaG)} C
-                {Math.round(result.carbohidratosG)} G{Math.round(result.grasasG)}
+                {Math.round(platoResult.kcal)} kcal · P{Math.round(platoResult.proteinaG)} C
+                {Math.round(platoResult.carbohidratosG)} G{Math.round(platoResult.grasasG)}
               </p>
-              <p className="mt-1 text-xs text-amber-600">⚠ {result.notas || "Estimación aproximada por IA — revisa los valores."}</p>
+              <p className="mt-1 text-xs text-amber-600">
+                ⚠ {platoResult.notas || "Estimación aproximada por IA — revisa los valores."}
+              </p>
               <button
                 type="button"
                 onClick={() => {
                   onApply({
-                    nombre: result.nombre,
-                    kcal: Math.round(result.kcal),
-                    proteinaG: Math.round(result.proteinaG * 10) / 10,
-                    carbohidratosG: Math.round(result.carbohidratosG * 10) / 10,
-                    grasasG: Math.round(result.grasasG * 10) / 10,
+                    nombre: platoResult.nombre,
+                    kcal: Math.round(platoResult.kcal),
+                    proteinaG: Math.round(platoResult.proteinaG * 10) / 10,
+                    carbohidratosG: Math.round(platoResult.carbohidratosG * 10) / 10,
+                    grasasG: Math.round(platoResult.grasasG * 10) / 10,
                   });
                   reset();
                 }}
                 className="mt-2 w-full rounded-lg bg-green-600 py-1.5 text-xs font-medium text-white"
               >
                 Usar esta estimación
+              </button>
+            </div>
+          )}
+
+          {etiquetaResult && etiquetaPreview && (
+            <div className="rounded-lg border border-green-200 bg-green-50/60 p-2">
+              <p className="font-medium text-slate-700">{etiquetaResult.nombre}</p>
+              <p className="text-xs text-slate-500">
+                Por 100 g: {Math.round(etiquetaResult.kcal100)} kcal · P{Math.round(etiquetaResult.proteinaG100)} C
+                {Math.round(etiquetaResult.carbohidratosG100)} G{Math.round(etiquetaResult.grasasG100)}
+              </p>
+              <div className="mt-2 flex items-center gap-2">
+                <input
+                  type="number"
+                  min={1}
+                  step="1"
+                  value={gramos}
+                  onChange={(e) => setGramos(Math.max(1, Number(e.target.value) || 0))}
+                  className="w-20 rounded-lg border border-slate-300 px-2 py-1.5 text-sm"
+                />
+                <span className="text-xs text-slate-500">g comidos</span>
+                <span className="flex-1 text-xs text-slate-500">
+                  {etiquetaPreview.kcal} kcal · P{etiquetaPreview.proteinaG} C{etiquetaPreview.carbohidratosG} G
+                  {etiquetaPreview.grasasG}
+                </span>
+              </div>
+              <p className="mt-1 text-xs text-amber-600">
+                ⚠ {etiquetaResult.notas || "Revisa que los valores leídos coincidan con la etiqueta."}
+              </p>
+              <button
+                type="button"
+                onClick={() => {
+                  onApply({ nombre: `${etiquetaResult.nombre} (${gramos} g)`, ...etiquetaPreview });
+                  reset();
+                }}
+                className="mt-2 w-full rounded-lg bg-green-600 py-1.5 text-xs font-medium text-white"
+              >
+                Usar
               </button>
             </div>
           )}

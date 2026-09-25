@@ -139,7 +139,12 @@ Si `NEXT_PUBLIC_VAPID_PUBLIC_KEY`/`VAPID_PRIVATE_KEY` no están configuradas, el
 
 ### Registrar comida por foto (IA)
 
-En "Otro alimento" (al registrar una comida), aparece un botón "📷 Registrar por foto (con IA)": la usuaria hace o sube una foto del plato, pulsa "Analizar con IA" y la app rellena el nombre, las kcal y los macros estimados usando la API de Claude (visión). **Siempre hay que revisar y confirmar los valores antes de guardar** — es una ayuda para no tener que calcularlo a mano, no un dato médico ni exacto; el modelo puede equivocarse, sobre todo con platos mixtos o poco habituales.
+En "Otro alimento" (al registrar una comida), aparece "📷 Registrar por foto (con IA)" con dos modos:
+
+- **🍽️ Foto del plato**: la usuaria hace o sube una foto de lo que va a comer y la app rellena el nombre, las kcal y los macros estimados para toda la ración, usando la API de Claude (visión).
+- **🏷️ Foto de etiqueta**: para productos envasados — hace una foto de la tabla de información nutricional, la IA lee los valores por 100 g/ml tal como están impresos, y la usuaria solo tiene que poner cuántos gramos ha comido; la app calcula el consumo real (igual que el buscador de alimentos con "gramos comidos").
+
+**Siempre hay que revisar y confirmar los valores antes de guardar** — es una ayuda para no tener que calcularlo a mano, no un dato médico ni exacto; el modelo puede equivocarse, sobre todo con platos mixtos, poco habituales o etiquetas borrosas.
 
 1. Consigue una clave en [console.anthropic.com/settings/keys](https://console.anthropic.com/settings/keys).
 2. Añade `ANTHROPIC_API_KEY` en las variables de entorno de Vercel y redeploy.
