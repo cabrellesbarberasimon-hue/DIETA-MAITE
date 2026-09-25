@@ -7,7 +7,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   const session = await requireAdmin();
 
   return (
-    <div className="flex min-h-svh flex-col pb-20">
+    <div className="flex min-h-svh flex-col bg-slate-50 pb-20 text-slate-900">
       <header className="sticky top-0 z-10 flex items-center justify-between border-b border-slate-200 bg-white/95 px-4 py-3 backdrop-blur">
         <Link href="/admin" className="flex items-center gap-2">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-800 text-sm font-bold text-white">

@@ -12,13 +12,11 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* La app no tiene un modo oscuro diseñado (los colores de tarjetas, texto,
+   etc. de todas las pantallas dan por hecho fondo claro), así que se fuerza
+   siempre el tema claro en vez de seguir el modo oscuro del sistema: si no,
+   en pantallas sin un fondo explícito propio (como /admin) el móvil pinta
+   fondo casi negro con letra clara, ilegible sobre esos colores. */
 body {
   background: var(--background);
   color: var(--foreground);
