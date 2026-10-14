@@ -11,7 +11,10 @@ import { WaterPanel } from "@/components/WaterPanel";
 import { StepsPanel } from "@/components/StepsPanel";
 import { WeekStrip } from "@/components/WeekStrip";
 import { DailyScoreCard } from "@/components/DailyScoreCard";
+import { SummaryCarousel } from "@/components/SummaryCarousel";
+import { QuickAddFab } from "@/components/QuickAddFab";
 import type { DaySummary } from "@/lib/data/week";
+import type { RecentFood } from "@/lib/data/recentFoods";
 
 const MEAL_ORDER = ["DESAYUNO", "ALMUERZO", "COMIDA", "COMIDA_LIBRE_SOCIAL", "CENA"] as const;
 
@@ -31,6 +34,7 @@ export function DayEditor({
   lastWeightKg,
   aiPhotoEnabled,
   weekDays,
+  recentFoods,
 }: {
   day: DayData;
   dateKey: string;
@@ -39,8 +43,78 @@ export function DayEditor({
   lastWeightKg: number | null;
   aiPhotoEnabled?: boolean;
   weekDays?: DaySummary[];
+  recentFoods?: RecentFood[];
 }) {
   const { balance, macrosIngeridos, dayPlan, objetivos } = day;
+
+  const balanceYMacrosSlide = (
+    <section className="space-y-4 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
+      <div className="flex items-center justify-between">
+        <h2 className="text-sm font-semibold text-slate-500">Balance</h2>
+        <Semaforo status={balance.semaforo} />
+      </div>
+
+      <div className="grid grid-cols-2 gap-3">
+        <div>
+          <p className="text-xs text-slate-500">Ingerido</p>
+          <p className="text-2xl font-bold text-slate-900">{fmtKcal(balance.kcalIngeridas)}</p>
+          <p className="text-xs text-slate-400">objetivo {fmtKcal(balance.objetivoKcal)}</p>
+        </div>
+        <div>
+          <p className="text-xs text-slate-500">Déficit / superávit</p>
+          <p className={`text-2xl font-bold ${balance.deficitReal >= 0 ? "text-green-700" : "text-red-600"}`}>
+            {fmtSigned(balance.deficitReal)} kcal
+          </p>
+          <p className="text-xs text-slate-400">gasto total {fmtKcal(balance.gastoTotal)}</p>
+        </div>
+      </div>
+
+      <div className="space-y-3 border-t border-slate-100 pt-3">
+        <h3 className="text-xs font-semibold text-slate-500">Macros</h3>
+        <MacroBar
+          label="Proteína"
+          value={macrosIngeridos.proteinaG}
+          target={objetivos.proteinaG}
+          color="bg-rose-500"
+        />
+        <MacroBar
+          label="Carbohidratos"
+          value={macrosIngeridos.carbohidratosG}
+          target={objetivos.carbohidratosG}
+          color="bg-amber-500"
+        />
+        <MacroBar label="Grasas" value={macrosIngeridos.grasasG} target={objetivos.grasasG} color="bg-sky-500" />
+      </div>
+    </section>
+  );
+
+  const ejercicioYPasosSlide = (
+    <section className="space-y-2 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
+      <h2 className="mb-1 text-sm font-semibold text-slate-500">Ejercicio y pasos</h2>
+      <div className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2 text-sm">
+        <span className="text-slate-500">🔥 Ejercicio quemado</span>
+        <span className="font-semibold text-slate-800">{fmtKcal(balance.kcalEjercicio)}</span>
+      </div>
+      <div className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2 text-sm">
+        <span className="text-slate-500">👣 Pasos</span>
+        <span className="font-semibold text-slate-800">
+          {day.pasos.toLocaleString("es-ES")} / {objetivos.pasos.toLocaleString("es-ES")}
+        </span>
+      </div>
+    </section>
+  );
+
+  const aguaSlide = (
+    <section className="space-y-2 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
+      <h2 className="mb-1 text-sm font-semibold text-slate-500">Agua</h2>
+      <div className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2 text-sm">
+        <span className="text-slate-500">💧 Agua</span>
+        <span className="font-semibold text-slate-800">
+          {day.aguaMl.toLocaleString("es-ES")} / {objetivos.aguaMl.toLocaleString("es-ES")} ml
+        </span>
+      </div>
+    </section>
+  );
 
   return (
     <div className="space-y-5">
@@ -56,67 +130,7 @@ export function DayEditor({
         <DayTypeSelector dateKey={dateKey} dayTypes={day.dayTypes} selectedId={day.selectedDayTypeId} />
       </section>
 
-      <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
-        <div className="mb-3 flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-slate-500">Balance</h2>
-          <Semaforo status={balance.semaforo} />
-        </div>
-
-        <div className="mb-4 grid grid-cols-2 gap-3">
-          <div>
-            <p className="text-xs text-slate-500">Ingerido</p>
-            <p className="text-2xl font-bold text-slate-900">{fmtKcal(balance.kcalIngeridas)}</p>
-            <p className="text-xs text-slate-400">objetivo {fmtKcal(balance.objetivoKcal)}</p>
-          </div>
-          <div>
-            <p className="text-xs text-slate-500">Déficit / superávit</p>
-            <p
-              className={`text-2xl font-bold ${
-                balance.deficitReal >= 0 ? "text-green-700" : "text-red-600"
-              }`}
-            >
-              {fmtSigned(balance.deficitReal)} kcal
-            </p>
-            <p className="text-xs text-slate-400">gasto total {fmtKcal(balance.gastoTotal)}</p>
-          </div>
-        </div>
-
-        <div className="space-y-1.5">
-          <div className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2 text-sm">
-            <span className="text-slate-500">🔥 Ejercicio quemado</span>
-            <span className="font-semibold text-slate-800">{fmtKcal(balance.kcalEjercicio)}</span>
-          </div>
-          <div className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2 text-sm">
-            <span className="text-slate-500">👣 Pasos</span>
-            <span className="font-semibold text-slate-800">
-              {day.pasos.toLocaleString("es-ES")} / {objetivos.pasos.toLocaleString("es-ES")}
-            </span>
-          </div>
-          <div className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2 text-sm">
-            <span className="text-slate-500">💧 Agua</span>
-            <span className="font-semibold text-slate-800">
-              {day.aguaMl.toLocaleString("es-ES")} / {objetivos.aguaMl.toLocaleString("es-ES")} ml
-            </span>
-          </div>
-        </div>
-      </section>
-
-      <section className="space-y-3 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
-        <h2 className="text-sm font-semibold text-slate-500">Macros</h2>
-        <MacroBar
-          label="Proteína"
-          value={macrosIngeridos.proteinaG}
-          target={objetivos.proteinaG}
-          color="bg-rose-500"
-        />
-        <MacroBar
-          label="Carbohidratos"
-          value={macrosIngeridos.carbohidratosG}
-          target={objetivos.carbohidratosG}
-          color="bg-amber-500"
-        />
-        <MacroBar label="Grasas" value={macrosIngeridos.grasasG} target={objetivos.grasasG} color="bg-sky-500" />
-      </section>
+      <SummaryCarousel slides={[balanceYMacrosSlide, ejercicioYPasosSlide, aguaSlide]} />
 
       <section className="space-y-3">
         <h2 className="px-1 text-sm font-semibold text-slate-500">Comidas</h2>
@@ -156,6 +170,8 @@ export function DayEditor({
         <h2 className="mb-3 text-sm font-semibold text-slate-500">Peso y medidas de este día</h2>
         <WeightForm dateKey={dateKey} existing={weightExisting} lastWeightKg={lastWeightKg} />
       </section>
+
+      <QuickAddFab dateKey={dateKey} aiPhotoEnabled={aiPhotoEnabled} recentFoods={recentFoods} />
     </div>
   );
 }

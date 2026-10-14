@@ -8,13 +8,14 @@ import { PushReminderToggle } from "@/components/PushReminderToggle";
 import { foodPhotoAnalysisIsConfigured } from "@/lib/ai/food-photo";
 import { getExerciseTypesFor } from "@/lib/data/exerciseTypes";
 import { getLoggingStreak } from "@/lib/data/stats";
+import { getRecentFoodsFor } from "@/lib/data/recentFoods";
 import { getStreakPhrase } from "@/lib/motivationalPhrases";
 
 export default async function DashboardPage() {
   const session = await requireUsuaria();
   const dateKey = todayKey();
 
-  const [day, weekSummary, exerciseTypes, weightLog, lastWeightLog, streak] = await Promise.all([
+  const [day, weekSummary, exerciseTypes, weightLog, lastWeightLog, streak, recentFoods] = await Promise.all([
     getDayData(session.sub, dateKey),
     getWeekSummary(session.sub, getWeekStart(today())),
     getExerciseTypesFor(session.sub),
@@ -23,6 +24,7 @@ export default async function DashboardPage() {
     }),
     prisma.weightLog.findFirst({ where: { userId: session.sub }, orderBy: { fecha: "desc" } }),
     getLoggingStreak(session.sub),
+    getRecentFoodsFor(session.sub),
   ]);
 
   return (
@@ -58,6 +60,7 @@ export default async function DashboardPage() {
         lastWeightKg={lastWeightLog?.pesoKg ?? null}
         aiPhotoEnabled={foodPhotoAnalysisIsConfigured()}
         weekDays={weekSummary.days}
+        recentFoods={recentFoods}
       />
     </div>
   );

@@ -8,8 +8,7 @@ import {
   deleteMealLogAction,
 } from "@/lib/actions/logs";
 import { FoodPicker, type FoodPickerValues } from "@/components/FoodPicker";
-import { MealTemplatePicker, type MealTemplateValues } from "@/components/MealTemplatePicker";
-import { FoodPhotoAnalyzer } from "@/components/FoodPhotoAnalyzer";
+import { FreeMealForm, NumberFieldControlled, type MealValues } from "@/components/FreeMealForm";
 
 type PlannedMeal = {
   id: string;
@@ -189,116 +188,6 @@ export function MealSlot({
   );
 }
 
-type MealValues = {
-  nombre: string;
-  kcal: number;
-  proteinaG: number;
-  carbohidratosG: number;
-  grasasG: number;
-  guardarComoOpcion?: boolean;
-  actualizarPlato?: boolean;
-};
-
-function FreeMealForm({
-  mealType,
-  onSubmit,
-  pending,
-  aiPhotoEnabled,
-}: {
-  mealType: string;
-  onSubmit: (values: MealValues) => void;
-  pending: boolean;
-  aiPhotoEnabled?: boolean;
-}) {
-  const [fields, setFields] = useState({ nombre: "", kcal: "", proteinaG: "", carbohidratosG: "", grasasG: "" });
-  const [guardarComoOpcion, setGuardarComoOpcion] = useState(false);
-
-  function applyFood(values: FoodPickerValues) {
-    setFields({
-      nombre: values.nombre,
-      kcal: String(values.kcal),
-      proteinaG: String(values.proteinaG),
-      carbohidratosG: String(values.carbohidratosG),
-      grasasG: String(values.grasasG),
-    });
-  }
-
-  function applyTemplate(values: MealTemplateValues) {
-    setFields({
-      nombre: values.descripcion,
-      kcal: String(values.kcal),
-      proteinaG: String(values.proteinaG),
-      carbohidratosG: String(values.carbohidratosG),
-      grasasG: String(values.grasasG),
-    });
-  }
-
-  return (
-    <form
-      className="mt-3 space-y-2 border-t border-slate-100 pt-3"
-      onSubmit={(e) => {
-        e.preventDefault();
-        onSubmit({
-          nombre: fields.nombre,
-          kcal: Number(fields.kcal) || 0,
-          proteinaG: Number(fields.proteinaG) || 0,
-          carbohidratosG: Number(fields.carbohidratosG) || 0,
-          grasasG: Number(fields.grasasG) || 0,
-          guardarComoOpcion,
-        });
-      }}
-    >
-      <MealTemplatePicker mealType={mealType} onApply={applyTemplate} />
-      {aiPhotoEnabled && <FoodPhotoAnalyzer onApply={applyFood} />}
-      <FoodPicker onApply={applyFood} />
-      <input
-        value={fields.nombre}
-        onChange={(e) => setFields((f) => ({ ...f, nombre: e.target.value }))}
-        required
-        placeholder="¿Qué has comido?"
-        className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
-      />
-      <div className="grid grid-cols-4 gap-2">
-        <NumberFieldControlled
-          value={fields.kcal}
-          placeholder="kcal"
-          onChange={(v) => setFields((f) => ({ ...f, kcal: v }))}
-        />
-        <NumberFieldControlled
-          value={fields.proteinaG}
-          placeholder="prot. g"
-          onChange={(v) => setFields((f) => ({ ...f, proteinaG: v }))}
-        />
-        <NumberFieldControlled
-          value={fields.carbohidratosG}
-          placeholder="carb. g"
-          onChange={(v) => setFields((f) => ({ ...f, carbohidratosG: v }))}
-        />
-        <NumberFieldControlled
-          value={fields.grasasG}
-          placeholder="gras. g"
-          onChange={(v) => setFields((f) => ({ ...f, grasasG: v }))}
-        />
-      </div>
-      <label className="flex items-center gap-1.5 text-xs text-slate-500">
-        <input
-          type="checkbox"
-          checked={guardarComoOpcion}
-          onChange={(e) => setGuardarComoOpcion(e.target.checked)}
-        />
-        Guardar como opción de este plan y en la biblioteca de platos (aparecerá para elegir la próxima vez)
-      </label>
-      <button
-        type="submit"
-        disabled={pending}
-        className="w-full rounded-xl bg-slate-800 py-2 text-sm font-medium text-white disabled:opacity-60"
-      >
-        Guardar
-      </button>
-    </form>
-  );
-}
-
 function EditLogForm({
   log,
   onSave,
@@ -402,29 +291,5 @@ function EditLogForm({
         </div>
       </form>
     </li>
-  );
-}
-
-function NumberFieldControlled({
-  value,
-  placeholder,
-  onChange,
-}: {
-  value: string;
-  placeholder: string;
-  onChange: (v: string) => void;
-}) {
-  return (
-    <input
-      type="number"
-      inputMode="decimal"
-      step="0.1"
-      min={0}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      placeholder={placeholder}
-      required
-      className="w-full rounded-lg border border-slate-300 px-2 py-2 text-sm"
-    />
   );
 }

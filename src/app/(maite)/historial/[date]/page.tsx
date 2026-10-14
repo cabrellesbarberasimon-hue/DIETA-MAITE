@@ -7,6 +7,7 @@ import { dateKeyToDate, getWeekStart } from "@/lib/nutrition";
 import { DayEditor } from "@/components/DayEditor";
 import { foodPhotoAnalysisIsConfigured } from "@/lib/ai/food-photo";
 import { getExerciseTypesFor } from "@/lib/data/exerciseTypes";
+import { getRecentFoodsFor } from "@/lib/data/recentFoods";
 
 export default async function HistorialDiaPage({
   params,
@@ -16,7 +17,7 @@ export default async function HistorialDiaPage({
   const session = await requireUsuaria();
   const { date } = await params;
 
-  const [day, weekSummary, exerciseTypes, weightLog, lastWeightLog] = await Promise.all([
+  const [day, weekSummary, exerciseTypes, weightLog, lastWeightLog, recentFoods] = await Promise.all([
     getDayData(session.sub, date),
     getWeekSummary(session.sub, getWeekStart(dateKeyToDate(date))),
     getExerciseTypesFor(session.sub),
@@ -24,6 +25,7 @@ export default async function HistorialDiaPage({
       where: { userId_fecha: { userId: session.sub, fecha: dateKeyToDate(date) } },
     }),
     prisma.weightLog.findFirst({ where: { userId: session.sub }, orderBy: { fecha: "desc" } }),
+    getRecentFoodsFor(session.sub),
   ]);
 
   return (
@@ -53,6 +55,7 @@ export default async function HistorialDiaPage({
         lastWeightKg={lastWeightLog?.pesoKg ?? null}
         aiPhotoEnabled={foodPhotoAnalysisIsConfigured()}
         weekDays={weekSummary.days}
+        recentFoods={recentFoods}
       />
     </div>
   );

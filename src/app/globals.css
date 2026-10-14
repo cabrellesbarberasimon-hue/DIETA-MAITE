@@ -29,3 +29,9 @@ body {
 html {
   scroll-padding-bottom: 5rem;
 }
+
+/* Oculta la barra de scroll del carrusel horizontal de resumen; la
+   navegación se hace deslizando o con los puntos, no con una scrollbar. */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
