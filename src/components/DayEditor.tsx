@@ -7,6 +7,8 @@ import { MealSlot } from "@/components/MealSlot";
 import { ExercisePanel } from "@/components/ExercisePanel";
 import { DayTypeSelector } from "@/components/DayTypeSelector";
 import { WeightForm, type ExistingWeight } from "@/components/WeightForm";
+import { WaterPanel } from "@/components/WaterPanel";
+import { StepsPanel } from "@/components/StepsPanel";
 
 const MEAL_ORDER = ["DESAYUNO", "ALMUERZO", "COMIDA", "COMIDA_LIBRE_SOCIAL", "CENA"] as const;
 
@@ -71,9 +73,23 @@ export function DayEditor({
           </div>
         </div>
 
-        <div className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2 text-sm">
-          <span className="text-slate-500">🔥 Ejercicio quemado</span>
-          <span className="font-semibold text-slate-800">{fmtKcal(balance.kcalEjercicio)}</span>
+        <div className="space-y-1.5">
+          <div className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2 text-sm">
+            <span className="text-slate-500">🔥 Ejercicio quemado</span>
+            <span className="font-semibold text-slate-800">{fmtKcal(balance.kcalEjercicio)}</span>
+          </div>
+          <div className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2 text-sm">
+            <span className="text-slate-500">👣 Pasos</span>
+            <span className="font-semibold text-slate-800">
+              {day.pasos.toLocaleString("es-ES")} / {objetivos.pasos.toLocaleString("es-ES")}
+            </span>
+          </div>
+          <div className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2 text-sm">
+            <span className="text-slate-500">💧 Agua</span>
+            <span className="font-semibold text-slate-800">
+              {day.aguaMl.toLocaleString("es-ES")} / {objetivos.aguaMl.toLocaleString("es-ES")} ml
+            </span>
+          </div>
         </div>
       </section>
 
@@ -116,6 +132,16 @@ export function DayEditor({
       <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
         <h2 className="mb-3 text-sm font-semibold text-slate-500">Ejercicio</h2>
         <ExercisePanel exerciseTypes={exerciseTypes} logs={day.exerciseLogs} dateKey={dateKey} />
+      </section>
+
+      <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
+        <h2 className="mb-3 text-sm font-semibold text-slate-500">💧 Agua</h2>
+        <WaterPanel logs={day.waterLogs} dateKey={dateKey} />
+      </section>
+
+      <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
+        <h2 className="mb-3 text-sm font-semibold text-slate-500">👣 Pasos</h2>
+        <StepsPanel pasos={day.pasos} dateKey={dateKey} />
       </section>
 
       <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">

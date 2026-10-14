@@ -52,7 +52,10 @@ model User {
   dayLogs          DayLog[]
   mealLogs         MealLog[]
   exerciseLogs     ExerciseLog[]
+  exerciseTypes    ExerciseType[]
   weightLogs       WeightLog[]
+  waterLogs        WaterLog[]
+  stepsLogs        StepsLog[]
   pushSubscriptions PushSubscription[]
 }
 
@@ -233,14 +236,20 @@ model Food {
   @@index([busqueda])
 }
 
-/// Tabla de equivalentes metabólicos (MET) por tipo de ejercicio
+/// Tabla de equivalentes metabólicos (MET) por tipo de ejercicio. Los de
+/// catálogo general (userId null) los ve todo el mundo; una usuaria también
+/// puede crear los suyos propios (userId relleno), que solo ve ella.
 model ExerciseType {
-  id     String @id @default(cuid())
-  nombre String @unique
+  id     String  @id @default(cuid())
+  userId String?
+  user   User?   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  nombre String
   met    Float
-  orden  Int    @default(0)
+  orden  Int     @default(0)
 
   exerciseLogs ExerciseLog[]
+
+  @@unique([userId, nombre])
 }
 
 /// Sesión de ejercicio registrada por la usuaria
@@ -295,4 +304,31 @@ model PushSubscription {
   createdAt DateTime @default(now())
 
   @@index([userId])
+}
+
+/// Registro de agua bebida. Varios registros por día (cada pulsación de
+/// "+250 ml" etc. añade uno); el total del día es la suma.
+model WaterLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fecha     DateTime @db.Date
+  ml        Int
+  createdAt DateTime @default(now())
+
+  @@index([userId, fecha])
+}
+
+/// Pasos del día, un único valor editable por día (no es acumulativo como
+/// el agua: la usuaria pone/corrige el total que le marca su móvil/pulsera).
+model StepsLog {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fecha     DateTime @db.Date
+  pasos     Int
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, fecha])
+  @@index([userId, fecha])
 }

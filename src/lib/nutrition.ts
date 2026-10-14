@@ -92,6 +92,20 @@ export function calcExerciseKcal(met: number, pesoKg: number, minutos: number): 
   return (met * 3.5 * pesoKg / 200) * minutos;
 }
 
+/** Objetivo diario de agua por defecto (ml), igual para todas las usuarias por ahora. */
+export const OBJETIVO_AGUA_ML = 2000;
+
+/** Objetivo diario de pasos por defecto, igual para todas las usuarias por ahora. */
+export const OBJETIVO_PASOS_DIARIO = 10000;
+
+/**
+ * kcal aproximadas quemadas por los pasos del día (estimación genérica, no
+ * sustituye a un registro de ejercicio formal con su propio MET).
+ */
+export function calcStepsKcal(pasos: number, pesoKg: number): number {
+  return pasos * pesoKg * 0.00057;
+}
+
 export type MacroTotals = {
   kcal: number;
   proteinaG: number;
@@ -138,6 +152,7 @@ export function getSemaphoreStatus(kcalIngeridas: number, objetivoKcal: number):
 export type DailyBalance = {
   kcalIngeridas: number;
   kcalEjercicio: number;
+  kcalPasos: number;
   gastoTotal: number;
   deficitReal: number;
   objetivoKcal: number;
@@ -145,20 +160,24 @@ export type DailyBalance = {
 };
 
 /**
- * Gasto total del día = GET base del perfil + kcal quemadas por ejercicio.
- * Déficit real = gasto total - kcal ingeridas (positivo = déficit, negativo = superávit).
+ * Gasto total del día = GET base del perfil + kcal quemadas por ejercicio +
+ * kcal estimadas por los pasos. Déficit real = gasto total - kcal ingeridas
+ * (positivo = déficit, negativo = superávit).
  */
 export function computeDailyBalance(params: {
   kcalIngeridas: number;
   kcalEjercicio: number;
+  kcalPasos?: number;
   getKcalBase: number;
   objetivoKcal: number;
 }): DailyBalance {
-  const gastoTotal = params.getKcalBase + params.kcalEjercicio;
+  const kcalPasos = params.kcalPasos ?? 0;
+  const gastoTotal = params.getKcalBase + params.kcalEjercicio + kcalPasos;
   const deficitReal = gastoTotal - params.kcalIngeridas;
   return {
     kcalIngeridas: params.kcalIngeridas,
     kcalEjercicio: params.kcalEjercicio,
+    kcalPasos,
     gastoTotal,
     deficitReal,
     objetivoKcal: params.objetivoKcal,

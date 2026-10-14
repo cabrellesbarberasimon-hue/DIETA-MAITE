@@ -1,4 +1,3 @@
-import "server-only";
 import bcrypt from "bcryptjs";
 import type { PrismaClient } from "@/generated/prisma/client";
 import { today } from "@/lib/nutrition";
@@ -185,13 +184,17 @@ export async function runSeed(prisma: PrismaClient, options: SeedOptions): Promi
     }
   }
 
+  // Tipos de ejercicio de catálogo general (userId null); no tienen clave
+  // única directa (userId es nullable), así que se busca a mano en vez de
+  // usar upsert, igual que las opciones de comida más arriba.
   let orden = 0;
   for (const [nombre, met] of Object.entries(seed.met_table)) {
-    await prisma.exerciseType.upsert({
-      where: { nombre },
-      update: { met, orden },
-      create: { nombre, met, orden },
-    });
+    const existing = await prisma.exerciseType.findFirst({ where: { userId: null, nombre } });
+    if (existing) {
+      await prisma.exerciseType.update({ where: { id: existing.id }, data: { met, orden } });
+    } else {
+      await prisma.exerciseType.create({ data: { nombre, met, orden } });
+    }
     orden += 1;
   }
 

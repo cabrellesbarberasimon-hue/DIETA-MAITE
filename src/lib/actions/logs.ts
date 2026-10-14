@@ -290,6 +290,48 @@ export async function addExerciseLogAction(input: unknown) {
   revalidatePath("/historial");
 }
 
+const addCustomExerciseSchema = z.object({
+  nombre: z.string().trim().min(1).max(60),
+  minutos: z.coerce.number().int().min(1).max(600),
+  kcalQuemadas: z.coerce.number().min(1).max(5000),
+  fecha: dateKeySchema,
+});
+
+/**
+ * Ejercicio "a mano": la usuaria pone directamente las kcal quemadas (no
+ * elige de la lista de tipos). De paso se guarda como un tipo de ejercicio
+ * nuevo solo para ella (con un MET calculado a partir de lo que ha puesto),
+ * así la próxima vez ya le aparece en el desplegable.
+ */
+export async function addCustomExerciseLogAction(input: unknown) {
+  const session = await requireUsuaria();
+  const data = addCustomExerciseSchema.parse(input);
+  const fecha = resolveFecha(data.fecha);
+  const pesoKg = await getLatestWeightKg(session.sub);
+
+  const met = (data.kcalQuemadas * 200) / (3.5 * pesoKg * data.minutos);
+
+  const exerciseType = await prisma.exerciseType.upsert({
+    where: { userId_nombre: { userId: session.sub, nombre: data.nombre } },
+    update: { met },
+    create: { userId: session.sub, nombre: data.nombre, met, orden: 1000 },
+  });
+
+  await prisma.exerciseLog.create({
+    data: {
+      userId: session.sub,
+      fecha,
+      exerciseTypeId: exerciseType.id,
+      minutos: data.minutos,
+      pesoUsadoKg: pesoKg,
+      kcalQuemadas: data.kcalQuemadas,
+    },
+  });
+
+  revalidatePath("/dashboard");
+  revalidatePath("/historial");
+}
+
 export async function deleteExerciseLogAction(input: unknown) {
   const session = await requireUsuaria();
   const data = idSchema.parse(input);
@@ -300,6 +342,62 @@ export async function deleteExerciseLogAction(input: unknown) {
   }
 
   await prisma.exerciseLog.delete({ where: { id: data.id } });
+  revalidatePath("/dashboard");
+  revalidatePath("/historial");
+}
+
+// ---------- Agua ----------
+
+const addWaterSchema = z.object({
+  ml: z.coerce.number().int().min(1).max(5000),
+  fecha: dateKeySchema,
+});
+
+export async function addWaterLogAction(input: unknown) {
+  const session = await requireUsuaria();
+  const data = addWaterSchema.parse(input);
+  const fecha = resolveFecha(data.fecha);
+
+  await prisma.waterLog.create({
+    data: { userId: session.sub, fecha, ml: data.ml },
+  });
+
+  revalidatePath("/dashboard");
+  revalidatePath("/historial");
+}
+
+export async function deleteWaterLogAction(input: unknown) {
+  const session = await requireUsuaria();
+  const data = idSchema.parse(input);
+
+  const existing = await prisma.waterLog.findUnique({ where: { id: data.id } });
+  if (!existing || existing.userId !== session.sub) {
+    throw new Error("Registro no encontrado.");
+  }
+
+  await prisma.waterLog.delete({ where: { id: data.id } });
+  revalidatePath("/dashboard");
+  revalidatePath("/historial");
+}
+
+// ---------- Pasos ----------
+
+const setStepsSchema = z.object({
+  pasos: z.coerce.number().int().min(0).max(200000),
+  fecha: dateKeySchema,
+});
+
+export async function setStepsLogAction(input: unknown) {
+  const session = await requireUsuaria();
+  const data = setStepsSchema.parse(input);
+  const fecha = resolveFecha(data.fecha);
+
+  await prisma.stepsLog.upsert({
+    where: { userId_fecha: { userId: session.sub, fecha } },
+    update: { pasos: data.pasos },
+    create: { userId: session.sub, fecha, pasos: data.pasos },
+  });
+
   revalidatePath("/dashboard");
   revalidatePath("/historial");
 }

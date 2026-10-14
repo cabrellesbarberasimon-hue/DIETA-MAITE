@@ -5,6 +5,7 @@ import { prisma } from "@/lib/prisma";
 import { dateKeyToDate } from "@/lib/nutrition";
 import { DayEditor } from "@/components/DayEditor";
 import { foodPhotoAnalysisIsConfigured } from "@/lib/ai/food-photo";
+import { getExerciseTypesFor } from "@/lib/data/exerciseTypes";
 
 export default async function HistorialDiaPage({
   params,
@@ -16,7 +17,7 @@ export default async function HistorialDiaPage({
 
   const [day, exerciseTypes, weightLog, lastWeightLog] = await Promise.all([
     getDayData(session.sub, date),
-    prisma.exerciseType.findMany({ orderBy: { orden: "asc" } }),
+    getExerciseTypesFor(session.sub),
     prisma.weightLog.findUnique({
       where: { userId_fecha: { userId: session.sub, fecha: dateKeyToDate(date) } },
     }),

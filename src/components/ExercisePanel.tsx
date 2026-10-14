@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { addExerciseLogAction, deleteExerciseLogAction } from "@/lib/actions/logs";
+import { addExerciseLogAction, addCustomExerciseLogAction, deleteExerciseLogAction } from "@/lib/actions/logs";
 
 type ExerciseType = { id: string; nombre: string; met: number };
 type ExerciseLog = {
@@ -22,6 +22,7 @@ export function ExercisePanel({
 }) {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showCustom, setShowCustom] = useState(false);
 
   async function run(fn: () => Promise<void>) {
     setError(null);
@@ -118,6 +119,74 @@ export function ExercisePanel({
           +
         </button>
       </form>
+
+      <button
+        type="button"
+        onClick={() => setShowCustom((v) => !v)}
+        className="mt-2 text-xs text-slate-400 underline"
+      >
+        {showCustom ? "Cancelar" : "¿No está en la lista? Añade uno nuevo a mano"}
+      </button>
+
+      {showCustom && (
+        <form
+          className="mt-2 space-y-2 rounded-lg border border-dashed border-slate-300 p-2"
+          onSubmit={(e) => {
+            e.preventDefault();
+            const formEl = e.currentTarget;
+            const formData = new FormData(formEl);
+            const nombre = String(formData.get("nombre") ?? "").trim();
+            const minutos = Number(formData.get("minutos") ?? 0);
+            const kcalQuemadas = Number(formData.get("kcalQuemadas") ?? 0);
+            if (!nombre || minutos <= 0 || kcalQuemadas <= 0) return;
+            run(async () => {
+              await addCustomExerciseLogAction({ nombre, minutos, kcalQuemadas, fecha: dateKey });
+              formEl.reset();
+              setShowCustom(false);
+            });
+          }}
+        >
+          <p className="text-xs text-slate-500">
+            Pon el nombre, cuánto has estado y las kcal que has quemado (de tu reloj/app, o lo que calcules). Se
+            guarda como un ejercicio nuevo solo tuyo, para elegirlo directamente la próxima vez.
+          </p>
+          <input
+            name="nombre"
+            placeholder="Nombre del ejercicio"
+            required
+            className="w-full rounded-lg border border-slate-300 px-2 py-2 text-sm"
+          />
+          <div className="grid grid-cols-2 gap-2">
+            <input
+              name="minutos"
+              type="number"
+              inputMode="numeric"
+              min={1}
+              max={600}
+              placeholder="minutos"
+              required
+              className="w-full rounded-lg border border-slate-300 px-2 py-2 text-sm"
+            />
+            <input
+              name="kcalQuemadas"
+              type="number"
+              inputMode="numeric"
+              min={1}
+              max={5000}
+              placeholder="kcal quemadas"
+              required
+              className="w-full rounded-lg border border-slate-300 px-2 py-2 text-sm"
+            />
+          </div>
+          <button
+            type="submit"
+            disabled={pending}
+            className="w-full rounded-lg bg-slate-800 py-2 text-sm font-medium text-white disabled:opacity-60"
+          >
+            Guardar
+          </button>
+        </form>
+      )}
     </div>
   );
 }

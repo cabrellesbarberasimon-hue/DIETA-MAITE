@@ -5,6 +5,7 @@ import { todayKey, dateKeyToDate } from "@/lib/nutrition";
 import { DayEditor } from "@/components/DayEditor";
 import { PushReminderToggle } from "@/components/PushReminderToggle";
 import { foodPhotoAnalysisIsConfigured } from "@/lib/ai/food-photo";
+import { getExerciseTypesFor } from "@/lib/data/exerciseTypes";
 
 export default async function DashboardPage() {
   const session = await requireUsuaria();
@@ -12,7 +13,7 @@ export default async function DashboardPage() {
 
   const [day, exerciseTypes, weightLog, lastWeightLog] = await Promise.all([
     getDayData(session.sub, dateKey),
-    prisma.exerciseType.findMany({ orderBy: { orden: "asc" } }),
+    getExerciseTypesFor(session.sub),
     prisma.weightLog.findUnique({
       where: { userId_fecha: { userId: session.sub, fecha: dateKeyToDate(dateKey) } },
     }),
