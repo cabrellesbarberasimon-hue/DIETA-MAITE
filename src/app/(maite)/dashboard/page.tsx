@@ -8,6 +8,7 @@ import { PushReminderToggle } from "@/components/PushReminderToggle";
 import { foodPhotoAnalysisIsConfigured } from "@/lib/ai/food-photo";
 import { getExerciseTypesFor } from "@/lib/data/exerciseTypes";
 import { getLoggingStreak } from "@/lib/data/stats";
+import { getStreakPhrase } from "@/lib/motivationalPhrases";
 
 export default async function DashboardPage() {
   const session = await requireUsuaria();
@@ -27,8 +28,11 @@ export default async function DashboardPage() {
   return (
     <div className="mx-auto max-w-md space-y-3">
       {streak > 0 && (
-        <div className="flex items-center justify-center gap-1.5 rounded-xl bg-amber-50 px-3 py-2 text-sm font-medium text-amber-700 ring-1 ring-amber-200">
-          🔥 {streak} {streak === 1 ? "día seguido registrando" : "días seguidos registrando"}
+        <div className="flex flex-col items-center justify-center gap-0.5 rounded-xl bg-amber-50 px-3 py-2 text-center ring-1 ring-amber-200">
+          <span className="text-sm font-medium text-amber-700">
+            🔥 {streak} {streak === 1 ? "día seguido registrando" : "días seguidos registrando"}
+          </span>
+          <span className="text-xs text-amber-600">{getStreakPhrase(streak)}</span>
         </div>
       )}
       <PushReminderToggle vapidPublicKey={process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? null} />

@@ -2,10 +2,10 @@ import Link from "next/link";
 import type { DaySummary } from "@/lib/data/week";
 import { todayKey } from "@/lib/nutrition";
 
-const SEMAFORO_DOT: Record<string, string> = {
-  VERDE: "bg-green-500",
-  AMBAR: "bg-amber-500",
-  ROJO: "bg-red-500",
+const SEMAFORO_CIRCLE: Record<string, string> = {
+  VERDE: "bg-green-500 text-white",
+  AMBAR: "bg-amber-500 text-white",
+  ROJO: "bg-red-500 text-white",
 };
 
 /**
@@ -30,12 +30,17 @@ export function WeekStrip({ days, selectedDateKey }: { days: DaySummary[]; selec
             }`}
           >
             <span className="uppercase">{day.weekdayLabel.slice(0, 3)}</span>
-            <span className={`flex h-6 w-6 items-center justify-center rounded-full text-sm ${isSelected ? "bg-white/20" : ""}`}>
+            <span
+              className={`flex h-6 w-6 items-center justify-center rounded-full text-sm ${
+                day.hasData && day.semaforo
+                  ? SEMAFORO_CIRCLE[day.semaforo]
+                  : isSelected
+                    ? "bg-white/20"
+                    : ""
+              }`}
+            >
               {day.fecha.getUTCDate()}
             </span>
-            {day.hasData && day.semaforo && (
-              <span className={`h-1.5 w-1.5 rounded-full ${SEMAFORO_DOT[day.semaforo]}`} />
-            )}
           </div>
         );
         return isFuture ? (
