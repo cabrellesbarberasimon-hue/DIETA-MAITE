@@ -99,19 +99,26 @@ export function FreeMealForm({
 
       {recentFoods && recentFoods.length > 0 && (
         <div>
-          <p className="mb-1 text-xs font-semibold text-slate-500">Mis comidas</p>
-          <div className="flex flex-wrap gap-1.5">
+          <p className="mb-1.5 text-xs font-semibold text-slate-500">Alimentos guardados</p>
+          <ul className="max-h-56 space-y-1.5 overflow-y-auto">
             {recentFoods.map((f, i) => (
-              <button
-                key={`${f.nombre}-${i}`}
-                type="button"
-                onClick={() => applyValues(f)}
-                className="rounded-full border border-slate-300 px-2.5 py-1 text-xs text-slate-600 active:bg-slate-100"
-              >
-                {f.nombre} · {Math.round(f.kcal)} kcal
-              </button>
+              <li key={`${f.nombre}-${i}`}>
+                <button
+                  type="button"
+                  onClick={() => applyValues(f)}
+                  className="flex w-full items-center justify-between rounded-xl bg-slate-50 px-3 py-2 text-left active:bg-slate-100"
+                >
+                  <span className="text-sm font-medium text-slate-700">{f.nombre}</span>
+                  <span className="flex items-center gap-2 text-xs text-slate-500">
+                    {Math.round(f.kcal)} kcal
+                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-slate-800 text-xs font-bold leading-none text-white">
+                      +
+                    </span>
+                  </span>
+                </button>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       )}
 
