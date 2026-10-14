@@ -13,6 +13,7 @@ import { WeekStrip } from "@/components/WeekStrip";
 import { DailyScoreCard } from "@/components/DailyScoreCard";
 import { SummaryCarousel } from "@/components/SummaryCarousel";
 import { QuickAddFab } from "@/components/QuickAddFab";
+import { KcalRing } from "@/components/KcalRing";
 import type { DaySummary } from "@/lib/data/week";
 import type { RecentFood } from "@/lib/data/recentFoods";
 
@@ -54,18 +55,18 @@ export function DayEditor({
         <Semaforo status={balance.semaforo} />
       </div>
 
+      <KcalRing ingerido={balance.kcalIngeridas} objetivo={balance.objetivoKcal} status={balance.semaforo} />
+
       <div className="grid grid-cols-2 gap-3">
-        <div>
-          <p className="text-xs text-slate-500">Ingerido</p>
-          <p className="text-2xl font-bold text-slate-900">{fmtKcal(balance.kcalIngeridas)}</p>
-          <p className="text-xs text-slate-400">objetivo {fmtKcal(balance.objetivoKcal)}</p>
-        </div>
-        <div>
+        <div className="rounded-xl bg-slate-50 px-3 py-2 text-center">
           <p className="text-xs text-slate-500">Déficit / superávit</p>
-          <p className={`text-2xl font-bold ${balance.deficitReal >= 0 ? "text-green-700" : "text-red-600"}`}>
+          <p className={`text-lg font-bold ${balance.deficitReal >= 0 ? "text-green-700" : "text-red-600"}`}>
             {fmtSigned(balance.deficitReal)} kcal
           </p>
-          <p className="text-xs text-slate-400">gasto total {fmtKcal(balance.gastoTotal)}</p>
+        </div>
+        <div className="rounded-xl bg-slate-50 px-3 py-2 text-center">
+          <p className="text-xs text-slate-500">Gasto total</p>
+          <p className="text-lg font-bold text-slate-800">{fmtKcal(balance.gastoTotal)}</p>
         </div>
       </div>
 
