@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { requireUsuaria } from "@/lib/auth/guards";
 import { getWeekSummary } from "@/lib/data/week";
+import { buildWeekReportText } from "@/lib/data/weekReport";
 import { dateKeyToDate, getWeekStart, todayKey, toDateKey, today as todayDate } from "@/lib/nutrition";
 import { fmtDateShort, fmtKcal, fmtNum, fmtSigned } from "@/lib/format";
 import { Semaforo } from "@/components/Semaforo";
+import { WeekReportExport } from "@/components/WeekReportExport";
 
 export default async function HistorialPage({
   searchParams,
@@ -15,7 +17,10 @@ export default async function HistorialPage({
 
   const refDate = week ? dateKeyToDate(week) : dateKeyToDate(todayKey());
   const weekStart = getWeekStart(refDate);
-  const summary = await getWeekSummary(session.sub, weekStart);
+  const [summary, reportText] = await Promise.all([
+    getWeekSummary(session.sub, weekStart),
+    buildWeekReportText(session.sub, session.name, weekStart),
+  ]);
 
   const prevWeekKey = toDateKey(new Date(weekStart.getTime() - 7 * 86400000));
   const nextWeekKey = toDateKey(new Date(weekStart.getTime() + 7 * 86400000));
@@ -108,6 +113,11 @@ export default async function HistorialPage({
           ),
         )}
       </section>
+
+      <WeekReportExport
+        text={reportText}
+        filename={`comidas-${toDateKey(weekStart)}.txt`}
+      />
     </div>
   );
 }

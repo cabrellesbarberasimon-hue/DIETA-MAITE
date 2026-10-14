@@ -36,6 +36,14 @@ El déficit (o superávit) se elige por **porcentaje** (10/15/20/personalizado) 
 
 Al registrar una comida (o planificar el menú desde el admin) hay un buscador con desplegable de sugerencias sobre la tabla de composición de alimentos. Al elegir uno y poner los gramos, calcula kcal/macros solo y rellena el resto del formulario. Si el alimento no está, se pueden introducir sus valores por 100 g a mano, calcular el consumo por los gramos comidos, y opcionalmente guardarlo en la biblioteca para la próxima vez.
 
+### Agua, pasos, ejercicio y seguimiento diario
+
+Además de las comidas, el día de la usuaria incluye registro de **agua** (botones rápidos +100/+250/+500 ml o cantidad libre) y de **pasos** (un valor por día, editable), ambos con resumen arriba junto al ejercicio quemado — los pasos suman también al gasto calórico estimado del día. El catálogo de ejercicios es amplio (correr, ciclismo, natación, deportes de equipo, HIIT...) y además cada usuaria puede registrar uno **a mano** (nombre, minutos y kcal quemadas) que se guarda como ejercicio propio suyo para la próxima vez.
+
+Arriba del día aparece una **tira con los 7 días de la semana** (día del mes + color del semáforo) para saltar directamente a cualquiera. Cuando hay días seguidos con al menos una comida registrada, se muestra una insignia de **racha** 🔥 en el dashboard.
+
+En **Historial** (vista semanal) hay un desplegable **"Informe de esta semana"** con el detalle de lo comido día a día (comidas, kcal, macros) en texto plano, con botones para copiarlo o descargarlo — pensado para pegarlo en un chat de IA si la usuaria quiere pedir consejo, o simplemente guardarlo.
+
 ### Varias personas
 
 Solo el admin puede dar de alta cuentas nuevas, desde **Personas → + Nueva** en su panel: nombre, email, contraseña, y los datos de perfil — BMR/GET/presupuesto salen solos, como se explica arriba. La cuenta nueva arranca con un menú semanal en blanco (7 días × 5 comidas, "Sin planificar") que el admin rellena después desde la ficha de esa persona → pestaña **Plan**. No hay auto-registro: solo el admin crea cuentas.
