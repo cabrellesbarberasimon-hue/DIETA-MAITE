@@ -88,9 +88,9 @@ export function DayEditor({
     </section>
   );
 
-  const ejercicioYPasosSlide = (
+  const ejercicioPasosYAguaSlide = (
     <section className="space-y-2 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
-      <h2 className="mb-1 text-sm font-semibold text-slate-500">Ejercicio y pasos</h2>
+      <h2 className="mb-1 text-sm font-semibold text-slate-500">Ejercicio, pasos y agua</h2>
       <div className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2 text-sm">
         <span className="text-slate-500">🔥 Ejercicio quemado</span>
         <span className="font-semibold text-slate-800">{fmtKcal(balance.kcalEjercicio)}</span>
@@ -101,12 +101,6 @@ export function DayEditor({
           {day.pasos.toLocaleString("es-ES")} / {objetivos.pasos.toLocaleString("es-ES")}
         </span>
       </div>
-    </section>
-  );
-
-  const aguaSlide = (
-    <section className="space-y-2 rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
-      <h2 className="mb-1 text-sm font-semibold text-slate-500">Agua</h2>
       <div className="flex items-center justify-between rounded-xl bg-slate-50 px-3 py-2 text-sm">
         <span className="text-slate-500">💧 Agua</span>
         <span className="font-semibold text-slate-800">
@@ -116,6 +110,8 @@ export function DayEditor({
     </section>
   );
 
+  const puntuacionSlide = <DailyScoreCard score={day.score} />;
+
   return (
     <div className="space-y-5">
       <div className="space-y-2">
@@ -123,14 +119,12 @@ export function DayEditor({
         <p className="text-sm text-slate-500 capitalize">{fmtDateLong(day.fecha)}</p>
       </div>
 
-      <DailyScoreCard score={day.score} />
-
       <section className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
         <p className="mb-2 text-xs font-semibold text-slate-500">Tipo de día</p>
         <DayTypeSelector dateKey={dateKey} dayTypes={day.dayTypes} selectedId={day.selectedDayTypeId} />
       </section>
 
-      <SummaryCarousel slides={[balanceYMacrosSlide, ejercicioYPasosSlide, aguaSlide]} />
+      <SummaryCarousel slides={[balanceYMacrosSlide, ejercicioPasosYAguaSlide, puntuacionSlide]} />
 
       <section className="space-y-3">
         <h2 className="px-1 text-sm font-semibold text-slate-500">Comidas</h2>
