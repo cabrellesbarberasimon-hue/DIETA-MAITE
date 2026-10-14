@@ -5,6 +5,13 @@ import { WeightChart } from "@/components/WeightChart";
 import { WeightForm } from "@/components/WeightForm";
 import { todayKey, toDateKey } from "@/lib/nutrition";
 import { fmtDateShort, fmtNum } from "@/lib/format";
+import { getMonthlyEvolution } from "@/lib/weightEvolution";
+
+function fmtSignedDecimal(value: number, decimals = 1): string {
+  const rounded = Number(value.toFixed(decimals));
+  const sign = rounded > 0 ? "+" : "";
+  return `${sign}${fmtNum(rounded, decimals)}`;
+}
 
 export default async function PesoPage() {
   const session = await requireUsuaria();
@@ -26,6 +33,7 @@ export default async function PesoPage() {
   const kgPendientes = profile.pesoObjetivoKg != null ? pesoActual - profile.pesoObjetivoKg : null;
   const today = todayKey();
   const hoy = weightLogs.find((w) => toDateKey(w.fecha) === today) ?? null;
+  const monthlyEvolution = getMonthlyEvolution(weightLogs);
 
   return (
     <div className="mx-auto max-w-md space-y-5">
@@ -75,6 +83,55 @@ export default async function PesoPage() {
         <h2 className="mb-3 text-sm font-semibold text-slate-500">Evolución</h2>
         <WeightChart points={weightLogs} pesoObjetivoKg={profile.pesoObjetivoKg} />
       </section>
+
+      {monthlyEvolution.length > 0 && (
+        <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
+          <h2 className="mb-3 text-sm font-semibold text-slate-500">Evolución mensual</h2>
+          <ul className="space-y-3">
+            {monthlyEvolution.map((m) => (
+              <li key={m.monthKey} className="rounded-xl bg-slate-50 p-3">
+                <div className="mb-1.5 flex items-center justify-between">
+                  <span className="text-sm font-semibold text-slate-700">{m.label}</span>
+                  <span className="text-xs text-slate-400">{m.numRegistros} registros</span>
+                </div>
+                <div className="grid grid-cols-2 gap-3 text-sm">
+                  <div>
+                    <p className="text-xs text-slate-500">Peso</p>
+                    <p className="text-slate-700">
+                      {fmtNum(m.pesoInicio, 1)} → {fmtNum(m.pesoFin, 1)} kg
+                    </p>
+                    <p
+                      className={`text-xs font-semibold ${m.deltaPesoKg <= 0 ? "text-green-700" : "text-red-600"}`}
+                    >
+                      {fmtSignedDecimal(m.deltaPesoKg)} kg
+                    </p>
+                  </div>
+                  {m.grasaInicio != null && m.grasaFin != null ? (
+                    <div>
+                      <p className="text-xs text-slate-500">Grasa corporal</p>
+                      <p className="text-slate-700">
+                        {fmtNum(m.grasaInicio, 1)} → {fmtNum(m.grasaFin, 1)} %
+                      </p>
+                      <p
+                        className={`text-xs font-semibold ${
+                          (m.deltaGrasaPct ?? 0) <= 0 ? "text-green-700" : "text-red-600"
+                        }`}
+                      >
+                        {fmtSignedDecimal(m.deltaGrasaPct ?? 0)} %
+                      </p>
+                    </div>
+                  ) : (
+                    <div>
+                      <p className="text-xs text-slate-500">Grasa corporal</p>
+                      <p className="text-xs text-slate-400">Sin datos este mes</p>
+                    </div>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {weightLogs.length > 0 && (
         <section className="rounded-2xl bg-white p-5 shadow-sm ring-1 ring-slate-200">
