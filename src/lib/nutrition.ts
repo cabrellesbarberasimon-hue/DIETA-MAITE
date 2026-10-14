@@ -185,6 +185,82 @@ export function computeDailyBalance(params: {
   };
 }
 
+export type DailyScoreBreakdown = {
+  kcal: { pts: number; max: number };
+  proteina: { pts: number; max: number };
+  pasos: { pts: number; max: number };
+  agua: { pts: number; max: number };
+  macros: { pts: number; max: number };
+};
+
+export type DailyScore = {
+  total: number;
+  breakdown: DailyScoreBreakdown;
+};
+
+const SCORE_MAX = {
+  kcal: 30,
+  proteina: 25,
+  pasos: 20,
+  agua: 15,
+  macros: 10,
+} as const;
+
+/** true si `ingerido` está dentro de un ±20% de `objetivo`. */
+function dentroDeRango(ingerido: number, objetivo: number, margen = 0.2): boolean {
+  if (objetivo <= 0) return false;
+  return Math.abs(ingerido - objetivo) / objetivo <= margen;
+}
+
+function proporcional(valor: number, objetivo: number, max: number): number {
+  if (objetivo <= 0) return 0;
+  return Math.min(max, (valor / objetivo) * max);
+}
+
+/**
+ * Puntuación del día (0-100), combinando: kcal dentro de objetivo (30 pts,
+ * según el semáforo), proteína alcanzada (25 pts, proporcional — no penaliza
+ * pasarse, solo exige llegar al mínimo), pasos (20 pts) y agua (15 pts)
+ * alcanzados, y carbohidratos/grasas dentro de un ±20% del objetivo (10 pts,
+ * 5 cada uno). Es una guía motivacional, no un dato clínico.
+ */
+export function computeDailyScore(params: {
+  semaforo: SemaphoreStatus;
+  proteinaIngeridaG: number;
+  proteinaObjetivoG: number;
+  carbohidratosIngeridosG: number;
+  carbohidratosObjetivoG: number;
+  grasasIngeridasG: number;
+  grasasObjetivoG: number;
+  pasos: number;
+  pasosObjetivo: number;
+  aguaMl: number;
+  aguaObjetivoMl: number;
+}): DailyScore {
+  const kcalPts =
+    params.semaforo === "VERDE" ? SCORE_MAX.kcal : params.semaforo === "AMBAR" ? SCORE_MAX.kcal / 2 : 0;
+
+  const proteinaPts = proporcional(params.proteinaIngeridaG, params.proteinaObjetivoG, SCORE_MAX.proteina);
+  const pasosPts = proporcional(params.pasos, params.pasosObjetivo, SCORE_MAX.pasos);
+  const aguaPts = proporcional(params.aguaMl, params.aguaObjetivoMl, SCORE_MAX.agua);
+
+  const carbOk = dentroDeRango(params.carbohidratosIngeridosG, params.carbohidratosObjetivoG);
+  const grasaOk = dentroDeRango(params.grasasIngeridasG, params.grasasObjetivoG);
+  const macrosPts = (carbOk ? SCORE_MAX.macros / 2 : 0) + (grasaOk ? SCORE_MAX.macros / 2 : 0);
+
+  const breakdown: DailyScoreBreakdown = {
+    kcal: { pts: Math.round(kcalPts), max: SCORE_MAX.kcal },
+    proteina: { pts: Math.round(proteinaPts), max: SCORE_MAX.proteina },
+    pasos: { pts: Math.round(pasosPts), max: SCORE_MAX.pasos },
+    agua: { pts: Math.round(aguaPts), max: SCORE_MAX.agua },
+    macros: { pts: Math.round(macrosPts), max: SCORE_MAX.macros },
+  };
+
+  const total = breakdown.kcal.pts + breakdown.proteina.pts + breakdown.pasos.pts + breakdown.agua.pts + breakdown.macros.pts;
+
+  return { total, breakdown };
+}
+
 export function estimateFatLossKg(deficitAcumuladoKcal: number): number {
   return deficitAcumuladoKcal / KCAL_PER_KG_FAT;
 }

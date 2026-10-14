@@ -36,6 +36,10 @@ El déficit (o superávit) se elige por **porcentaje** (10/15/20/personalizado) 
 
 Al registrar una comida (o planificar el menú desde el admin) hay un buscador con desplegable de sugerencias sobre la tabla de composición de alimentos. Al elegir uno y poner los gramos, calcula kcal/macros solo y rellena el resto del formulario. Si el alimento no está, se pueden introducir sus valores por 100 g a mano, calcular el consumo por los gramos comidos, y opcionalmente guardarlo en la biblioteca para la próxima vez.
 
+### Puntuación del día
+
+Cada día tiene una puntuación de 0 a 100 (visible arriba del todo, debajo de la fecha): 30 puntos si las calorías están dentro de objetivo (según el semáforo), 25 por llegar a la proteína objetivo (proporcional, no penaliza pasarse), 20 por los pasos, 15 por el agua, y 10 por tener carbohidratos y grasas dentro de un ±20% del objetivo. Es una guía motivacional para la usuaria, no un dato clínico — el cálculo exacto está en `computeDailyScore` (`src/lib/nutrition.ts`).
+
 ### Agua, pasos, ejercicio y seguimiento diario
 
 Además de las comidas, el día de la usuaria incluye registro de **agua** (botones rápidos +100/+250/+500 ml o cantidad libre) y de **pasos** (un valor por día, editable), ambos con resumen arriba junto al ejercicio quemado — los pasos suman también al gasto calórico estimado del día. El catálogo de ejercicios es amplio (correr, ciclismo, natación, deportes de equipo, HIIT...) y además cada usuaria puede registrar uno **a mano** (nombre, minutos y kcal quemadas) que se guarda como ejercicio propio suyo para la próxima vez.

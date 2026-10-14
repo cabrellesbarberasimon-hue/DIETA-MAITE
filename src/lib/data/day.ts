@@ -6,6 +6,7 @@ import {
   sumMacros,
   computeDailyBalance,
   computeObjetivoKcal,
+  computeDailyScore,
   calcStepsKcal,
   OBJETIVO_AGUA_ML,
   OBJETIVO_PASOS_DIARIO,
@@ -74,6 +75,20 @@ export async function getDayData(userId: string, dateKey: string) {
     objetivoKcal: objetivos.kcal,
   });
 
+  const score = computeDailyScore({
+    semaforo: balance.semaforo,
+    proteinaIngeridaG: macrosIngeridos.proteinaG,
+    proteinaObjetivoG: objetivos.proteinaG,
+    carbohidratosIngeridosG: macrosIngeridos.carbohidratosG,
+    carbohidratosObjetivoG: objetivos.carbohidratosG,
+    grasasIngeridasG: macrosIngeridos.grasasG,
+    grasasObjetivoG: objetivos.grasasG,
+    pasos,
+    pasosObjetivo: objetivos.pasos,
+    aguaMl,
+    aguaObjetivoMl: objetivos.aguaMl,
+  });
+
   return {
     fecha,
     weekday,
@@ -90,6 +105,7 @@ export async function getDayData(userId: string, dateKey: string) {
     waterLogs,
     aguaMl,
     pasos,
+    score,
   };
 }
 

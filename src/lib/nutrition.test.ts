@@ -5,6 +5,7 @@ import {
   computeGET,
   computeObjetivoKcal,
   computeWeeklyBudget,
+  computeDailyScore,
   activityFactorFor,
 } from "./nutrition";
 
@@ -69,5 +70,54 @@ describe("computeWeeklyBudget", () => {
 describe("computeObjetivoKcal (ya existente)", () => {
   it("proteína*4 + carbohidratos*4 + grasa*9", () => {
     expect(computeObjetivoKcal(100, 150, 47)).toBe(100 * 4 + 150 * 4 + 47 * 9);
+  });
+});
+
+describe("computeDailyScore", () => {
+  const base = {
+    semaforo: "VERDE" as const,
+    proteinaIngeridaG: 100,
+    proteinaObjetivoG: 100,
+    carbohidratosIngeridosG: 150,
+    carbohidratosObjetivoG: 150,
+    grasasIngeridasG: 50,
+    grasasObjetivoG: 50,
+    pasos: 10000,
+    pasosObjetivo: 10000,
+    aguaMl: 2000,
+    aguaObjetivoMl: 2000,
+  };
+
+  it("día perfecto: 100/100", () => {
+    expect(computeDailyScore(base).total).toBe(100);
+  });
+
+  it("día vacío (sin nada registrado): 0/100", () => {
+    const score = computeDailyScore({
+      ...base,
+      semaforo: "ROJO",
+      proteinaIngeridaG: 0,
+      carbohidratosIngeridosG: 0,
+      grasasIngeridasG: 0,
+      pasos: 0,
+      aguaMl: 0,
+    });
+    expect(score.total).toBe(0);
+  });
+
+  it("proteína no penaliza pasarse del objetivo (se queda en el máximo)", () => {
+    const score = computeDailyScore({ ...base, proteinaIngeridaG: 200 });
+    expect(score.breakdown.proteina.pts).toBe(25);
+  });
+
+  it("ámbar da la mitad de los puntos de kcal", () => {
+    const score = computeDailyScore({ ...base, semaforo: "AMBAR" });
+    expect(score.breakdown.kcal.pts).toBe(15);
+  });
+
+  it("pasos y agua a mitad de objetivo dan la mitad de sus puntos", () => {
+    const score = computeDailyScore({ ...base, pasos: 5000, aguaMl: 1000 });
+    expect(score.breakdown.pasos.pts).toBe(10);
+    expect(score.breakdown.agua.pts).toBe(8); // 7.5 -> redondeado a 8
   });
 });

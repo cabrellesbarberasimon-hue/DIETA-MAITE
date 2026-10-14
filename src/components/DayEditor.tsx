@@ -10,6 +10,7 @@ import { WeightForm, type ExistingWeight } from "@/components/WeightForm";
 import { WaterPanel } from "@/components/WaterPanel";
 import { StepsPanel } from "@/components/StepsPanel";
 import { WeekStrip } from "@/components/WeekStrip";
+import { DailyScoreCard } from "@/components/DailyScoreCard";
 import type { DaySummary } from "@/lib/data/week";
 
 const MEAL_ORDER = ["DESAYUNO", "ALMUERZO", "COMIDA", "COMIDA_LIBRE_SOCIAL", "CENA"] as const;
@@ -47,6 +48,8 @@ export function DayEditor({
         {weekDays && <WeekStrip days={weekDays} selectedDateKey={dateKey} />}
         <p className="text-sm text-slate-500 capitalize">{fmtDateLong(day.fecha)}</p>
       </div>
+
+      <DailyScoreCard score={day.score} />
 
       <section className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-slate-200">
         <p className="mb-2 text-xs font-semibold text-slate-500">Tipo de día</p>
