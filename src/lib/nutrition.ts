@@ -160,9 +160,14 @@ export type DailyBalance = {
 };
 
 /**
- * Gasto total del día = GET base del perfil + kcal quemadas por ejercicio +
- * kcal estimadas por los pasos. Déficit real = gasto total - kcal ingeridas
- * (positivo = déficit, negativo = superávit).
+ * Gasto total del día = GET base del perfil + kcal quemadas por ejercicio
+ * registrado. El GET ya incluye el factor de actividad habitual (el "vivir
+ * el día a día", paseos normales incluidos), así que las kcal estimadas por
+ * los pasos NO se suman aparte al gasto total: sumarlas contaría esa misma
+ * actividad dos veces y infla el gasto total y el déficit mostrados. Se
+ * devuelven solo a título informativo (`kcalPasos`), no entran en la suma.
+ * Déficit real = gasto total - kcal ingeridas (positivo = déficit, negativo
+ * = superávit).
  */
 export function computeDailyBalance(params: {
   kcalIngeridas: number;
@@ -172,7 +177,7 @@ export function computeDailyBalance(params: {
   objetivoKcal: number;
 }): DailyBalance {
   const kcalPasos = params.kcalPasos ?? 0;
-  const gastoTotal = params.getKcalBase + params.kcalEjercicio + kcalPasos;
+  const gastoTotal = params.getKcalBase + params.kcalEjercicio;
   const deficitReal = gastoTotal - params.kcalIngeridas;
   return {
     kcalIngeridas: params.kcalIngeridas,

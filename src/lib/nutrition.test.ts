@@ -6,6 +6,7 @@ import {
   computeObjetivoKcal,
   computeWeeklyBudget,
   computeDailyScore,
+  computeDailyBalance,
   activityFactorFor,
 } from "./nutrition";
 
@@ -70,6 +71,31 @@ describe("computeWeeklyBudget", () => {
 describe("computeObjetivoKcal (ya existente)", () => {
   it("proteína*4 + carbohidratos*4 + grasa*9", () => {
     expect(computeObjetivoKcal(100, 150, 47)).toBe(100 * 4 + 150 * 4 + 47 * 9);
+  });
+});
+
+describe("computeDailyBalance", () => {
+  it("las kcal de los pasos no se suman al gasto total (el GET ya incluye el factor de actividad)", () => {
+    const balance = computeDailyBalance({
+      kcalIngeridas: 2000,
+      kcalEjercicio: 0,
+      kcalPasos: 500,
+      getKcalBase: 2000,
+      objetivoKcal: 2000,
+    });
+    expect(balance.gastoTotal).toBe(2000);
+    expect(balance.kcalPasos).toBe(500);
+  });
+
+  it("el ejercicio registrado sí se suma al gasto total", () => {
+    const balance = computeDailyBalance({
+      kcalIngeridas: 2000,
+      kcalEjercicio: 300,
+      getKcalBase: 2000,
+      objetivoKcal: 2000,
+    });
+    expect(balance.gastoTotal).toBe(2300);
+    expect(balance.deficitReal).toBe(300);
   });
 });
 
