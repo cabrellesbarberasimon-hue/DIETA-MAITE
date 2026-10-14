@@ -1,7 +1,8 @@
 import { requireUsuaria } from "@/lib/auth/guards";
 import { getDayData } from "@/lib/data/day";
+import { getWeekSummary } from "@/lib/data/week";
 import { prisma } from "@/lib/prisma";
-import { todayKey, dateKeyToDate } from "@/lib/nutrition";
+import { todayKey, dateKeyToDate, getWeekStart, today } from "@/lib/nutrition";
 import { DayEditor } from "@/components/DayEditor";
 import { PushReminderToggle } from "@/components/PushReminderToggle";
 import { foodPhotoAnalysisIsConfigured } from "@/lib/ai/food-photo";
@@ -11,8 +12,9 @@ export default async function DashboardPage() {
   const session = await requireUsuaria();
   const dateKey = todayKey();
 
-  const [day, exerciseTypes, weightLog, lastWeightLog] = await Promise.all([
+  const [day, weekSummary, exerciseTypes, weightLog, lastWeightLog] = await Promise.all([
     getDayData(session.sub, dateKey),
+    getWeekSummary(session.sub, getWeekStart(today())),
     getExerciseTypesFor(session.sub),
     prisma.weightLog.findUnique({
       where: { userId_fecha: { userId: session.sub, fecha: dateKeyToDate(dateKey) } },
@@ -44,6 +46,7 @@ export default async function DashboardPage() {
         }
         lastWeightKg={lastWeightLog?.pesoKg ?? null}
         aiPhotoEnabled={foodPhotoAnalysisIsConfigured()}
+        weekDays={weekSummary.days}
       />
     </div>
   );

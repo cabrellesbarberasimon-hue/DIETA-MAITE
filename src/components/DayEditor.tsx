@@ -9,6 +9,8 @@ import { DayTypeSelector } from "@/components/DayTypeSelector";
 import { WeightForm, type ExistingWeight } from "@/components/WeightForm";
 import { WaterPanel } from "@/components/WaterPanel";
 import { StepsPanel } from "@/components/StepsPanel";
+import { WeekStrip } from "@/components/WeekStrip";
+import type { DaySummary } from "@/lib/data/week";
 
 const MEAL_ORDER = ["DESAYUNO", "ALMUERZO", "COMIDA", "COMIDA_LIBRE_SOCIAL", "CENA"] as const;
 
@@ -27,6 +29,7 @@ export function DayEditor({
   weightExisting,
   lastWeightKg,
   aiPhotoEnabled,
+  weekDays,
 }: {
   day: DayData;
   dateKey: string;
@@ -34,12 +37,14 @@ export function DayEditor({
   weightExisting: ExistingWeight | null;
   lastWeightKg: number | null;
   aiPhotoEnabled?: boolean;
+  weekDays?: DaySummary[];
 }) {
   const { balance, macrosIngeridos, dayPlan, objetivos } = day;
 
   return (
     <div className="space-y-5">
-      <div>
+      <div className="space-y-2">
+        {weekDays && <WeekStrip days={weekDays} selectedDateKey={dateKey} />}
         <p className="text-sm text-slate-500 capitalize">{fmtDateLong(day.fecha)}</p>
       </div>
 

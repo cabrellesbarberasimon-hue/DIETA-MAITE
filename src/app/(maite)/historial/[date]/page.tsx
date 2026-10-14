@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { requireUsuaria } from "@/lib/auth/guards";
 import { getDayData } from "@/lib/data/day";
+import { getWeekSummary } from "@/lib/data/week";
 import { prisma } from "@/lib/prisma";
-import { dateKeyToDate } from "@/lib/nutrition";
+import { dateKeyToDate, getWeekStart } from "@/lib/nutrition";
 import { DayEditor } from "@/components/DayEditor";
 import { foodPhotoAnalysisIsConfigured } from "@/lib/ai/food-photo";
 import { getExerciseTypesFor } from "@/lib/data/exerciseTypes";
@@ -15,8 +16,9 @@ export default async function HistorialDiaPage({
   const session = await requireUsuaria();
   const { date } = await params;
 
-  const [day, exerciseTypes, weightLog, lastWeightLog] = await Promise.all([
+  const [day, weekSummary, exerciseTypes, weightLog, lastWeightLog] = await Promise.all([
     getDayData(session.sub, date),
+    getWeekSummary(session.sub, getWeekStart(dateKeyToDate(date))),
     getExerciseTypesFor(session.sub),
     prisma.weightLog.findUnique({
       where: { userId_fecha: { userId: session.sub, fecha: dateKeyToDate(date) } },
@@ -50,6 +52,7 @@ export default async function HistorialDiaPage({
         }
         lastWeightKg={lastWeightLog?.pesoKg ?? null}
         aiPhotoEnabled={foodPhotoAnalysisIsConfigured()}
+        weekDays={weekSummary.days}
       />
     </div>
   );
