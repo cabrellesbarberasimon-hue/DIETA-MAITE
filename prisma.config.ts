@@ -10,6 +10,13 @@ export default defineConfig({
     seed: "npx tsx prisma/seed.ts",
   },
   datasource: {
-    url: process.env["DATABASE_URL"],
+    // Las migraciones (prisma migrate deploy/dev) necesitan una conexión
+    // directa, sin agrupar: con un connection pooler por delante (p.ej. el
+    // de Neon, que usa PgBouncer en modo transacción) el advisory lock que
+    // usa Prisma para serializar migraciones nunca se puede mantener entre
+    // sentencias y la conexión acaba agotando el tiempo de espera (P1002).
+    // DIRECT_URL es opcional: si no está (como en desarrollo local, sin
+    // pooler), se usa DATABASE_URL igual que antes.
+    url: process.env["DIRECT_URL"] ?? process.env["DATABASE_URL"],
   },
 });

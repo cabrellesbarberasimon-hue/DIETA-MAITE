@@ -75,7 +75,8 @@ cp .env.example .env
 
 | Variable | Descripción |
 |---|---|
-| `DATABASE_URL` | Cadena de conexión a PostgreSQL |
+| `DATABASE_URL` | Cadena de conexión a PostgreSQL (la que usa la app en marcha) |
+| `DIRECT_URL` | Solo en producción con un proveedor con *connection pooling* (Neon, Supabase...): la cadena de conexión **directa, sin agrupar**, que usan las migraciones. Si no la defines, se usa `DATABASE_URL` (vale para desarrollo local). Ver más abajo |
 | `AUTH_SECRET` | Secreto para firmar las cookies de sesión (`openssl rand -base64 32`) |
 | `SEED_MAITE_EMAIL` / `SEED_MAITE_PASSWORD` | Credenciales iniciales de Maite (usuaria) |
 | `SEED_SIMON_EMAIL` / `SEED_SIMON_PASSWORD` | Credenciales iniciales de Simón (admin) |
@@ -111,10 +112,11 @@ Abre http://localhost:3000 — se redirige automáticamente a `/login`.
 
 **Recomendado: Vercel (app) + Neon (base de datos PostgreSQL gestionada).** Supabase o Railway funcionan igual de bien; solo cambia de dónde sacas el `DATABASE_URL`.
 
-1. **Crear la base de datos**: crea un proyecto en [Neon](https://neon.tech) (o Supabase/Railway) y copia la cadena de conexión PostgreSQL (con `sslmode=require`).
+1. **Crear la base de datos**: crea un proyecto en [Neon](https://neon.tech) (o Supabase/Railway) y copia **dos** cadenas de conexión: la **agrupada/pooled** (normalmente la que sale marcada "Pooled connection", con `-pooler` en el host) y la **directa** (sin `-pooler`, "Direct connection"). Ambas con `sslmode=require`.
 2. **Importar el proyecto en Vercel**: conecta el repositorio de GitHub en [vercel.com/new](https://vercel.com/new).
 3. **Variables de entorno en Vercel** (Project Settings → Environment Variables):
-   - `DATABASE_URL` — la cadena de conexión de Neon/Supabase/Railway.
+   - `DATABASE_URL` — la cadena de conexión **agrupada** (la que usa la app mientras funciona).
+   - `DIRECT_URL` — la cadena de conexión **directa** (la que usan las migraciones). **Importante**: sin esta variable, el deploy falla con un error `P1002` ("Timed out trying to acquire a postgres advisory lock") porque Neon/Supabase agrupan las conexiones con PgBouncer y ese modo no soporta bien los advisory locks que usa Prisma para las migraciones.
    - `AUTH_SECRET` — un valor aleatorio largo (`openssl rand -base64 32`).
    - `TZ` — zona horaria de Maite, p. ej. `Europe/Madrid`. Importante: determina qué día es "hoy" para el registro diario y el cálculo del semáforo.
 4. **Migraciones**: se aplican solas en cada deploy — el script `build` ejecuta `prisma migrate deploy` antes de `next build` (ver `package.json`). No hace falta ningún paso manual para esto.
